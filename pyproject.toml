@@ -3,7 +3,7 @@ name = "infrastructure"
 description = "Global installer for the monorepo."
 requires-python = ">=3.13"
 version = "0.1.0"
-readme = { file = "README.md", content-type = "text=markdown" }
+readme = { file = "README.md", content-type = "text/markdown" }
 authors = [{ name = "CaseySparkz", email = "contact@caseysparkz.com" }]
 dependencies = [
     "infra_ansible @ file:./ansible",
