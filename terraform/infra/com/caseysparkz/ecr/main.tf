@@ -26,14 +26,14 @@ data "aws_region" "this" {}
 
 # Resources ====================================================================
 module "aws_resourcegroups_group" {
-  source              = "../../../modules/aws_resourcegroup_by_tagset"
+  source              = "../../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
   common_tags         = local.common_tags
 }
 
 # Modules ======================================================================
 module "ecr" {
-  source             = "../../../modules/ecr"
+  source             = "../../../../modules/ecr"
   root_domain        = var.root_domain
   docker_compose_dir = abspath("../../../../docker/")
   aws_kms_key_arn    = "arn:aws:kms:${local.aws_region}:${local.aws_account_id}:key/de8cf575-e753-44b5-9331-fa1762775478"

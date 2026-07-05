@@ -83,14 +83,14 @@ resource "cloudflare_dns_record" "pka" {
 # Modules ======================================================================
 # AWS::ResourceGroups ----------------------------------------------------------
 module "aws_resourcegroups_group" {
-  source              = "../../modules/aws_resourcegroup_by_tagset"
+  source              = "../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
   common_tags         = local.common_tags
 }
 
 # Proton: @ --------------------------------------------------------------------
 module "proton" {
-  source             = "../../modules/proton_domain"
+  source             = "../../../modules/proton_domain"
   cloudflare_zone_id = local.cloudflare_zone_id
   cloudflare_comment = local.cloudflare_comment
   domain             = var.root_domain
@@ -105,7 +105,7 @@ module "proton" {
 
 # Proton: home. ----------------------------------------------------------------
 module "proton_home" {
-  source             = "../../modules/proton_domain"
+  source             = "../../../modules/proton_domain"
   cloudflare_zone_id = local.cloudflare_zone_id
   cloudflare_comment = local.cloudflare_comment
   domain             = "home.${var.root_domain}"

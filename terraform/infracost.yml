@@ -3,41 +3,40 @@ version: "0.1"
 projects:
   - &default
     name: "/tfstate/"
-    path: "./tfstate/"
+    path: "./state/"
     skip_autodetect: false
     terraform_workspace: "default"
-    usage_file: "./tfstate/infracost_usage.yml"
+    usage_file: "./state/infracost_usage.yml"
     terraform_var_files: []
     dependency_paths: []
 
   - <<: *default
-    name: "/com/caseysparkz/"
-    path: "./com/caseysparkz/"
-    usage_file: "./com/caseysparkz/infracost_usage.yml"
+    name: "caseysparkz.com"
+    path: "./infra/com/caseysparkz/"
+    usage_file: "./infra/com/caseysparkz/infracost_usage.yml"
     terraform_var_files: ["./production.tfvars"]
     dependency_paths:
-      - "./com/caseysparkz/**"
-      - "./com/caseysparkz/production.tfvars"
+      - "./infra/com/caseysparkz/**"
       - "./modules/proton_domain/**"
 
   - <<: *default
-    name: "/com/caseysparkz/ecr/"
-    path: "./com/caseysparkz/ecr/"
-    usage_file: "./com/caseysparkz/ecr/infracost_usage.yml"
+    name: "ecr.caseysparkz.com"
+    path: "./infra/com/caseysparkz/ecr/"
+    usage_file: "./infra/com/caseysparkz/ecr/infracost_usage.yml"
     dependency_paths:
-      - "./com/caseysparkz/ecr/**"
+      - "./infra/com/caseysparkz/ecr/**"
       - "./modules/ecr/**"
 
   - <<: *default
-    name: "/com/caseysparkz/store/"
-    path: "./com/caseysparkz/store/"
-    usage_file: "./com/caseysparkz/store/infracost_usage.yml"
+    name: "store.caseysparkz.com"
+    path: "./infra/com/caseysparkz/store/"
+    usage_file: "./infra/com/caseysparkz/store/infracost_usage.yml"
 
   - <<: *default
-    name: "/com/caseysparkz/www/"
-    path: "./com/caseysparkz/www/"
-    usage_file: "./com/caseysparkz/www/infracost_usage.yml"
+    name: "www.caseysparkz.com"
+    path: "./infra/com/caseysparkz/www/"
+    usage_file: "./infra/com/caseysparkz/www/infracost_usage.yml"
     dependency_paths:
-      - "./com/caseysparkz/www/**"
+      - "./infra/com/caseysparkz/www/**"
       - "./modules/hugo_static_site/**"
       - "./modules/s3_artifacts/**"

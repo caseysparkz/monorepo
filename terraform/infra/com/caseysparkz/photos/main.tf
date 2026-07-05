@@ -22,7 +22,7 @@ data "aws_caller_identity" "this" {}
 
 # Resources ====================================================================
 module "aws_resourcegroups_group" {
-  source              = "../../../modules/aws_resourcegroup_by_tagset"
+  source              = "../../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
   common_tags         = local.common_tags
 }

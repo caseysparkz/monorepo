@@ -20,20 +20,20 @@ locals {
 
 # Resources ====================================================================
 module "aws_resourcegroups_group" {
-  source              = "../../../modules/aws_resourcegroup_by_tagset"
+  source              = "../../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
   common_tags         = local.common_tags
 }
 
 # Modules ======================================================================
 module "artifacts" {
-  source      = "../../../modules/s3_artifacts"
+  source      = "../../../../modules/s3_artifacts"
   root_domain = var.root_domain
   kms_key_arn = local.aws_kms_key_arn
 }
 
 module "www" {
-  source                        = "../../../modules/hugo_static_site"
+  source                        = "../../../../modules/hugo_static_site"
   root_domain                   = var.root_domain
   subdomain                     = "www.${var.root_domain}"
   artifact_bucket_id            = module.artifacts.s3_bucket_id

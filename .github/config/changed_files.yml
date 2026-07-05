@@ -3,38 +3,38 @@
 # Description:  Configuration file for workflows using the <tj-actions/changed-files> action.
 ---
 ansible:
-  - 'ansible/**/*.yaml'
-  - 'ansible/**/*.yml'
-github: ['.github']
+  - "ansible/**/*.yaml"
+  - "ansible/**/*.yml"
+github: [".github"]
 graphviz:
-  - '**/*.dot'
-  - '**/*.gv'
-infracost: ['terraform/**/infracost*.yml']
-markdown: ['**/*.md']
-python: ['**/*.py']
-jinja: ['**/*.j2']
+  - "**/*.dot"
+  - "**/*.gv"
+infracost: ["terraform/**/infracost*.yml"]
+markdown: ["**/*.md"]
+python: ["**/*.py"]
+jinja: ["**/*.j2"]
 shell:
-  - '**/*.bash'
-  - '**/*.sh'
-  - './.githooks/*'
+  - "**/*.bash"
+  - "**/*.sh"
+  - "./.githooks/*"
 tfmanifest:
-  - 'terraform/**/*.hcl'
-  - 'terraform/**/*.tf'
-  - 'terraform/**/*.tf.json'
-  - 'terraform/**/*.tftpl'
-  - 'terraform/**/*.tfvars'
-  - 'terraform/**/*.tfvars.json'
-  - 'terraform/**/tfvars/*'
-  - '!terraform/modules/**'
+  - "terraform/infra/**/*.hcl"
+  - "terraform/infra/**/*.tf"
+  - "terraform/infra/**/*.tf.json"
+  - "terraform/infra/**/*.tftpl"
+  - "terraform/infra/**/*.tfvars"
+  - "terraform/infra/**/*.tfvars.json"
+  - "terraform/state/*.tf"
+  - "terraform/infra/**/tfvars/*"
 tfmodule:
-  - 'terraform/modules/**/*.hcl'
-  - 'terraform/modules/**/*.json'
-  - 'terraform/modules/**/*.tf'
-  - 'terraform/modules/**/*.tftest.*'
+  - "terraform/modules/**/*.hcl"
+  - "terraform/modules/**/*.json"
+  - "terraform/modules/**/*.tf"
+  - "terraform/modules/**/*.tftest.*"
 xml:
-  - '**/*.svg'
-  - '**/*.xml'
+  - "**/*.svg"
+  - "**/*.xml"
 yaml:
-  - '**/*.yaml'
-  - '**/*.yml'
-  - 'ansible/.ansible-lint'
+  - "**/*.yaml"
+  - "**/*.yml"
+  - "ansible/.ansible-lint"
