@@ -8,6 +8,6 @@ addopts = [
     "--pdbcls=IPython.terminal.debugger:TerminalPdb",
 ]
 norecursedirs = [
-    "ansible/collections/caseysparkz/environment/roles/vim/files/vim/pack/plugins/start/*",
+    "ansible/collections/caseysparkz/environment/roles/vim/files/vim/pack/plugins/start",
     ".dagger/src/*",
 ]
