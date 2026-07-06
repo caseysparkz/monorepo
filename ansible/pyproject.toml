@@ -7,7 +7,7 @@ readme = { file = "README.md", content-type = "text/markdown" }
 dependencies = ["ansible-core==2.21.1"]
 
 [project.optional-dependencies]
-test = ["ansible-lint==26.4.0"]
+test = ["ansible-lint==26.6.0"]
 all = ["infra_ansible[test]"]
 
 [tool.setuptools.packages.find]
