@@ -1,5 +1,5 @@
 " JSON config -----------------------------------------------------------------
-command Fmt %!python -m json.tool
+command Fmt %!python3 -m json.tool
 
 set autoindent
 set expandtab
