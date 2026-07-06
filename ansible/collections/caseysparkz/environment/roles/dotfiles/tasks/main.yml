@@ -1,4 +1,9 @@
 ---
+- name: "Set 'symlink_src_dir'"
+  tags: ["dotfiles"]
+  ansible.builtin.set_fact:
+    dotfiles_symlink_src_dir: "{{ role_path | replace(collections_path, inventory_dir ~ '/collections') }}/files"
+
 - name: "Create subdirectories"
   tags: ["dotfiles"]
   loop: "{{ dotfiles_subdirectories }}"
@@ -11,7 +16,7 @@
   tags: ["dotfiles"]
   loop: "{{ dotfiles_symlinks }}"
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ dotfiles_symlink_src_dir }}/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: "link"
     force: true

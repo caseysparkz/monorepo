@@ -6,7 +6,6 @@ prompt: "enabled"
 prefer_editor_prompt: "disabled"
 pager: "less"
 aliases:
-    co: "pr checkout"
     approve: "pr review --approve"
 http_unix_socket:
 browser:

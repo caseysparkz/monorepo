@@ -36,8 +36,8 @@
     - "gh"
     - "git"
   ansible.builtin.file:
-    src: "{{ git_symlink_src_dir }}/files/config/gh/"
-    dest: "{{ ansible_facts.env.HOME }}/.config/gh/"
+    src: "{{ git_symlink_src_dir }}/files/config/gh"
+    dest: "{{ ansible_facts.env.HOME }}/.config/gh"
     owner: "{{ ansible_facts.effective_user_id }}"
     group: "{{ ansible_facts.effective_group_id }}"
     state: "link"

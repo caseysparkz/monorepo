@@ -2,9 +2,9 @@
 dotfiles_subdirectories:
   - path: "{{ ansible_facts.env.HOME }}/.config/Yubico"
     mode: "0700"
-dotfiles_symlinks:
-  - src: "{{ role_path }}/files/config/Yubico/u2f_keys"
+dotfiles_symlinks: # src relative to role path /files dir
+  - src: "config/Yubico/u2f_keys"
     dest: "{{ ansible_facts.env.HOME }}/.config/Yubico/u2f_keys"
 
-  - src: "{{ role_path }}/files/config/i3"
+  - src: "config/i3"
     dest: "{{ ansible_facts.env.HOME }}/.config/i3"
