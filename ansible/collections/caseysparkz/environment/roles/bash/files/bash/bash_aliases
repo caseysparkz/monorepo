@@ -13,7 +13,6 @@ case "$(uname -s)" in
         ;;
 esac
 
-alias ...='cd ../..'
 alias ..='cd ..'
 alias F='fuck'
 alias back='cd ${OLDPWD}'
@@ -29,9 +28,11 @@ alias l='ls -1'
 alias la='ls -lFha'
 alias less='less -R'
 alias ll='ls -lFh'
+alias msf='msfconsole'
 alias pclip='pwd | clip'
 alias q='exit'
 alias rmf='rm -rf'
 alias tf='terraform'
 alias va='source .venv/bin/activate'
 alias ve='python3 -m venv --prompt "$(basename ${PWD})_env" .venv'
+alias www='python3 -m http.server 8080'
