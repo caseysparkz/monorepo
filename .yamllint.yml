@@ -30,6 +30,10 @@ rules:
     max: 120
     level: "warning"
     allow-non-breakable-inline-mappings: true
+    ignore:
+      - "k8s/**"
 ignore:
   - "**/node_modules/"
   - "**/pnpm-lock.yaml"
+  - "**/.venv/**"
+  - "ansible/collections/caseysparkz/environment/roles/vim/files/vim/pack/plugins/start/**"  # git submodules
