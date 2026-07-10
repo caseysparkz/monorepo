@@ -24,12 +24,12 @@ jobs:
     permissions:
       contents: "read"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
         with:
           fetch-depth: 0
 
-      - name: "Setup venv"
+      - name: "python -m venv && source .venv/bin/activate; pip install .[test]"
         uses: "./.github/actions/setup-python-venv"
         with:
           python-version: "${{ env.PYTHON_VERSION }}"
@@ -44,12 +44,12 @@ jobs:
     permissions:
       contents: "read"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
         with:
           fetch-depth: 0
 
-      - name: "Setup venv"
+      - name: "python -m venv && source .venv/bin/activate; pip install .[test]"
         uses: "./.github/actions/setup-python-venv"
         with:
           python-version: "${{ env.PYTHON_VERSION }}"
@@ -64,12 +64,12 @@ jobs:
     permissions:
       contents: "read"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
         with:
           fetch-depth: 0
 
-      - name: "Setup venv"
+      - name: "python -m venv && source .venv/bin/activate; pip install .[test]"
         uses: "./.github/actions/setup-python-venv"
         with:
           python-version: "${{ env.PYTHON_VERSION }}"

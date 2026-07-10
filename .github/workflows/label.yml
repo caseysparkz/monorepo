@@ -2,7 +2,7 @@
 # Date:         November 13, 2024
 # Description:  Label a pull request with the correct tags.
 ---
-name: "Label Pull Request"
+name: "label pull request"
 on: ["pull_request"]
 jobs:
   label:
@@ -12,7 +12,7 @@ jobs:
       contents: "read"
       pull-requests: "write"
     steps:
-      - name: "Auto-label"
+      - name: "label"
         uses: "actions/labeler@f27b608878404679385c85cfa523b85ccb86e213"  # v6.1.0
         with:
           repo-token: "${{ github.token }}"

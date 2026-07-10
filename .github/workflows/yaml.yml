@@ -2,7 +2,7 @@
 # Date:         June 06, 2024
 # Description:  Run yamllint against all YAML files in the repository.
 ---
-name: "Validate YAML files"
+name: "yaml"
 on:
   pull_request:
     branches: ["main"]
@@ -11,7 +11,7 @@ on:
       - "**/*.yml"
 jobs:
   yamllint:
-    name: "Yamllint"
+    name: "yamllint"
     runs-on: "ubuntu-latest"
     permissions:
       contents: "read"

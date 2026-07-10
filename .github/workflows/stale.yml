@@ -3,7 +3,7 @@
 # Description:  Manage stale pull requests.
 # Notes:        Refer to the [documentation](https://github.com/actions/stale).
 ---
-name: "Close stale pull requests"
+name: "close stale pull requests"
 on:
   schedule:
     - cron: "30 1 * * *"
@@ -14,12 +14,12 @@ permissions:
   pull-requests: "write"
 jobs:
   stale:
-    name: "Stale"
+    name: "stale"
     runs-on: "ubuntu-latest"
     env:
       DAYS_TO_STALE: 28
     steps:
-      - name: "Review stale pull requests"
+      - name: "close stale pull requests"
         uses: "actions/stale@eb5cf3af3ac0a1aa4c9c45633dd1ae542a27a899"  # v10.3.0
         with:
           repo-token: "${{ github.token }}"  # Global Settings

@@ -39,7 +39,7 @@ env:
   INFRACOST_CONFIG: "terraform/infracost.yml"
 jobs:
   changed_terraform:
-    name: "Get changed Terraform directories"
+    name: "git diff"
     runs-on: "ubuntu-latest"
     permissions:
       contents: "read"
@@ -107,12 +107,12 @@ jobs:
       run:
         working-directory: "${{ matrix.dir }}"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
         with:
           fetch-depth: 2
 
-      - name: "Install Terraform"
+      - name: "apt install -y terraform"
         uses: "hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e" # v4.0.1
         with:
           terraform_version: "${{ env.TERRAFORM_VERSION }}"
@@ -140,12 +140,12 @@ jobs:
       run:
         working-directory: "${{ matrix.dir }}"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
         with:
           fetch-depth: 2
 
-      - name: "Install Terraform"
+      - name: "apt install -y terraform"
         uses: "hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e" # v4.0.1
         with:
           terraform_version: "${{ env.TERRAFORM_VERSION }}"
@@ -162,8 +162,7 @@ jobs:
     needs:
       - "changed_terraform"
       - "terraform_validate"
-    # * Always runs on pull request if any terraform changed
-    if: "${{ github.event == 'pull_request' }}"
+    if: "${{ github.event == 'pull_request' }}"  # * Always runs on pull request if any terraform changed
     permissions:
       contents: "read"
     strategy:
@@ -171,7 +170,7 @@ jobs:
       matrix:
         dir: "${{ fromJSON(needs.changed_terraform.outputs.all_dirs) }}"
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
         with:
           fetch-depth: 2
@@ -195,7 +194,7 @@ jobs:
     env:
       COMMENT: "!!!WARNING!!! Terraform manifests updated, but Infracost files remain untouched."
     steps:
-      - name: "Find Existing Comment"
+      - name: "gh pr view --comments"
         if: "${{ needs.changed_terraform.outputs.infracost_updated == 'false' }}"
         uses: "peter-evans/find-comment@b30e6a3c0ed37e7c023ccd3f1db5c6c0b0c23aad" # v4.0.0
         id: "find_comment"
@@ -204,7 +203,7 @@ jobs:
           comment-author: "github-actions[bot]"
           body-includes: "${{ env.COMMENT }}"
 
-      - name: "Post nag reminder"
+      - name: "gh pr comment"
         if: "${{ needs.changed_terraform.outputs.infracost_updated == 'false' }}"
         uses: "actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3" #v9.0.0
         with:
@@ -230,14 +229,14 @@ jobs:
               });
             }
 
-      - name: "git checkout"
+      - name: "git checkout main"
         if: "${{ needs.changed_terraform.outputs.infracost_updated == 'true' }}"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
         with:
           fetch-depth: 0
           ref: "${{ github.event.pull_request.base.ref }}"
 
-      - name: "Setup Infracost"
+      - name: "apt install -y infracost"
         if: "${{ needs.changed_terraform.outputs.infracost_updated == 'true' }}"
         uses: "infracost/actions/setup@fb736a8f219195d6efdca58682069b16fe1bc280"  # v4.2.0
         with:
@@ -252,7 +251,7 @@ jobs:
             --format json                                                     \
             --out-file /tmp/infracost_base.json
 
-      - name: "git checkout (pr branch)"
+      - name: "git checkout HEAD"
         if: "${{ needs.changed_terraform.outputs.infracost_updated == 'true' }}"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
         with:
@@ -301,12 +300,12 @@ jobs:
       group: "${{ github.workflow-}}-${{ github.ref_name }}-terraformplanapply-${{ matrix.dir }}"
       cancel-in-progress: false
     steps:
-      - name: "Checkout"
+      - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # v7.0.0
         with:
           fetch-depth: 2
 
-      - name: "Install Terraform"
+      - name: "apt install -y terraform"
         uses: "hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e" # v4.0.1
         with:
           terraform_version: "${{ env.TERRAFORM_VERSION }}"
@@ -318,12 +317,12 @@ jobs:
           role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
 
       - name: "terraform init"
-        run: "terraform init --upgrade"
+        run: "terraform init"
 
       - name: "terraform plan"
         run: "terraform plan -out=${TERRAFORM_PLANFILE}"
 
-      - name: "Post PR comment"
+      - name: "gh pr comment"
         if: "${{ github.event_name == 'pull_request' }}"
         uses: "borchero/terraform-plan-comment@2d41e908725447b1677913001dfb92fa7010c025"  # v3.1.0
         with:
