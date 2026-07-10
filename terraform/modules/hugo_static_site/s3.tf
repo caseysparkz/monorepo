@@ -90,7 +90,10 @@ resource "aws_s3_bucket" "web_root" { #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket_website_configuration" "web_root" {
   bucket = aws_s3_bucket.web_root.id
 
-  redirect_all_requests_to { host_name = aws_s3_bucket.www_site.id }
+  redirect_all_requests_to {
+    host_name = aws_s3_bucket.www_site.id
+    protocol  = "https"
+  }
 }
 
 # S3 Lambda artifact -----------------------------------------------------------
