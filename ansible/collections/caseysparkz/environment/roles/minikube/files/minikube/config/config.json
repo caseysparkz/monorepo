@@ -1,0 +1,8 @@
+{
+    "WantUpdateNotification": false,
+    "cpus": "4",
+    "disk-size": "100GB",
+    "driver": "docker",
+    "kubernetes-version": "1.22.0",
+    "memory": "24576"
+}
