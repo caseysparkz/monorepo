@@ -1,24 +1,24 @@
 # Author:       Casey Sparks
 # Date:         DATE
-# Description:  x                                                               # TODO
+# Description:  x
 ---
 services:
   NAME:
     container_name: "NAME"
-    image: ""                                                                   # TODO
-    environment: {}                                                             # TODO
+    image: ""
+    environment: {}
     entrypoint: "/usr/bin/bash"
     build:
       context: "."
       platforms: ["linux/amd64"]
       network: "NAME"
-      args: {}                                                                  # TODO
+      args: {}
       labels:
         com.caseysparkz.docker.image.os.name: ""
         com.caseysparkz.docker.image.os.version: ""
         com.caseysparkz.docker.image.description: ""
         com.caseysparkz.docker.maintainer.author.name: "Casey Sparks"
-        com.caseysparkz.docker.maintainer.author.email: "docker@caseyspar.kz"
+        com.caseysparkz.docker.maintainer.author.email: "docker@caseysparkz.com"
         com.caseysparkz.docker.app.name: "NAME"
         com.caseysparkz.docker.app.version: ""
 volumes:
