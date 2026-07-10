@@ -27,9 +27,11 @@ To achieve this, the playbook consists of four roles. Respectively:
 * `environment`
 
 ---
-## Playbook Roles
 
-### Security
+# Playbook Roles
+
+## Security
+
 This playbook makes **significant** changes to kernel, grub, sysctl, filesystem
 modes, system services, based on the [Center for Internet Security's Linux
 Benchmarks](https://www.cisecurity.org/benchmark). Not all benchmarks are
@@ -38,12 +40,12 @@ implemented, though parity remains the end-goal.
 The playbook also disables system crash reporters and enables unattended
 upgrades for _security packages only_.
 
-### Performance Tweaks
+## Performance Tweaks
 
 Presently the smallest role. Enables the fstrim timer, IO schedulers, some other
 stuff. RTFM.
 
-### Environment
+## Environment
 
 The largest role in this playbook, and the least relevant for people who are not
 me. This role sets up my preferred user environments and dotfiles for Bash, Git,

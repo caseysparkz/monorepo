@@ -5,6 +5,7 @@ language: 'en'
 description: 'Contact Page'
 
 ---
+<!-- markdownlint-disable MD013 -->
 <!-- @format -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" ></script>
 <script src="/js/contactForm.js" type="text/javascript"></script>
@@ -73,3 +74,4 @@ description: 'Contact Page'
             </form>
         </div>
     </section>
+<!-- markdownlint-restore -->

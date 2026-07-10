@@ -5,21 +5,23 @@ language: 'en'
 description: 'Resume - Casey Sparks'
 ---
 
-# Education and Training
+# Resume
 
-## Carnegie Mellon University, Heinz College
+## Education and Training
+
+### Carnegie Mellon University, Heinz College
 
 Chief Information Security Officer Program, _2021_
 
-## AWS
+### AWS
 
 Certified Cloud Practitioner, _2022_
 
 ---
 
-# Experience
+## Experience
 
-## Plasmidsaurus
+### Plasmidsaurus
 
 **Infrastructure and Security Lead**, _August 2025--Present_
 
@@ -32,7 +34,7 @@ Certified Cloud Practitioner, _2022_
 * Wrote and implemented policies SOC 2, moving the company from zero-policy to
    SOC 2 observation window within six month window.
 
-## Tau Motors
+### Tau Motors
 
 **Business Operations Lead -- IT, InfoSec, DevOps**, _October 2023--August 2025_
 
@@ -53,7 +55,7 @@ Certified Cloud Practitioner, _2022_
 * Implemented MDM, IdP, and EDR, bringing previously unmanaged accounts and
    systems under management in compliance with new security requirements.
 
-## Prime Trust
+### Prime Trust
 
 **Director of Information Technology**, _September 2019--October 2023_
 
@@ -72,6 +74,7 @@ Certified Cloud Practitioner, _2022_
 * Providing dedicated, 24/7 service to Executive officers for both IT systems
    and security incident remediation.
 
+<!-- markdownlint-disable-next-line MD036 -->
 **DevOps Engineer**
 
 * Wrote internal tooling and automation to improve team velocity.
@@ -82,6 +85,7 @@ Certified Cloud Practitioner, _2022_
 * Ported third-party EDR software to enforce compatibility with previously
    unmonitored Arch-based Linux distributions.
 
+<!-- markdownlint-disable-next-line MD036 -->
 **System Administrator**
 
 * Migrated existing Fortigate LAN hardware to Cisco Meraki appliances with no
@@ -97,7 +101,7 @@ Certified Cloud Practitioner, _2022_
 
 ---
 
-# Technical Skills and Expertise
+## Technical Skills and Expertise
 
 **Languages and Operating Systems.** Python, Shell (bash), Linux (RHEL, Debian,
 Alpine, Arch), FreeBSD, OpenWrt.
