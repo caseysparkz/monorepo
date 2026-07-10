@@ -1,0 +1,62 @@
+==================================================================
+https://keybase.io/caseysparkz
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://caseysparkz.com
+  * I am caseysparkz (https://keybase.io/caseysparkz) on keybase.
+  * I have a public key with fingerprint 1338 98B4 C51B C394 79E9  7F1B 2027 DEDF ECE6 A3D5
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0116708e75c9d9a91ce58fd77bbb744cff257d366ae1fe8df302e6611a103cc576860a",
+      "fingerprint": "133898b4c51bc39479e97f1b2027dedfece6a3d5",
+      "host": "keybase.io",
+      "key_id": "2027dedfece6a3d5",
+      "kid": "0116708e75c9d9a91ce58fd77bbb744cff257d366ae1fe8df302e6611a103cc576860a",
+      "uid": "4dc7e9c27495f7035e351ca8da436619",
+      "username": "caseysparkz"
+    },
+    "service": {
+      "hostname": "caseysparkz.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1783712784,
+  "expire_in": 157680000,
+  "prev": "37ef6d21e1bd8dfec41e77f9f80b5fe7dc1095046196f4a699b1c8900b844c3a",
+  "seqno": 58,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owJ4nK1SPWgUQRjd6EXxICKihyAKLli5HjM7OzszB4JYiIoggmAhes7PN8l6ye65
+u4kmIdHYKFZqIQhiYytY+lNYiIggsQtWKoYg2MVgI4g4E0ylpV8zzHzvvXnf47s1
+tD5otjrHfr2bm1/4OPD2qwounDy+fTpUhZkMO9NhD1YPGDVQ1d1eZsJOiDBOGeLA
+qBZGSIE1UG4NY0opliTa2pgyQ9JUArbAjSUohjTFWGJEtKYs5SmSYRTaLB+Gsl9m
+ee1kMSFccJVoipUmImECBLNYxShmBowFDakkhjriSFF5hjOnZAXtrHBv7tJdtfcP
+/H/2Pb4qlxjNQOiYJYJahggFQrGW3MjEaWDhgRWUuRwDh9bO6GTVl2VvKpyJQteY
+yDT4bP0wf4PauhhzCv2yqAtdjLrmSF33q44n15N9j74EqvtHp6uy3Lg0HWMCyior
+8rCDHVLXmRfGjBOGY8aTKITL/ayEbuYRfiTkyv8DE06SdBnY1MQYsDLcZ5hgYMwK
+y5GiFpjRGAmKEjdfahOZCqGw5gIhxV2CxKdTwcW8CDuUO6Ny2IlW2XAu6/ESwpnm
+jduNoNUMRGtP49CXofeDs8sHZra+fLy2gYPr/Prt3HY1cNUINo/JfDyO4jbdh9s4
+jlBEguamLWvo09cGgg/nZx+tHD2lX8wNPutNbVjZf//J2XOfzkz9bF2/svSGfB4I
+HjxfRBvnd0QLT/nD5V2vDt678+Pb4aXvizdf3z2x98juxm9mQPjS
+=ZATf
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/caseysparkz
+
+==================================================================

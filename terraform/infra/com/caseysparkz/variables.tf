@@ -36,8 +36,7 @@ variable "txt_records" {
   type        = map(string)
   sensitive   = false
   default = {
-    "did=did:plc:eop37ikcn6s33dedyhvejqv5"                                  = "_atproto"
-    "keybase-site-verification=tlIvxzz3OeL0u3nDrGVYrXRlNX0o62Xm0daTHOfLTQI" = "@"
+    "did=did:plc:eop37ikcn6s33dedyhvejqv5" = "_atproto"
   }
 }
 
