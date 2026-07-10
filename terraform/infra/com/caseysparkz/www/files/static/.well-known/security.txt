@@ -1,0 +1,19 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# Security address
+Contact: mailto:security@caseysparkz.com
+
+# OpenPGP key
+Encryption: https://caseysparkz.com/.well-known/openpgp/hu/9xk8uymf7mm4jbjtmm7nkg8s6igdbssu
+
+# Security reporting
+Policy: https://github.com/caseysparkz/infrastructure/blob/main/SECURITY.md
+-----BEGIN PGP SIGNATURE-----
+
+iJEEARYKADkWIQRC5g3XBX7wPX0Swq86Sv7Ogc3V3gUCalFPzxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwwLDMACgkQOkr+zoHN1d6szwD+IgRV4RDq7twWofrpBUKV
+ZorWebDJZ5E0AVp75bZs2xABAInW9MWn9C0JC2r3xd96qsWzqOsrZvBkETbLzM7i
+6IIL
+=oiKM
+-----END PGP SIGNATURE-----
