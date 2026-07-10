@@ -7,7 +7,7 @@ readme = { file = "README.md", content-type = "text/markdown" }
 authors = [{ name = "CaseySparkz", email = "contact@caseysparkz.com" }]
 dependencies = [
     "infra_ansible @ file:./ansible",
-    "boto3==1.43.40",
+    "boto3==1.43.46",
 ]
 
 [project.optional-dependencies]
