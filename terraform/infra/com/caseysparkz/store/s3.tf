@@ -69,7 +69,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = var.kms_key_id
+      kms_master_key_id = data.terraform_remote_state.this.outputs.aws_kms_key_id
       sse_algorithm     = "aws:kms"
     }
   }

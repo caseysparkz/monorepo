@@ -7,14 +7,25 @@ locals {
   project         = "caseysparkz"
   application     = "www"
   namespace       = "${local.environment}-${local.project}-${local.application}"
-  aws_kms_key_arn = "arn:aws:kms:${var.aws_region}:${local.aws_account_id}:key/${var.aws_kms_key_id}"
+  aws_kms_key_arn = data.terraform_remote_state.this.outputs.aws_kms_key_arn
   common_tags = {
     Application = local.application
-    Domain      = "www.${var.root_domain}"
+    Domain      = "www.${data.terraform_remote_state.this.outputs.root_domain}"
     Environment = local.environment
     ManagedBy   = "terraform"
     Namespace   = local.namespace
     Project     = local.project
+  }
+}
+
+# Data =========================================================================
+data "terraform_remote_state" "this" {
+  backend = "s3"
+  config = {
+    bucket       = "com.caseysparkz.tfstate"
+    key          = "com/caseysparkz.tfstate"
+    region       = "us-west-2"
+    use_lockfile = true
   }
 }
 
@@ -28,18 +39,18 @@ module "aws_resourcegroups_group" {
 # Modules ======================================================================
 module "artifacts" {
   source      = "../../../../modules/s3_artifacts"
-  root_domain = var.root_domain
-  kms_key_arn = local.aws_kms_key_arn
+  root_domain = data.terraform_remote_state.this.outputs.root_domain
+  kms_key_arn = data.terraform_remote_state.this.outputs.aws_kms_key_arn
 }
 
 module "www" {
   source                        = "../../../../modules/hugo_static_site"
-  root_domain                   = var.root_domain
-  subdomain                     = "www.${var.root_domain}"
+  root_domain                   = data.terraform_remote_state.this.outputs.root_domain
+  subdomain                     = "www.${data.terraform_remote_state.this.outputs.root_domain}"
   artifact_bucket_id            = module.artifacts.s3_bucket_id
-  site_title                    = var.root_domain
+  site_title                    = data.terraform_remote_state.this.outputs.root_domain
   hugo_dir                      = abspath("files")
   js_contact_form_template_path = abspath("files/static/js/contactForm.js.tftpl")
   common_tags                   = local.common_tags
-  aws_kms_key_arn               = local.aws_kms_key_arn
+  aws_kms_key_arn               = data.terraform_remote_state.this.outputs.aws_kms_key_arn
 }

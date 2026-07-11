@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "s3_read_write" {
       "kms:GenerateDataKey",
       "kms:ReEncrypt*",
     ]
-    resources = ["arn:aws:kms:${var.aws_region}:${data.aws_caller_identity.this.id}:key/${var.kms_key_id}"]
+    resources = [data.terraform_remote_state.this.outputs.aws_kms_key_arn]
   }
 }
 

@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "s3_bucket_policy" {
 
 # Resources ====================================================================
 resource "aws_s3_bucket" "this" { #tfsec:ignore:aws-s3-enable-bucket-logging
-  bucket        = var.bucket_name
+  bucket        = "${var.bucket_name_prefix}.${data.terraform_remote_state.this.outputs.root_domain}"
   force_destroy = false
   tags          = { Name = "${local.namespace}-s3-bucket" }
 }
@@ -69,7 +69,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 
   rule {
     apply_server_side_encryption_by_default {
-      kms_master_key_id = var.kms_key_id
+      kms_master_key_id = data.terraform_remote_state.this.outputs.aws_kms_key_id
       sse_algorithm     = "aws:kms"
     }
   }

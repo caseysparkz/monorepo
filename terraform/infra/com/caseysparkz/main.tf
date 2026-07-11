@@ -121,6 +121,12 @@ module "proton_home" {
 }
 
 # Outputs ======================================================================
+output "root_domain" {
+  description = "Root domain of the deployed infrastructure"
+  value       = var.root_domain
+  sensitive   = false
+}
+
 output "aws_kms_key_id" {
   description = "ID of the KMS key used to encrypt all domain artifacts."
   value       = aws_kms_key.this.key_id
