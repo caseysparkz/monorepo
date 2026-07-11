@@ -7,9 +7,10 @@ This repository is a monorepo for everything I write.
 ### Required Software
 
 * Terraform
-* Docker
+* Docker+Docker Compose
 * Python 3.14+. Dependencies installed via `pip install .` include:
    * `ansible`
+   * `boto3`
 
 ### Recommended Software
 
