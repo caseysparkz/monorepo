@@ -19,6 +19,8 @@ jobs:
   ansible_lint:
     name: "ansible-lint"
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
     env:
       ANSIBLE_CACHE_KEY: "ansible-cache"
       ANSIBLE_CACHE_PATH: "${{ github.workspace }}/ansible/collections/ansible_collections/"

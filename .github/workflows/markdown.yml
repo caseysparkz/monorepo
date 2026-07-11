@@ -10,6 +10,8 @@ jobs:
   mdl:
     name: "mdl"
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
     steps:
       - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
@@ -22,6 +24,8 @@ jobs:
   mdc:
     name: "mdc"
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
     steps:
       - name: "git checkout"
         uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
