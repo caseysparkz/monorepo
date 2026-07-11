@@ -19,7 +19,7 @@ This repository is a monorepo for everything I write.
 * `mdl`
 * `mlc`
 * `shellcheck`
-* `tfschema
+* `tfschema`
 * `trivy`
 * `yamllint`
 * Python `[dev,test]` dependencies installed via `pip install .[all]` include:
