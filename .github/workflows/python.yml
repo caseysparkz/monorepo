@@ -80,3 +80,23 @@ jobs:
 
       - name: "ruff format --check ."
         run: "ruff format --check ."
+
+  pip-audit:
+    name: "pip-audit"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
+    steps:
+      - name: "git checkout"
+        uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: "python -m venv && source .venv/bin/activate; pip install .[test]"
+        uses: "./.github/actions/setup-python-venv"
+        with:
+          python-version: "${{ env.PYTHON_VERSION }}"
+          package: ".[test]"
+
+      - name: "pip-audit"
+        run: "pip-audit --strict --progress-spinner off"
