@@ -2,44 +2,82 @@ lock-version = "1.0"
 created-by = "pip"
 
 [[packages]]
-name = "boto3"
-version = "1.42.73"
+name = "ansible-core"
+version = "2.21.1"
 
 [[packages.wheels]]
-name = "boto3-1.42.73-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/aa/05/1fcf03d90abaa3d0b42a6bfd10231dd709493ecbacf794aa2eea5eae6841/boto3-1.42.73-py3-none-any.whl"
+name = "ansible_core-2.21.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/90/55/894f2cad10ef650bf33a0e64e242805de2d1a8835f539d04d52053fe08a6/ansible_core-2.21.1-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "1f81b79b873f130eeab14bb556417a7c66d38f3396b7f2fe3b958b3f9094f455"
+sha256 = "1403ff56bb69484ef90788126d06c65b4e28e8d2dcdcfb7f027d4c1495052d7e"
+
+[[packages]]
+name = "boto3"
+version = "1.43.46"
+
+[[packages.wheels]]
+name = "boto3-1.43.46-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/ef/1d/c52e66ff32ba7911664e6c4c2ac62e1c6d2d1e7550c7ac185d3f4b70a8a4/boto3-1.43.46-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "69453e2c1bcb9fd9806527ab99950cacfc2826cb0dce9a3a0414d19270c06c3c"
 
 [[packages]]
 name = "botocore"
-version = "1.42.97"
+version = "1.43.46"
 
 [[packages.wheels]]
-name = "botocore-1.42.97-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/e3/d2/8e025ba1a4e257879af72d06913272311af79673d82fa2581a351b924317/botocore-1.42.97-py3-none-any.whl"
+name = "botocore-1.43.46-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/0e/f2/4bd8f2f419088feb3ce55f0ca91040ff902f402edfd197450b20a2e1d533/botocore-1.43.46-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "77d2c8ce1bc592d3fbd7c01c35836f4a5b0cac2ca03ccdf6ffc60faa16b5fadc"
+sha256 = "cb673891e623ae6e6a1bf24d94ef169504f3eb02584adb5d5bee2f6aae819b60"
 
 [[packages]]
-name = "botocore-stubs"
-version = "1.43.14"
+name = "cffi"
+version = "2.1.0"
 
 [[packages.wheels]]
-name = "botocore_stubs-1.43.14-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/89/ca/f017727b11895908c5dedc829cf2ec35e0c4b2a26ba875db325fef2cefdf/botocore_stubs-1.43.14-py3-none-any.whl"
+name = "cffi-2.1.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/6f/08/f2e7d62c460faae0926f2d6e423694aa409ced3bc1fe2927a0a6e5f05416/cffi-2.1.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "fb98f1475c92fd718644e786b5c543a20f1b1f610e89e0a7191c3f1f429c75aa"
+sha256 = "799416bae98336e400981ff6e532d67d5c709cfb30afb79865a1315f94b0e224"
+
+[[packages]]
+name = "cryptography"
+version = "49.0.0"
+
+[[packages.wheels]]
+name = "cryptography-49.0.0-cp311-abi3-manylinux_2_34_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/a9/3c/f3ad17eecc1a57b0ba236dc01f90e783c51f4a2f35f64777cc4f47a184b2/cryptography-49.0.0-cp311-abi3-manylinux_2_34_x86_64.whl"
+
+[packages.wheels.hashes]
+sha256 = "cbc77da8c523d5abd028635ba850a6966fcee2c82e2bf65a41d1d8afe0f98be9"
+
+[[packages]]
+name = "infra-ansible"
+
+[packages.directory]
+path = "ansible"
 
 [[packages]]
 name = "infrastructure"
 
 [packages.directory]
 path = "."
-editable = true
+
+[[packages]]
+name = "jinja2"
+version = "3.1.6"
+
+[[packages.wheels]]
+name = "jinja2-3.1.6-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67"
 
 [[packages]]
 name = "jmespath"
@@ -53,6 +91,39 @@ url = "https://files.pythonhosted.org/packages/14/2f/967ba146e6d58cf6a652da73885
 sha256 = "a5663118de4908c91729bea0acadca56526eb2698e83de10cd116ae0f4e97c64"
 
 [[packages]]
+name = "markupsafe"
+version = "3.0.3"
+
+[[packages.wheels]]
+name = "markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/a9/21/9b05698b46f218fc0e118e1f8168395c65c8a2c750ae2bab54fc4bd4e0e8/markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+
+[packages.wheels.hashes]
+sha256 = "ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676"
+
+[[packages]]
+name = "packaging"
+version = "26.2"
+
+[[packages.wheels]]
+name = "packaging-26.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e"
+
+[[packages]]
+name = "pycparser"
+version = "3.0"
+
+[[packages.wheels]]
+name = "pycparser-3.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"
+
+[[packages]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 
@@ -64,15 +135,37 @@ url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543
 sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
 
 [[packages]]
-name = "s3transfer"
-version = "0.16.1"
+name = "pyyaml"
+version = "6.0.3"
 
 [[packages.wheels]]
-name = "s3transfer-0.16.1-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/03/19/90d7d4ed51932c022d53f1d02d564b62d10e272692a1f9b76425c1ad2a02/s3transfer-0.16.1-py3-none-any.whl"
+name = "pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/74/27/e5b8f34d02d9995b80abcef563ea1f8b56d20134d8f4e5e81733b1feceb2/pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "61bcd00ccb83b21a0fe7e91a553fff9729d46c83b4e0106e7c314a733891f7c2"
+sha256 = "0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6"
+
+[[packages]]
+name = "resolvelib"
+version = "1.2.1"
+
+[[packages.wheels]]
+name = "resolvelib-1.2.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/e2/23/c941a0d0353681ca138489983c4309e0f5095dfd902e1357004f2357ddf2/resolvelib-1.2.1-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "fb06b66c8da04172d9e72a21d7d06186d8919e32ae5ab5cdf5b9d920be805ac2"
+
+[[packages]]
+name = "s3transfer"
+version = "0.19.1"
+
+[[packages.wheels]]
+name = "s3transfer-0.19.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/24/23/e84c64ad0e8bc59cd1b2ef98def848deff0ef3456c542afe74d51e9e8c85/s3transfer-0.19.1-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "d5fd7005ee39307455ad5f310b5ea67f4b1960d7fed5b3671ee50c249de675de"
 
 [[packages]]
 name = "six"
@@ -84,50 +177,6 @@ url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496a
 
 [packages.wheels.hashes]
 sha256 = "4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"
-
-[[packages]]
-name = "types-awscrt"
-version = "0.34.1"
-
-[[packages.wheels]]
-name = "types_awscrt-0.34.1-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/e4/b1/214b12162b452ed6acd230065e6c587cde6b96871e3ce6d653f40888f8df/types_awscrt-0.34.1-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "20c752b6031544d8f694803c35174aee129f1be5ddf886ae46d22f7ffd9b7d75"
-
-[[packages]]
-name = "types-boto3"
-version = "1.43.33"
-
-[[packages.wheels]]
-name = "types_boto3-1.43.33-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/b7/fc/715e4ff167463431215c1f471e3e94de57798038c0bf075ca8b6464be788/types_boto3-1.43.33-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "e09423cbd95458b73c11453161dc9d6ed2978363235cb4c961bf747283427713"
-
-[[packages]]
-name = "types-boto3-ses"
-version = "1.43.0"
-
-[[packages.wheels]]
-name = "types_boto3_ses-1.43.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/b3/35/71f4985960be78295e8c8d7620453e22798829aebf52defdc94da8b7c752/types_boto3_ses-1.43.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "47a071dd104af08fbc5e39c91f4d02d032613011d9bb7e352956de9661b6972a"
-
-[[packages]]
-name = "types-s3transfer"
-version = "0.16.0"
-
-[[packages.wheels]]
-name = "types_s3transfer-0.16.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/98/27/e88220fe6274eccd3bdf95d9382918716d312f6f6cef6a46332d1ee2feff/types_s3transfer-0.16.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "1c0cd111ecf6e21437cb410f5cddb631bfb2263b77ad973e79b9c6d0cb24e0ef"
 
 [[packages]]
 name = "urllib3"
