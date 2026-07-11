@@ -18,6 +18,57 @@ on:
 env:
   PYTHON_VERSION: "3.14"
 jobs:
+  pip-lock:
+    name: "pip lock"
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: "read"
+    env:
+      ERR_MSG: "pyproject.toml has been updated but pylock.toml has not!"
+    steps:
+      - name: "git checkout"
+        uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
+        with:
+          fetch-depth: 0
+
+      - name: "sha256sum --text pylock.toml"
+        id: "preinstall"
+        uses: "./.github/actions/sha256sum"
+        with:
+          file: "pylock.toml"
+          args: "--text"
+
+      - name: "python -m venv && source .venv/bin/activate; pip install .[all]"
+        uses: "./.github/actions/setup-python-venv"
+        with:
+          python-version: "${{ env.PYTHON_VERSION }}"
+          package: ".[all]"
+
+      - name: "sha256sum --text pylock.toml"
+        id: "postinstall"
+        uses: "./.github/actions/sha256sum"
+        with:
+          file: "pylock.toml"
+          args: "--text"
+
+      - name: "gh pr comment"
+        if: "steps.preinstall.outputs.hash != steps.postinstall.outputs.hash"
+        uses: "actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3"  # v9.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ env.ERR_MSG }}'
+            })
+
+      - name: "exit 1"
+        if: "steps.preinstall.outputs.hash != steps.postinstall.outputs.hash"
+        run: |
+          echo "::error ${ERR_MSG}"
+          exit 1
+
   mypy:
     name: "mypy"
     runs-on: "ubuntu-latest"
@@ -99,4 +150,4 @@ jobs:
           package: ".[test]"
 
       - name: "pip-audit"
-        run: "pip-audit --strict --progress-spinner off"
+        run: "pip-audit ."
