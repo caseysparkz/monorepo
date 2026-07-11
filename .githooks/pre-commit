@@ -106,7 +106,7 @@ venv_deactivate(){
 
     unset VIRTUAL_ENV
     unset VIRTUAL_ENV_PROMPT
-    if [ ! "${1:-}" = "nondestructive" ] ; then unset -f deactivate; fi
+    unset -f deactivate
 }
 
 precommit_ansible(){ # TODO: find a way to call this
@@ -136,10 +136,11 @@ precommit_dot(){
 precommit_gv(){ precommit_dot "${@}"; }
 
 precommit_md(){
-    if which -s markdownlint-cli2; then
-        log DEBUG 'Running Markdown pre-commit steps'
-        markdownlint-cli2 "${@}" || log CRITICAL 'markdownlint check failed'
-    else log CRITICAL 'markdownlint-cli2 not installed. Skipping.'
+    log DEBUG 'Running Markdown pre-commit steps'
+
+    if which -s mdl; then
+        mdl "${@}" || log CRITICAL 'mdl check failed'
+    else log CRITICAL 'mdl not installed. Skipping.'
     fi
 }
 
@@ -233,11 +234,11 @@ precommit_tf(){
     else log CRITICAL 'terraform not installed. Skipping.'
     fi
 
-    if which -s trivy; then # TFsec
+    if which -s trivy; then # Trivy
         log INFO 'Running trivy pre-commit steps'
 
         for TF_DIR in "${TF_MNFSTS[@]}" "${TF_MDLS[@]}"; do
-            log INFO "trivy conf ${TF_DIR}"
+            log INFO "trivy config ${TF_DIR}"
             trivy conf "${TF_DIR}"
         done
     else log CRITICAL 'trivy not installed. Skipping.'
