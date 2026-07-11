@@ -27,6 +27,10 @@ runs:
       shell: "bash"
       run: "source .venv/bin/activate"
 
+    - name: "Upgrade pip"
+      shell: "bash"
+      run: "pip install --upgrade pip"
+
     - name: "Install package"
       shell: "bash"
       run: "pip install -e ${{ inputs.package }}"
