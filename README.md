@@ -1,15 +1,35 @@
-# caseysparkz/infrastructure
+# `caseysparkz/infrastructure`
 
-This repository is a monorepo for all infrastructure in my personal domain.
+This repository is a monorepo for everything I write.
 
-## Requirements
+## Software
+
+### Required Software
 
 * Terraform
-* Infracost
 * Docker
-* Hadolint
-* Python 3.14+
-  * Python dependencies installed via `pip install .[all]`
+* Python 3.14+. Dependencies installed via `pip install .` include:
+   * `ansible`
+
+### Recommended Software
+
+* `gh`
+* `hadolint`
+* `infracost`
+* `mdl`
+* `mlc`
+* `shellcheck`
+* `tfschema
+* `trivy`
+* `yamllint`
+* Python `[dev,test]` dependencies installed via `pip install .[all]` include:
+   * `ansible-lint`
+   * `ipython`
+   * `mypy`
+   * `pip-audit`
+   * `pytest`
+   * `pytest-cov`
+   * `ruff'
 
 ## Filesystem Hierarchy
 
