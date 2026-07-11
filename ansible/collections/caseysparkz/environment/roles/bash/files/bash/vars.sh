@@ -60,3 +60,6 @@ export SSH_AUTH_SOCK
 export TF_CLI_CONFIG_FILE="${HOME}/.terraform.d/terraformrc"
 export TF_LOG="trace"
 export TF_LOG_PATH="./terraform.log"
+
+## K8s
+export MINIKUBE_IN_STYLE=0
