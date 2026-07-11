@@ -2,17 +2,6 @@ lock-version = "1.0"
 created-by = "pip"
 
 [[packages]]
-name = "ansible-compat"
-version = "26.6.0"
-
-[[packages.wheels]]
-name = "ansible_compat-26.6.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/f5/be/0945639296ee8ecb282dc495a7e1bed06de476a65fa30cf2c715e4b28e42/ansible_compat-26.6.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "739c4d10c791000c4b353f5e725e9ebafb6384dbeb00b94c7c8ac3ee2c172337"
-
-[[packages]]
 name = "ansible-core"
 version = "2.21.1"
 
@@ -22,17 +11,6 @@ url = "https://files.pythonhosted.org/packages/90/55/894f2cad10ef650bf33a0e64e24
 
 [packages.wheels.hashes]
 sha256 = "1403ff56bb69484ef90788126d06c65b4e28e8d2dcdcfb7f027d4c1495052d7e"
-
-[[packages]]
-name = "ansible-lint"
-version = "26.6.0"
-
-[[packages.wheels]]
-name = "ansible_lint-26.6.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/d1/66/465f210bd0ac409143d5258516bd9db5376ac86ac61707e3e4ef65b27fc4/ansible_lint-26.6.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "162939615eae3b59f38bd829542642b586ccee17eefb0df8718ea4b092eee222"
 
 [[packages]]
 name = "ast-serialize"
@@ -55,28 +33,6 @@ url = "https://files.pythonhosted.org/packages/d2/39/e7eaf1799466a4aef85b6a4fe7b
 
 [packages.wheels.hashes]
 sha256 = "15a3ebc0f43c2d0a50eeafea25e19046c68398e487b9f1f5b517f7c0f40f976a"
-
-[[packages]]
-name = "attrs"
-version = "26.1.0"
-
-[[packages.wheels]]
-name = "attrs-26.1.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/64/b4/17d4b0b2a2dc85a6df63d1157e028ed19f90d4cd97c36717afef2bc2f395/attrs-26.1.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309"
-
-[[packages]]
-name = "black"
-version = "26.5.1"
-
-[[packages.wheels]]
-name = "black-26.5.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/fb/24/8e7b9a2fa61b0afd82209efe937557d180a1fa055bd7f6161eb9defc3719/black-26.5.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-
-[packages.wheels.hashes]
-sha256 = "ecb3e624844c798144e9bd986954e0adc81d8911a1f30f375e1252fe26e8c294"
 
 [[packages]]
 name = "boolean-py"
@@ -134,17 +90,6 @@ url = "https://files.pythonhosted.org/packages/89/ca/f017727b11895908c5dedc829cf
 sha256 = "fb98f1475c92fd718644e786b5c543a20f1b1f610e89e0a7191c3f1f429c75aa"
 
 [[packages]]
-name = "bracex"
-version = "3.0"
-
-[[packages.wheels]]
-name = "bracex-3.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/f5/2e/68781b78e764e5ccc4af1e3d27e060069c73af90234853fa80000e7ee79d/bracex-3.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "3833e61c2f092d5aa0468fa2e6c6e990a306185abf763b6d122f0158e59c58a5"
-
-[[packages]]
 name = "cachecontrol"
 version = "0.14.4"
 
@@ -187,17 +132,6 @@ url = "https://files.pythonhosted.org/packages/ea/f8/72eb13dcabe7257035cea8aefd9
 
 [packages.wheels.hashes]
 sha256 = "84fd18bcc17526fc2b3c1af7d2b9217d32c9c04448c16ec693b9b4f1985c3d33"
-
-[[packages]]
-name = "click"
-version = "8.4.2"
-
-[[packages.wheels]]
-name = "click-8.4.2-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/fb/e2/79c688af8b210d232694e31e59da9f6ec747bae31c3f5946e4e9b98860d5/click-8.4.2-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "e6f9f66136c816745b9d65817da91d61d957fb16e02e4dcd0552553c5a197b76"
 
 [[packages]]
 name = "coverage"
@@ -253,17 +187,6 @@ url = "https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a8
 
 [packages.wheels.hashes]
 sha256 = "a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"
-
-[[packages]]
-name = "distro"
-version = "1.9.0"
-
-[[packages.wheels]]
-name = "distro-1.9.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2"
 
 [[packages]]
 name = "executing"
@@ -375,28 +298,6 @@ url = "https://files.pythonhosted.org/packages/14/2f/967ba146e6d58cf6a652da73885
 
 [packages.wheels.hashes]
 sha256 = "a5663118de4908c91729bea0acadca56526eb2698e83de10cd116ae0f4e97c64"
-
-[[packages]]
-name = "jsonschema"
-version = "4.26.0"
-
-[[packages.wheels]]
-name = "jsonschema-4.26.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/69/90/f63fb5873511e014207a475e2bb4e8b2e570d655b00ac19a9a0ca0a385ee/jsonschema-4.26.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "d489f15263b8d200f8387e64b4c3a75f06629559fb73deb8fdfb525f2dab50ce"
-
-[[packages]]
-name = "jsonschema-specifications"
-version = "2025.9.1"
-
-[[packages.wheels]]
-name = "jsonschema_specifications-2025.9.1-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe"
 
 [[packages]]
 name = "librt"
@@ -751,17 +652,6 @@ url = "https://files.pythonhosted.org/packages/ec/57/56b9bcc3c9c6a792fcbaf139543
 sha256 = "a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
 
 [[packages]]
-name = "pytokens"
-version = "0.4.1"
-
-[[packages.wheels]]
-name = "pytokens-0.4.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/e0/d2/afe5c7f8607018beb99971489dbb846508f1b8f351fcefc225fcf4b2adc0/pytokens-0.4.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-
-[packages.wheels.hashes]
-sha256 = "29d1d8fb1030af4d231789959f21821ab6325e463f0503a61d204343c9b355d1"
-
-[[packages]]
 name = "pyyaml"
 version = "6.0.3"
 
@@ -771,17 +661,6 @@ url = "https://files.pythonhosted.org/packages/74/27/e5b8f34d02d9995b80abcef563e
 
 [packages.wheels.hashes]
 sha256 = "0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6"
-
-[[packages]]
-name = "referencing"
-version = "0.37.0"
-
-[[packages.wheels]]
-name = "referencing-0.37.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231"
 
 [[packages]]
 name = "requests"
@@ -826,39 +705,6 @@ url = "https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3
 
 [packages.wheels.hashes]
 sha256 = "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb"
-
-[[packages]]
-name = "rpds-py"
-version = "2026.6.3"
-
-[[packages.wheels]]
-name = "rpds_py-2026.6.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/57/d7/fe978efc2ae50abe48eb7464668ea99f53c010c60aeebb7b35ad27f23661/rpds_py-2026.6.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-
-[packages.wheels.hashes]
-sha256 = "acac386b453c2516111b50985d60ce46e7fadb5ea71ae7b25f4c946935bf27cf"
-
-[[packages]]
-name = "ruamel-yaml"
-version = "0.19.1"
-
-[[packages.wheels]]
-name = "ruamel_yaml-0.19.1-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/b8/0c/51f6841f1d84f404f92463fc2b1ba0da357ca1e3db6b7fbda26956c3b82a/ruamel_yaml-0.19.1-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "27592957fedf6e0b62f281e96effd28043345e0e66001f97683aa9a40c667c93"
-
-[[packages]]
-name = "ruamel-yaml-clib"
-version = "0.2.15"
-
-[[packages.wheels]]
-name = "ruamel_yaml_clib-0.2.15-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/ff/5d/e4f84c9c448613e12bd62e90b23aa127ea4c46b697f3d760acc32cb94f25/ruamel_yaml_clib-0.2.15-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-
-[packages.wheels.hashes]
-sha256 = "4d1032919280ebc04a80e4fb1e93f7a738129857eaec9448310e638c8bccefcf"
 
 [[packages]]
 name = "ruff"
@@ -914,17 +760,6 @@ url = "https://files.pythonhosted.org/packages/f1/7b/ce1eafaf1a76852e2ec9b22edec
 
 [packages.wheels.hashes]
 sha256 = "d5558e0c25a4cb0853cddad3d77da9891a08cb85dd9f9f91b9f8cd66e511e695"
-
-[[packages]]
-name = "subprocess-tee"
-version = "0.4.2"
-
-[[packages.wheels]]
-name = "subprocess_tee-0.4.2-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/4d/ab/e3a3be062cd544b2803760ff707dee38f0b1cb5685b2446de0ec19be28d9/subprocess_tee-0.4.2-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "21942e976715af4a19a526918adb03a8a27a8edab959f2d075b777e3d78f532d"
 
 [[packages]]
 name = "tomli"
@@ -1026,17 +861,6 @@ url = "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a
 sha256 = "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897"
 
 [[packages]]
-name = "wcmatch"
-version = "11.0"
-
-[[packages.wheels]]
-name = "wcmatch-11.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/28/12/f38b6fee116274d7221743caab07d765032e1370bb54cad8714f87aeb0e8/wcmatch-11.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "3a5977ace27e075eef67eb03d539563f1a19018b62881949a42932cf66926934"
-
-[[packages]]
 name = "wcwidth"
 version = "0.8.2"
 
@@ -1068,14 +892,3 @@ url = "https://files.pythonhosted.org/packages/38/34/98a2f52245f4d47be93b580dae5
 
 [packages.wheels.hashes]
 sha256 = "a4a00d300b0e1c59fc2bfccb53d7b2e88c32f200df138a0dd2229f842497026a"
-
-[[packages]]
-name = "yamllint"
-version = "1.38.0"
-
-[[packages.wheels]]
-name = "yamllint-1.38.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/05/92/aed08e68de6e6a3d7c2328ce7388072cd6affc26e2917197430b646aed02/yamllint-1.38.0-py3-none-any.whl"
-
-[packages.wheels.hashes]
-sha256 = "fc394a5b3be980a4062607b8fdddc0843f4fa394152b6da21722f5d59013c220"
