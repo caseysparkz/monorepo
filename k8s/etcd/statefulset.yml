@@ -13,7 +13,7 @@ items:
       namespace: "etcd"
     spec:
       podManagementPolicy: "Parallel"
-      replicas: 3
+      replicas: 4
       revisionHistoryLimit: 10
       selector:
         matchLabels:
