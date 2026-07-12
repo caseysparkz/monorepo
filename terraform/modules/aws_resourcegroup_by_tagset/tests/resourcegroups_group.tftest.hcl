@@ -4,6 +4,12 @@
 
 test { parallel = true }
 
+mock_provider "aws" {
+  mock_data "aws_region" {
+    defaults = { name = "us-west-2" }
+  }
+}
+
 # Variables ===================================================================
 variables {
   resource_group_name        = "test-resource-group"
