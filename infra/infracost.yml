@@ -12,31 +12,31 @@ projects:
 
   - <<: *default
     name: "caseysparkz.com"
-    path: "./infra/com/caseysparkz/"
-    usage_file: "./infra/com/caseysparkz/infracost_usage.yml"
+    path: "./manifests/com/caseysparkz/"
+    usage_file: "./manifests/com/caseysparkz/infracost_usage.yml"
     terraform_var_files: ["./production.tfvars"]
     dependency_paths:
-      - "./infra/com/caseysparkz/**"
+      - "./manifests/com/caseysparkz/**"
       - "./modules/proton_domain/**"
 
   - <<: *default
     name: "ecr.caseysparkz.com"
-    path: "./infra/com/caseysparkz/ecr/"
-    usage_file: "./infra/com/caseysparkz/ecr/infracost_usage.yml"
+    path: "./manifests/com/caseysparkz/ecr/"
+    usage_file: "./manifests/com/caseysparkz/ecr/infracost_usage.yml"
     dependency_paths:
-      - "./infra/com/caseysparkz/ecr/**"
+      - "./manifests/com/caseysparkz/ecr/**"
       - "./modules/ecr/**"
 
   - <<: *default
     name: "store.caseysparkz.com"
-    path: "./infra/com/caseysparkz/store/"
-    usage_file: "./infra/com/caseysparkz/store/infracost_usage.yml"
+    path: "./manifests/com/caseysparkz/store/"
+    usage_file: "./manifests/com/caseysparkz/store/infracost_usage.yml"
 
   - <<: *default
     name: "www.caseysparkz.com"
-    path: "./infra/com/caseysparkz/www/"
-    usage_file: "./infra/com/caseysparkz/www/infracost_usage.yml"
+    path: "./manifests/com/caseysparkz/www/"
+    usage_file: "./manifests/com/caseysparkz/www/infracost_usage.yml"
     dependency_paths:
-      - "./infra/com/caseysparkz/www/**"
+      - "./manifests/com/caseysparkz/www/**"
       - "./modules/hugo_static_site/**"
       - "./modules/s3_artifacts/**"
