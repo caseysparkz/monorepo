@@ -4,7 +4,9 @@
 # Description:  Retrieve the vault password from AWS SecretsManager.
 
 # Log in to AWS if needed
-if ! aws sts get-caller-identity > /dev/null 2>&1; then aws sso login; fi
+if ! $(aws sts get-caller-identity | grep -q caseysparkz); then
+    aws sso login
+fi
 
 # Retreive secret
 if which aws > /dev/null 2>&1; then
@@ -12,7 +14,7 @@ if which aws > /dev/null 2>&1; then
         --secret-id ansible/vault                                           \
         --query SecretString                                                \
         --output text                                                       \
-    || printf 'Could not retreive secret from AWS' >&2
+    || printf 'Could not retreive secret from AWS.' >&2
 else
-    printf 'AWS CLI not installed' >&2
+    printf 'AWS CLI not installed.' >&2
 fi
