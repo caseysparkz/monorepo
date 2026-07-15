@@ -1,0 +1,20 @@
+{
+  "name": "monorepo",
+  "engineVersion": "v0.21.7",
+  "sdk": {
+    "source": "go"
+  },
+  "toolchains": [
+    {
+      "name": "python",
+      "source": "dagger/modules/python"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "python",
+      "source": "dagger/modules/python"
+    }
+  ],
+  "source": "dagger"
+}

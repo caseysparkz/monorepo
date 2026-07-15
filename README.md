@@ -4,13 +4,15 @@ This repository is a monorepo for everything I write.
 
 ## Software
 
-### Required Software
+### Required Software and Languages
 
-* Terraform
+* Dagger
 * Docker+Docker Compose
+* Go 1.24.4+
 * Python 3.14+. Dependencies installed via `pip install .` include:
    * `ansible`
    * `boto3`
+* Terraform
 
 ### Recommended Software
 

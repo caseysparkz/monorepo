@@ -34,3 +34,7 @@ runs:
     - name: "Install package"
       shell: "bash"
       run: "pip install -e ${{ inputs.package }}"
+
+    - name: "Install package"
+      shell: "bash"
+      run: "pip lock ${{ inputs.package }}"
