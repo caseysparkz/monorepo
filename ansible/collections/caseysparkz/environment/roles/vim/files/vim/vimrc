@@ -4,6 +4,7 @@ filetype plugin on                      " Enable filetype plugins.
 syntax on                               " Turn on syntax highlighting.
 
 set title                               " Show the title.
+set regexpengine=0
 set colorcolumn=81,121                  " Set vertical columns marking line 80, line 121.
 set encoding=utf-8                      " Set encoding.
 set expandtab                           " Expand tabs to spaces.
