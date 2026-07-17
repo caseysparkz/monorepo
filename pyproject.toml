@@ -18,7 +18,7 @@ test = [
     "boto3-stubs==1.43.51",
     "botocore-stubs==1.43.14",
     "moto==5.2.2",
-    "mypy==2.2.0",
+    "mypy==2.3.0",
     "pip-audit==2.10.1",
     "pytest-cov==7.1.0",
     "pytest==9.1.1",
