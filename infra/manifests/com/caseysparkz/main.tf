@@ -14,6 +14,8 @@ locals {
     ManagedBy   = "terraform"
     Namespace   = local.namespace
     Project     = local.project
+    Repo        = "github.com/caseysparkz/monorepo"
+    RepoPath    = "infra/manifests/com/caseysparkz"
   }
   dmarc_list = [ # Parsed to string
     { key = "p", value = "reject" },

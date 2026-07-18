@@ -16,6 +16,8 @@ locals {
     ManagedBy   = "terraform"
     Namespace   = local.namespace
     Project     = local.project
+    Repo        = "github.com/caseysparkz/monorepo"
+    RepoPath    = "infra/manifests/com/amazonaws/ecr"
   }
 }
 
