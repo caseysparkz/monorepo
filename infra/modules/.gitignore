@@ -1,21 +1,15 @@
-# Misc. and Best Practice
-**/*.log
-**/*.out
-**/*.swp
-**/*build*
-
 # Terraform
-**/*.auto.tfvars
-**/*.auto.tfvars.json
-**/*.tfstate
-**/*.tfstate.*
-**/.terraform
-**/.terraform.lock.hcl
-**/.terraformrc
-**/_override.tf
-**/_override.tf.json
-**/crash.*.log
-**/crash.log
-**/override.tf
-**/override.tf.json
-**/terraform.rc
+./**/*.auto.tfvars
+./**/*.auto.tfvars.json
+./**/*.tfstate
+./**/*.tfstate.*
+./**/.terraform
+./**/.terraform.lock.hcl
+./**/.terraformrc
+./**/_override.tf
+./**/_override.tf.json
+./**/crash.*.log
+./**/crash.log
+./**/override.tf
+./**/override.tf.json
+./**/terraform.rc
