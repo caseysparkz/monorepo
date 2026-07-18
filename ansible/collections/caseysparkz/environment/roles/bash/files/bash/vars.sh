@@ -22,15 +22,16 @@ export EDITOR="/usr/bin/vim"
 
 # Misc.
 export ALIASES="${HOME}/.bash_aliases"
-export GOPATH="${HOME}/.local/share/go"
+export DO_NOT_TRACK=1
 export FUNCTIONS="${HOME}/.bash/functions"
 export GH="git@github.com"
-export SCRIPTS="${HOME}/.local/lib/scripts"
+export GOPATH="${HOME}/.local/share/go"
 export PYSCRIPTS="${HOME}/.local/lib/scripts/python"
+export SCRIPTS="${HOME}/.local/lib/scripts"
+export SECRETS="${HOME}/.bash/secrets/1.asc"
 export SHSCRIPTS="${HOME}/.local/lib/scripts/sh"
 export TMPDIR="${HOME}/.tmp"
 export VARS="${HOME}/.bash/vars.sh"
-export SECRETS="${HOME}/.bash/secrets/1.asc"
 
 ## Ansible
 export ANSIBLE_DUPLICATE_YAML_DICT_KEY='ignore'
@@ -41,9 +42,6 @@ export DAGGER_NO_NAG='1'
 ## Docker
 export DOCKER_BUILDKIT='1'
 export DOCKER_DEFAULT_PLATFORM='linux/amd64'
-
-## GAM
-export GOOGLE_CREDENTIALS_PATH="${HOME}/.local/bin/gam/client_secrets.json"
 
 ## PGP
 export GPG_TTY
