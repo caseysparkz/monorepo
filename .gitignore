@@ -5,6 +5,11 @@
 **/.Trash-*
 **/.nfs*
 
+# Misc.
+**/.env
+!.env
+!dagger/**/.env
+
 # MacOS
 **/*.icloud
 **/.AppleDB
@@ -91,7 +96,6 @@
 **/celerybeat-schedule
 **/celerybeat.pid
 **.sage.py
-**/.env
 **/.venv
 **/env/
 **/venv/

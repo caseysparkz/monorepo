@@ -8,12 +8,20 @@
     {
       "name": "python",
       "source": "dagger/modules/python"
+    },
+    {
+      "name": "terraform",
+      "source": "dagger/modules/terraform"
     }
   ],
   "dependencies": [
     {
       "name": "python",
       "source": "dagger/modules/python"
+    },
+    {
+      "name": "terraform",
+      "source": "dagger/modules/terraform"
     }
   ],
   "source": "dagger"
