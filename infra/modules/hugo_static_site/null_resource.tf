@@ -37,17 +37,7 @@ resource "local_file" "contact_form_js" {
   )
 }
 
-resource "null_resource" "pnpm_selfupdate" {
-  triggers = { build_hash = local.node_modules_hash }
-
-  provisioner "local-exec" {
-    command     = "pnpm self-update"
-    working_dir = var.hugo_dir
-  }
-}
-
 resource "null_resource" "pnpm_install" {
-  depends_on = [null_resource.pnpm_selfupdate]
   triggers   = { build_hash = local.node_modules_hash }
 
   provisioner "local-exec" {
