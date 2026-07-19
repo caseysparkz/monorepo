@@ -2,7 +2,9 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directories: [".github/workflows"]
+    directories:
+      - ".github/workflows"
+      - ".github/actions"
     target-branch: "main"
     rebase-strategy: "auto"
     schedule:
@@ -14,7 +16,7 @@ updates:
       prefix: "chore(github-actions)"
 
   - package-ecosystem: "npm"
-    directories: ["com/caseysparkz/www/files/"]
+    directory: "./"
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
@@ -27,18 +29,7 @@ updates:
       prefix: "chore(node-npm)"
 
   - package-ecosystem: "terraform"
-    directories:
-      - "./com/caseysparkz/"
-      - "./com/caseysparkz/ecr/"
-      - "./com/caseysparkz/store/"
-      - "./com/caseysparkz/www/"
-      - "./modules/cloudflare_dns_zone/"
-      - "./modules/ecr/"
-      - "./modules/forward_zones/"
-      - "./modules/hugo_static_site/"
-      - "./modules/proton_domain/"
-      - "./modules/s3_artifacts/"
-      - "./tfstate/"
+    directory: "./infra/"
     target-branch: "main"
     rebase-strategy: "auto"
     schedule:
@@ -50,7 +41,7 @@ updates:
       prefix: "chore(terraform)"
 
   - package-ecosystem: "pip"
-    directories: ["./"]
+    directory: "./"
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
