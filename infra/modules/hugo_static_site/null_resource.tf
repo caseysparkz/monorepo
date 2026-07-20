@@ -38,7 +38,7 @@ resource "local_file" "contact_form_js" {
 }
 
 resource "null_resource" "pnpm_install" {
-  triggers   = { build_hash = local.node_modules_hash }
+  triggers = { build_hash = local.node_modules_hash }
 
   provisioner "local-exec" {
     command     = "pnpm install"
