@@ -15,7 +15,7 @@ var mountPoint = "/mnt"
 var tmpDir = "/tmp"
 
 func New(
-	// Path to run Terraform against (relative to the repository root).
+	// AWS default region
 	awsDefaultRegion string,
 	// AWS Access Key ID
 	awsAccessKeyId *dagger.Secret,
@@ -58,15 +58,15 @@ type Terraform struct {
 }
 
 // Returns a container with in initialized Terraform directory
-func (tf *Terraform) container() *dagger.Container {
+func (m *Terraform) container() *dagger.Container {
 	return dag.Container().
-		From(fmt.Sprintf("%s:%s", tf.Image, tf.TerraformVersion)).
-		WithMountedDirectory(mountPoint, tf.Source)
+		From(fmt.Sprintf("%s:%s", m.Image, m.TerraformVersion)).
+		WithMountedDirectory(mountPoint, m.Source)
 }
 
 // Returns a container with in initialized Terraform directory
-func (tf *Terraform) init(chdir string) *dagger.Container {
-	return tf.container().
+func (m *Terraform) init(chdir string) *dagger.Container {
+	return m.container().
 		WithMountedCache(
 			fmt.Sprintf("%s/%s/.terraform", mountPoint, chdir),
 			dag.CacheVolume(fmt.Sprintf("%s-%s", mountPoint, chdir)),
@@ -74,42 +74,42 @@ func (tf *Terraform) init(chdir string) *dagger.Container {
 		WithMountedCache("/usr/bin", dag.CacheVolume("usr-bin")).
 		WithExec([]string{"apk", "add", "pnpm", "libc6-compat"}).
 		WithWorkdir(mountPoint).
-		WithEnvVariable("AWS_DEFAULT_REGION", tf.AwsDefaultRegion).
-		WithSecretVariable("AWS_ACCESS_KEY_ID", tf.AwsAccessKeyId).
-		WithSecretVariable("AWS_SECRET_ACCESS_KEY", tf.AwsSecretAccessKey).
-		WithSecretVariable("AWS_SESSION_TOKEN", tf.AwsSessionToken).
+		WithEnvVariable("AWS_DEFAULT_REGION", m.AwsDefaultRegion).
+		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyId).
+		WithSecretVariable("AWS_SECRET_ACCESS_KEY", m.AwsSecretAccessKey).
+		WithSecretVariable("AWS_SESSION_TOKEN", m.AwsSessionToken).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "init"})
 }
 
 // Returns a container a Terraform planfile at /tmp/out.tfplan.
-func (tf *Terraform) plan(chdir string, varFile string) *dagger.Container {
+func (m *Terraform) plan(chdir string, varFile string) *dagger.Container {
 	extraArgs := ""
 
 	if varFile != "" {
 		extraArgs = fmt.Sprintf("-var-file=%s", varFile)
 	}
 
-	return tf.init(chdir).
+	return m.init(chdir).
 		WithMountedCache(tmpDir, dag.CacheVolume(chdir)).
 		WithExec([]string{
 			"terraform",
 			fmt.Sprintf("-chdir=%s", chdir),
 			"plan",
 			extraArgs,
-			fmt.Sprintf("-out=%s", tf.Planfile),
+			fmt.Sprintf("-out=%s", m.Planfile),
 		})
 }
 
 // Returns the output of 'terraform -chdir={} fmt -recursive -check'
 // +check
-func (tf *Terraform) FmtRecursive(
+func (m *Terraform) FmtRecursive(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	// +optional
 	// +default="."
 	chdir string,
 ) (string, error) {
-	stdout, err := tf.init(chdir).
+	stdout, err := m.init(chdir).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "fmt", "-check", "-recursive"}).
 		Stdout(ctx)
 
@@ -121,12 +121,12 @@ func (tf *Terraform) FmtRecursive(
 }
 
 // Returns the output of 'terraform plan'
-func (tf *Terraform) Validate(
+func (m *Terraform) Validate(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	chdir string,
 ) (string, error) {
-	stdout, err := tf.init(chdir).
+	stdout, err := m.init(chdir).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "validate"}).
 		Stdout(ctx)
 
@@ -138,7 +138,7 @@ func (tf *Terraform) Validate(
 }
 
 // Returns the output of 'terraform plan'
-func (tf *Terraform) Plan(
+func (m *Terraform) Plan(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	chdir string,
@@ -146,8 +146,8 @@ func (tf *Terraform) Plan(
 	// +default=""
 	varFile string,
 ) (string, error) {
-	stdout, err := tf.plan(chdir, varFile).
-		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "show", tf.Planfile}).
+	stdout, err := m.plan(chdir, varFile).
+		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "show", m.Planfile}).
 		Stdout(ctx)
 
 	if err != nil {
@@ -158,7 +158,7 @@ func (tf *Terraform) Plan(
 }
 
 // Returns the output of 'terraform plan'
-func (tf *Terraform) Apply(
+func (m *Terraform) Apply(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	chdir string,
@@ -166,8 +166,8 @@ func (tf *Terraform) Apply(
 	// +default=""
 	varFile string,
 ) (string, error) {
-	stdout, err := tf.plan(chdir, varFile).
-		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "apply", "-auto-approve", tf.Planfile}).
+	stdout, err := m.plan(chdir, varFile).
+		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "apply", "-auto-approve", m.Planfile}).
 		Stdout(ctx)
 
 	if err != nil {
