@@ -11,6 +11,7 @@ HISTSIZE=1000  # Set history length.
 HISTFILESIZE=2000  # Set history file size.
 TERM=xterm-256color
 PATH_DIRS=(
+    "${HOME}/.local/share/go/bin"
     "${HOME}/.local/bin"
     "${SCRIPTS}/gsh"
     "${SCRIPTS}/python"
