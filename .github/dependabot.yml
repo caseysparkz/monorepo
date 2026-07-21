@@ -2,9 +2,7 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
-    directories:
-      - ".github/workflows"
-      - ".github/actions"
+    directory: "/"
     target-branch: "main"
     rebase-strategy: "auto"
     schedule:
@@ -16,7 +14,7 @@ updates:
       prefix: "chore(github-actions)"
 
   - package-ecosystem: "gomod"
-    directory: "./"
+    directories: ["**/*"]
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
@@ -29,7 +27,7 @@ updates:
       prefix: "chore(go-gomod)"
 
   - package-ecosystem: "npm"
-    directory: "./"
+    directories: ["**/*"]
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
@@ -42,7 +40,9 @@ updates:
       prefix: "chore(node-npm)"
 
   - package-ecosystem: "pip"
-    directory: "./"
+    directories:
+      - "/"
+      - "**/*"
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
@@ -55,7 +55,7 @@ updates:
       prefix: "chore(python-pip)"
 
   - package-ecosystem: "terraform"
-    directory: "./infra/"
+    directories: ["**/*"]
     target-branch: "main"
     rebase-strategy: "auto"
     schedule:
