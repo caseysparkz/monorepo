@@ -11,6 +11,7 @@ import (
 )
 
 var mountPoint = "/mnt"
+var image = "docker.io/library/python"
 
 func New(
 	// Version of Python to run
@@ -32,9 +33,8 @@ func New(
 	source *dagger.Directory,
 ) *Python {
 	return &Python{
-		Image:   "docker.io/library/python",
+		Image:   fmt.Sprintf("%s:%s-slim", image, pythonVersion),
 		VenvDir: fmt.Sprintf("%s/.venv", mountPoint),
-		Version: pythonVersion,
 		Path:    pyPath,
 		Source:  source,
 		Pkg:     pkg,
@@ -44,7 +44,6 @@ func New(
 type Python struct {
 	Image   string
 	VenvDir string
-	Version string
 	Path    string
 	Source  *dagger.Directory
 	Pkg     string
@@ -53,16 +52,16 @@ type Python struct {
 // Returns a container with pip installed and the repo as the pwd.
 func (m *Python) container() *dagger.Container {
 	return dag.Container().
-		From(fmt.Sprintf("%s:%s-slim", m.Image, m.Version)).
+		From(m.Image).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
 		WithExec([]string{"python", "-m", "ensurepip"})
 }
 
 // Returns a container with an initialized and empty virtual environment.
-func (m *Python) venv() *dagger.Container {
+func (m *Python) Venv() *dagger.Container {
 	return m.container().
-		WithMountedCache(m.VenvDir, dag.CacheVolume(fmt.Sprintf("%s:%s-slim", m.Image, m.Version))).
+		WithMountedCache(m.VenvDir, dag.CacheVolume(m.Image)).
 		WithExec([]string{"python", "-m", "venv", m.VenvDir}).
 		WithEnvVariable("VIRTUAL_ENV", m.VenvDir).
 		WithEnvVariable("PATH", "${VIRTUAL_ENV}/bin:${PATH}", dagger.ContainerWithEnvVariableOpts{Expand: true})
@@ -70,7 +69,7 @@ func (m *Python) venv() *dagger.Container {
 
 // Returns a container with an installed package.
 func (m *Python) pipInstall() *dagger.Container {
-	return m.venv().WithExec([]string{"pip", "install", m.Pkg})
+	return m.Venv().WithExec([]string{"pip", "install", m.Pkg})
 }
 
 // Runs PyTest
