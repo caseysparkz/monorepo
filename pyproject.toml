@@ -11,12 +11,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["ipython==9.15.0"]
 test = [
-    "infra-ansible[dev]",
-
     "boto3-stubs==1.43.51",
     "botocore-stubs==1.43.14",
+    "ipdb==0.13.13",
     "moto==5.2.2",
     "mypy==2.3.0",
     "pip-audit==2.10.1",
@@ -24,6 +22,12 @@ test = [
     "pytest==9.1.1",
     "ruff==0.15.22",
     "types-boto3[ses]",
+    "yamllint==1.38.0",
+]
+dev = [
+    "infrastructure[test]",
+
+    "ipython==9.15.0",
 ]
 all = [
     "infrastructure[dev]",
