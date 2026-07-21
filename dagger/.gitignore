@@ -1,4 +1,4 @@
-/dagger.gen.go
-/internal/dagger
-/internal/telemetry
-/.env
+**/dagger.gen.go
+**/internal/dagger
+**/internal/telemetry
+**/.env
