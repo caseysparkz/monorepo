@@ -6,6 +6,10 @@
   },
   "toolchains": [
     {
+      "name": "ansible",
+      "source": "dagger/modules/ansible"
+    },
+    {
       "name": "python",
       "source": "dagger/modules/python"
     },
@@ -15,6 +19,10 @@
     }
   ],
   "dependencies": [
+    {
+      "name": "dagansible",
+      "source": "dagger/modules/ansible"
+    },
     {
       "name": "python",
       "source": "dagger/modules/python"

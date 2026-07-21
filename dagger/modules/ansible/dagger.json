@@ -1,0 +1,13 @@
+{
+  "name": "ansible",
+  "engineVersion": "v0.21.7",
+  "sdk": {
+    "source": "go"
+  },
+  "dependencies": [
+    {
+      "name": "python",
+      "source": "../python"
+    }
+  ]
+}
