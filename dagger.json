@@ -28,6 +28,10 @@
       "source": "dagger/modules/ansible"
     },
     {
+      "name": "dagdocker",
+      "source": "dagger/modules/docker"
+    },
+    {
       "name": "python",
       "source": "dagger/modules/python"
     },

@@ -22,9 +22,9 @@ RUN true                                                                    \
         python                                                              \
         /usr/bin/python3                                                    \
         0                                                                   \
-    && rm --recursive --force                                               \
+    && rm -rf                                                               \
         /var/cache/apt/*                                                    \
-        /var/lib/apt/lists/
+        /var/lib/apt/lists
 
 
 USER app
