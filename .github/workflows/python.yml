@@ -1,31 +1,24 @@
 # Author:       Casey Sparks
 # Date:         November 15, 2023
-# Description:  Validate Python code.
+# Description:  Run dagger python checks.
 ---
 name: "python"
 on:
   pull_request:
     branches: ["main"]
     paths:
-      - "**/*.py"                       # Any Python file
-      - "**/pyproject.toml"             # Any Python project file
-env:
-  DAGGER_VERSION: "0.21.7"
-  PYTHON_VERSION: "3.13"
+      - "**/*.py"
+      - "**/pyproject.toml"
+      - "**/pylock.toml"
 jobs:
-  dagger:
+  dagger_check_python:
     name: "dagger"
     runs-on: "ubuntu-latest"
     permissions:
       contents: "read"
+      id-token: "write"
     steps:
-      - name: "git checkout"
-        uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
-        with:
-          fetch-depth: 0
-
       - name: "dagger check python:*"
-        uses: "dagger/dagger-for-github@27b130bf0f79a7f6fbbbe0fbca6760dc9bb40a77"  # v8.4.1
+        uses: "./.github/actions/dagger-check"
         with:
           check: "python:*"
-          version: "${{ env.DAGGER_VERSION }}"

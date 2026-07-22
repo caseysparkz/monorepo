@@ -91,6 +91,19 @@ jobs:
           printf 'all_dirs: ${{ steps.all_changed.outputs.tf_all_changed_dirs }}\n'
           printf 'infracost_updated: ${{ steps.changed_manifests.outputs.infracost_any_changed }}\n'
 
+  dagger_check_terraform:
+    name: "dagger check terraform"
+    runs-on: "ubuntu-latest"
+    # Runs on pull request if Terraform modules changed.
+    if: "${{ github.event == 'pull_request' }}"
+    permissions:
+      contents: "read"
+    steps:
+      - name: "dagger check terraform:*"
+        uses: "./.github/actions/dagger-check"
+        with:
+          check: "terraform:*"
+
   terraform_test:
     name: "terraform test"
     runs-on: "ubuntu-latest"

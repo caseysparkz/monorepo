@@ -1,52 +1,26 @@
 # Author:       Casey Sparks
 # Date:         November 15, 2023
-# Description:  Run ansible-lint against Ansible configs on push and PR.
+# Description:  Run dagger ansible checks.
 ---
 name: "ansible"
 on:
   pull_request:
     branches: ["main"]
-    paths:
-      - "collections/**/*.yml"
-      - "hosts/**/*.yml"
-      - "playbooks/**/*.yml"
+    paths: ["ansible/**/*.yml"]
     types:
       - "opened"
       - "ready_for_review"
       - "reopened"
       - "synchronize"
 jobs:
-  ansible_lint:
-    name: "ansible-lint"
+  dagger_check_ansible:
+    name: "dagger"
     runs-on: "ubuntu-latest"
     permissions:
       contents: "read"
-    env:
-      ANSIBLE_CACHE_KEY: "ansible-cache"
-      ANSIBLE_CACHE_PATH: "${{ github.workspace }}/ansible/collections/ansible_collections/"
+      id-token: "write"
     steps:
-      - name: "git checkout"
-        uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0"  # v7.0.0
+      - name: "dagger check python:*"
+        uses: "./.github/actions/dagger-check"
         with:
-          fetch-depth: 0
-
-      - name: "cache: restore"
-        id: "ansible-cache"
-        uses: "actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9"  # v6.1.0
-        with:
-          key: "${{ env.ANSIBLE_CACHE_KEY }}"
-          path: "${{ env.ANSIBLE_CACHE_PATH }}"
-
-      - name: "ansible-lint"
-        uses: "ansible/ansible-lint@262624cd0ab22a4221293216856c59671ce7aa5e"  # v26.6.0
-        with:
-          args: ""
-          working_directory: "${{ github.workspace }}/ansible/"
-          requirements_file: "requirements.yml"
-          setup_python: true
-
-      - name: "cache: save"
-        uses: "actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9"  # v6.1.0
-        with:
-          key: "${{ steps.ansible-cache.outputs.cache-primary-key }}"
-          path: "${{ env.ANSIBLE_CACHE_PATH }}"
+          check: "ansible:*"
