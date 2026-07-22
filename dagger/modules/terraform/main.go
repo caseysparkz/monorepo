@@ -81,6 +81,19 @@ func (m *Terraform) init(chdir string) *dagger.Container {
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "init"})
 }
 
+// Returns a container with in initialized Terraform directory (no backend)
+func (m *Terraform) initBackendFalse(chdir string) *dagger.Container {
+	return m.container().
+		WithMountedCache(
+			fmt.Sprintf("%s/%s/.terraform", mountPoint, chdir),
+			dag.CacheVolume(fmt.Sprintf("%s-%s", mountPoint, chdir)),
+		).
+		WithMountedCache("/usr/bin", dag.CacheVolume("usr-bin")).
+		WithExec([]string{"apk", "add", "pnpm", "libc6-compat"}).
+		WithWorkdir(mountPoint).
+		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "init", "-backend=false"})
+}
+
 // Returns a container a Terraform planfile at /tmp/out.tfplan.
 func (m *Terraform) plan(chdir string, varFile string) *dagger.Container {
 	extraArgs := ""
@@ -109,7 +122,7 @@ func (m *Terraform) FmtRecursive(
 	// +default="."
 	chdir string,
 ) (string, error) {
-	stdout, err := m.init(chdir).
+	stdout, err := m.initBackendFalse(chdir).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "fmt", "-check", "-recursive"}).
 		Stdout(ctx)
 
@@ -126,7 +139,7 @@ func (m *Terraform) Validate(
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	chdir string,
 ) (string, error) {
-	stdout, err := m.init(chdir).
+	stdout, err := m.initBackendFalse(chdir).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "validate"}).
 		Stdout(ctx)
 
