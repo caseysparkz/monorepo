@@ -16,6 +16,10 @@
     {
       "name": "terraform",
       "source": "dagger/modules/terraform"
+    },
+    {
+      "name": "yaml",
+      "source": "dagger/modules/yaml"
     }
   ],
   "dependencies": [
@@ -30,6 +34,10 @@
     {
       "name": "terraform",
       "source": "dagger/modules/terraform"
+    },
+    {
+      "name": "yaml",
+      "source": "dagger/modules/yaml"
     }
   ],
   "source": "dagger"
