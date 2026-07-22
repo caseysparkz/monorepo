@@ -100,7 +100,7 @@ func (m *Terraform) plan(chdir string, varFile string) *dagger.Container {
 		})
 }
 
-// Returns the output of 'terraform -chdir={} fmt -recursive -check'
+// Returns the output of 'terraform -chdir={:arg chdir:} fmt -recursive -check'
 // +check
 func (m *Terraform) FmtRecursive(
 	ctx context.Context,
@@ -120,7 +120,7 @@ func (m *Terraform) FmtRecursive(
 	}
 }
 
-// Returns the output of 'terraform plan'
+// Returns the output of 'terraform -chdir={:arg chdir:} validate'
 func (m *Terraform) Validate(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
@@ -157,7 +157,7 @@ func (m *Terraform) Plan(
 	}
 }
 
-// Returns the output of 'terraform plan'
+// Returns the output of 'terraform apply'
 func (m *Terraform) Apply(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
