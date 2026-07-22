@@ -26,7 +26,7 @@ type Docker struct {
 	Source *dagger.Directory
 }
 
-// Returns a container that echoes whatever string argument is provided
+// Runs hadolint (Dockerfile linter) against files
 func (m *Docker) Hadolint(
 	ctx context.Context,
 	// Files to lint.
@@ -42,6 +42,26 @@ func (m *Docker) Hadolint(
 		From(image).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
-		WithExec(append([]string{"hadolint"}, file...)).
+		WithExec(append([]string{"hadolint", "--no-color"}, file...)).
+		Stdout(ctx)
+}
+
+// Returns a container that echoes whatever string argument is provided
+func (m *Docker) ComposeConfig(
+	ctx context.Context,
+	// File to lint.
+	file string,
+	// Version of docker-compose to use.
+	// +optional
+	// +default="latest"
+	composeVersion string,
+) (string, error) {
+	image := fmt.Sprintf("%s:%s", "docker.io/docker/compose", composeVersion)
+
+	return dag.Container().
+		From(image).
+		WithMountedDirectory(mountPoint, m.Source).
+		WithWorkdir(mountPoint).
+		WithExec([]string{"docker", "compose", file}).
 		Stdout(ctx)
 }
