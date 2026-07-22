@@ -3,6 +3,10 @@
 # Description:  Alpine 3.20.2
 FROM docker.io/library/alpine:3.20.2
 
+LABEL contact="docker@caseysparkz.com"
+LABEL maintainer="docker@caseysparkz.com"
+LABEL parent_image="docker.io/library/alpine:3.20.2"
+
 ENV LANG "en_US.UTF8"
 ENV LANGUAGE "en_US.UTF8"
 ENV LC_ALL "en_US.UTF8"

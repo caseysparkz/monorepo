@@ -3,6 +3,10 @@
 # Description:  Debian 12 image
 FROM docker.io/library/debian:12
 
+LABEL contact="docker@caseysparkz.com"
+LABEL maintainer="docker@caseysparkz.com"
+LABEL parent_image="docker.io/library/debian:12"
+
 ENV DEBCONF_NOWARNINGS yes
 ENV DEBIAN_FRONTEND noninteractive
 ENV TZ UTC

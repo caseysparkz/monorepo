@@ -1,0 +1,17 @@
+---
+ignored: []
+override:
+  error: []
+  warning: []
+  info: []
+  style: []
+trustedRegistries:
+  - "770088062852.dkr.ecr.us-west-2.amazonaws.com"
+  - "docker.io"
+  - "gcr.io"
+  - "ghcr.io"
+strict-labels: true
+label-schema:
+  maintainer: "text"
+  contact: "email"
+  parent_image: "text"
