@@ -1,4 +1,4 @@
-module dagger/monorepo
+module dagger/shell
 
 go 1.26.4
 

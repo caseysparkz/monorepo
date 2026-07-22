@@ -32,6 +32,10 @@
       "source": "dagger/modules/python"
     },
     {
+      "name": "shell",
+      "source": "dagger/modules/shell"
+    },
+    {
       "name": "terraform",
       "source": "dagger/modules/terraform"
     },
