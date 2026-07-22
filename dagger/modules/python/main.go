@@ -18,7 +18,7 @@ func New(
 	// +optional
 	// +default="3.13"
 	pythonVersion string,
-	// Path to run pytest against.
+	// Path to run pytest/mypy/ruff/etc against.
 	// +optional
 	// +default="."
 	pyPath string,
@@ -68,8 +68,8 @@ func (m *Python) Venv() *dagger.Container {
 }
 
 // Returns a container with an installed package.
-func (m *Python) pipInstall() *dagger.Container {
-	return m.Venv().WithExec([]string{"pip", "install", m.Pkg})
+func (m *Python) PipInstall() *dagger.Container {
+	return m.Venv().WithExec([]string{"pip", "install", "--quiet", "--root-user-action=ignore", m.Pkg})
 }
 
 // Runs PyTest
@@ -81,7 +81,7 @@ func (m *Python) Pytest(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	stdout, err := m.pipInstall().WithExec(append([]string{"pytest"}, file...)).Stdout(ctx)
+	stdout, err := m.PipInstall().WithExec(append([]string{"pytest"}, file...)).Stdout(ctx)
 
 	if err != nil {
 		return "", fmt.Errorf("Error: %s", err)
@@ -99,7 +99,7 @@ func (m *Python) Mypy(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	stdout, err := m.pipInstall().WithExec(append([]string{"mypy"}, file...)).Stdout(ctx)
+	stdout, err := m.PipInstall().WithExec(append([]string{"mypy"}, file...)).Stdout(ctx)
 
 	if err != nil {
 		return "", fmt.Errorf("Error: %s", err)
@@ -117,7 +117,7 @@ func (m *Python) RuffCheck(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	stdout, err := m.pipInstall().WithExec(append([]string{"ruff", "check"}, file...)).Stdout(ctx)
+	stdout, err := m.PipInstall().WithExec(append([]string{"ruff", "check"}, file...)).Stdout(ctx)
 
 	if err != nil {
 		return "", fmt.Errorf("Error: %s")
@@ -135,7 +135,7 @@ func (m *Python) RuffFormat(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	stdout, err := m.pipInstall().WithExec(append([]string{"ruff", "format", "--check"}, file...)).Stdout(ctx)
+	stdout, err := m.PipInstall().WithExec(append([]string{"ruff", "format", "--check"}, file...)).Stdout(ctx)
 
 	if err != nil {
 		return "", fmt.Errorf("Error: %w", err)
@@ -147,7 +147,7 @@ func (m *Python) RuffFormat(
 // Runs pip-audit
 // +check
 func (m *Python) PipAudit(ctx context.Context) (string, error) {
-	stdout, err := m.pipInstall().WithExec([]string{"pip-audit", mountPoint}).Stdout(ctx)
+	stdout, err := m.PipInstall().WithExec([]string{"pip-audit", mountPoint}).Stdout(ctx)
 
 	if err != nil {
 		return "", fmt.Errorf("Error: %w", err)
@@ -161,7 +161,7 @@ func (m *Python) PipAudit(ctx context.Context) (string, error) {
 func (m *Python) Pylock(ctx context.Context) (string, error) {
 	lockfile := fmt.Sprintf("%s/pylock.toml", mountPoint)
 	prehash, hashError := m.container().File(lockfile).Digest(ctx)
-	posthash, _ := m.pipInstall().WithExec([]string{"pip", "lock", m.Pkg}).File(lockfile).Digest(ctx)
+	posthash, _ := m.PipInstall().WithExec([]string{"pip", "lock", m.Pkg}).File(lockfile).Digest(ctx)
 
 	if hashError != nil {
 		return "", fmt.Errorf("Could not hash pylock.toml: %s", hashError)
