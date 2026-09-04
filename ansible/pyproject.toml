@@ -4,7 +4,7 @@ description = "Ansible collections and playbooks for configuring Linux systems."
 requires-python = ">= 3.13"
 version = "1.0.0"
 readme = { file = "README.md", content-type = "text/markdown" }
-dependencies = ["ansible-core==2.21.1"]
+dependencies = ["ansible-core==2.21.3"]
 
 [project.optional-dependencies]
 test = ["ansible-lint==26.8.0"]
