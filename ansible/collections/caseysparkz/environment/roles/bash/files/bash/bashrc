@@ -93,7 +93,7 @@ if [ -x "$(which dircolors)" ]; then  # Enable color support.
 fi
 
 # shellcheck disable=SC1090
-for BASHFILE in ".bashrc.local" ".bash/vars.sh" ".bash_aliases"; do
+for BASHFILE in ".bash/vars.sh" ".bash_aliases" ".bashrc.local"; do
     if [ -f "${HOME}/${BASHFILE}" ]; then source "${HOME}/${BASHFILE}"; fi
 done
 
