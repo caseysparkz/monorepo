@@ -873,14 +873,14 @@ sha256 = "4d1032919280ebc04a80e4fb1e93f7a738129857eaec9448310e638c8bccefcf"
 
 [[packages]]
 name = "ruff"
-version = "0.16.5"
+version = "0.16.6"
 
 [[packages.wheels]]
-name = "ruff-0.16.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/ee/34/ee245ca55f64443233034b3d02b03236b19242004281247c079390b7facd/ruff-0.16.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+name = "ruff-0.16.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/8b/98/083d8b4ef3c51a0d19db84367791cbe9f44e4b53343d19dfa83556e1cd9a/ruff-0.16.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "ef0f69e191a13a3c9816f63163c88790cb12cd157bbbb384e9c44745702ab105"
+sha256 = "d72c591a96986ee4268860e2b7235082129ca5e4cb9cbba653a4b57c11893757"
 
 [[packages]]
 name = "s3transfer"
