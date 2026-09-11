@@ -14,14 +14,14 @@ sha256 = "cf23f3353c3b4179530eb589a0f6fb1c674d2b69660c14841de89f3688e0530a"
 
 [[packages]]
 name = "ansible-core"
-version = "2.21.3"
+version = "2.21.4"
 
 [[packages.wheels]]
-name = "ansible_core-2.21.3-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/a3/fa/938fe0504372377af2bef42abe0d8e463fdcd011ad803eaf300e4577dd7a/ansible_core-2.21.3-py3-none-any.whl"
+name = "ansible_core-2.21.4-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/a1/05/d4e28474dd027db4d60fef2422cf6bc80df100ab32e5fa5e7aad898ffd55/ansible_core-2.21.4-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "9e7dd367f7dc5d5e9fc5ae1baf8af9c4edc09e916a73a40108a3f32e3ad93f10"
+sha256 = "ebe74d9c8fadcb41ad2151e031bf1e785e3098aaa015019b4e19a0a96f0dcc4f"
 
 [[packages]]
 name = "ansible-lint"
