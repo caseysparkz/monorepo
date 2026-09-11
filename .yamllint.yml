@@ -32,8 +32,9 @@ rules:
     allow-non-breakable-inline-mappings: true
     ignore:
       - "k8s/**"
-ignore:
-  - "**/node_modules/"
-  - "**/pnpm-lock.yaml"
-  - "**/.venv/**"
-  - "ansible/collections/caseysparkz/environment/roles/vim/files/vim/pack/plugins/start/**"  # git submodules
+ignore:  # Auto-generated files and included submodules
+  - "**/.terraform/**"  # Auto-generated
+  - "**/.venv/**"  # Auto-generated
+  - "**/node_modules/"  # Other people's code/auto-generated
+  - "**/pnpm-lock.yaml"  # Auto-generated
+  - "ansible/collections/caseysparkz/environment/roles/vim/files/vim/pack/plugins/start/**"  # Other people's code
