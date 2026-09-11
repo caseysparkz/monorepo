@@ -102,14 +102,14 @@ sha256 = "aaaa1216d65ddb3dcf86bf9d93cfa436af05cbcd1e1f8b2847f2b83116012186"
 
 [[packages]]
 name = "boto3-stubs"
-version = "1.43.86"
+version = "1.43.90"
 
 [[packages.wheels]]
-name = "boto3_stubs-1.43.86-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/2d/e9/8ac1d9e40e306cb6699f2e2ccc9c0292029b013bdc17886c3dcb3ccc9d88/boto3_stubs-1.43.86-py3-none-any.whl"
+name = "boto3_stubs-1.43.90-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/97/26/6b55acc18177a0dd7c9f4745ed32a5c8415aa96f2f19e829e36a80739232/boto3_stubs-1.43.90-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "7b79812aa0284dce548a9a131da4acc35109639320863ba899a1548a3b77f213"
+sha256 = "6350af6f4199d759d04654ce831bf5d4e90bfc7d606ae18c0085b1566b9af418"
 
 [[packages]]
 name = "botocore"
