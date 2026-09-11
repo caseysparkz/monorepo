@@ -17,6 +17,7 @@ PATH_DIRS=(
     "${SCRIPTS}/python"
     "${SCRIPTS}/sh"
     "${PNPM_HOME}/bin"
+    "${HOME}/.local/share/gem/ruby/3.3.0/bin"
 )
 
 # Shell options.
