@@ -1,9 +1,61 @@
 /* Global Logging */
 
+// Data ========================================================================
+data "aws_iam_policy_document" "s3_bucket_logging" {
+  statement {
+    sid     = "DenyUnencryptedAccess"
+    effect  = "Deny"
+    actions = ["s3:*"]
+    resources = [
+      aws_s3_bucket.logging.arn,
+      "${aws_s3_bucket.logging.arn}/*",
+    ]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SecureTransport"
+      values   = [false]
+    }
+  }
+}
+
 // Resources ===================================================================
 resource "aws_s3_bucket" "logging" { // trivy:ignore:AWS-0089
   bucket = "${local.namespace}-s3-bucket-logging"
   tags   = { Name = "${local.namespace}-s3-bucket-logging" }
+}
+
+resource "aws_s3_bucket_policy" "logging" {
+  bucket = aws_s3_bucket.logging.bucket
+  policy = data.aws_iam_policy_document.s3_bucket_logging.json
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "logging" {
+  bucket = aws_s3_bucket.logging.bucket
+
+  rule {
+    id     = "rule_01"
+    status = "Enabled"
+
+    filter {} // All objects
+
+    transition { // Transition to infrequent access after one month
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    transition { // Transition to Glacier after three months
+      days          = 90
+      storage_class = "GLACIER"
+    }
+
+    expiration { days = 365 } // Delete logs after one year
+  }
 }
 
 resource "aws_s3_bucket_versioning" "logging" {
