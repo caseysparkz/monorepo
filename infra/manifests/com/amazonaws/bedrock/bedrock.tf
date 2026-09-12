@@ -8,6 +8,18 @@ data "aws_bedrock_foundation_model_agreement_offers" "this" {
   offer_type = "PUBLIC"
 }
 
+/*
+data "aws_iam_policy_document" "bedrock_user" {
+  // IAM policy assumed by Bedrock end-users.
+  statement { // AllowInvokeModel
+    sid       = "AllowInvokeModel"
+    effect    = "Allow"
+    actions   = ["bedrock:InvokeModel*"]
+    resources = ["arn:aws:bedrock:${var.aws_region}:${local.aws_account_id}:provisioned-model/${aws_bedrock_provisioned_model_throughput.this.provisioned_model_name}"]
+  }
+}
+*/
+
 // Resources ===================================================================
 resource "aws_bedrock_use_case_for_model_access" "this" {
   // Required by almost all Anthropic models.
@@ -30,21 +42,26 @@ resource "aws_bedrock_foundation_model_agreement" "this" {
 
 /* TODO:
 resource "aws_bedrock_provisioned_model_throughput" "this" {
-  depends_on             = [aws_bedrock_use_case_for_model_access.this]
+  depends_on = [aws_bedrock_use_case_for_model_access.this]
+
   model_arn              = data.aws_bedrock_foundation_model.this.model_arn
-  provisioned_model_name = "${local.namespace}-${replace(data.aws_bedrock_foundation_model.this.id, ".", "-")}-T${var.aws_bedrock_model_throughput}"
   model_units            = var.aws_bedrock_model_throughput
+  provisioned_model_name = "${local.namespace}-model"
   //commitment_duration = "SixMonths" # or "OneMonth"
   tags = { Name = "${local.namespace}-bedrock-provisionedmodelthroughput" }
 }
 
 resource "aws_bedrock_custom_model" "this" {}
+
 resource "aws_bedrock_evaluation_job" "this" {}
+
 resource "aws_bedrock_guardrail" "this" {}
+
 resource "aws_bedrock_guardrail_version" "this" {}
+
 resource "aws_bedrock_inference_profile" "this" {}
+
 resource "aws_bedrock_model_invocation_job" "this" {}
-resource "aws_bedrock_model_invocation_logging_configuration" "this" {}
 */
 
 // Outputs =====================================================================
