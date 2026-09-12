@@ -2,8 +2,8 @@
 
 // Data ========================================================================
 data "aws_iam_policy_document" "bedrock_logging_bucket_policy" {
-  statement { // AllowBedrockLogsWrite
-    sid       = "AmazonBedrockLogsWrite"
+  statement { // AllowBedrockLogsWriteS3
+    sid       = "AmazonBedrockLogsWriteS3"
     effect    = "Allow"
     actions   = ["s3:PutObject"]
     resources = ["${aws_s3_bucket.bedrock_logs.arn}/*"]
@@ -28,7 +28,8 @@ data "aws_iam_policy_document" "bedrock_logging_bucket_policy" {
 }
 
 data "aws_iam_policy_document" "allow_bedrock_sts_assume_role" {
-  statement {
+  statement { // AllowBedrockStsAssumeRole
+    sid     = "AllowBedrockStsAssumeRole"
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 
@@ -52,7 +53,7 @@ data "aws_iam_policy_document" "allow_bedrock_sts_assume_role" {
 }
 
 data "aws_iam_policy_document" "allow_bedrock_log_cloudwatch" {
-  statement {
+  statement { // AmazonBedrockModelInvocationCWDeliveryRole
     sid    = "AmazonBedrockModelInvocationCWDeliveryRole"
     effect = "Allow"
     actions = [
@@ -72,12 +73,13 @@ data "aws_iam_policy_document" "allow_bedrock_log_cloudwatch" {
 resource "aws_iam_role" "bedrock_logging" {
   name               = "${local.namespace}-iam-role-bedrocklogging"
   assume_role_policy = data.aws_iam_policy_document.allow_bedrock_sts_assume_role.json
-  description        = "Allow Bedrock to log to CloudWatch."
+  description        = "IAM role for AWS Bedrock CloudWatch logging configuration."
   path               = "/system/"
-  tags               = { Name = "${local.namespace}-iam-role" }
+  tags               = { Name = "${local.namespace}-iam-role-bedrockcloudwatchlogging" }
 }
 
 resource "aws_iam_role_policy" "bedrock_logging" {
+  // Attach the IAM policy to the Bedrock CloudWatch logger role.
   role   = aws_iam_role.bedrock_logging.name
   policy = data.aws_iam_policy_document.allow_bedrock_log_cloudwatch.json
 }
