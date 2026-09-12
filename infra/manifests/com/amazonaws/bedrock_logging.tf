@@ -46,6 +46,29 @@ resource "aws_s3_bucket" "bedrock_logs" { // trivy:ignore:AWS-0089
   }
 }
 
+resource "aws_s3_bucket_lifecycle_configuration" "bedrock_logs" {
+  bucket = aws_s3_bucket.bedrock_logs.bucket
+
+  rule {
+    id     = "rule_01"
+    status = "Enabled"
+
+    filter {} // All objects
+
+    transition { // Transition to infrequent access after one month
+      days          = 30
+      storage_class = "STANDARD_IA"
+    }
+
+    transition { // Transition to Glacier after three months
+      days          = 90
+      storage_class = "GLACIER"
+    }
+
+    expiration { days = 365 } // Delete logs after one year
+  }
+}
+
 resource "aws_s3_bucket_public_access_block" "bedrock_logs" {
   bucket                  = aws_s3_bucket.bedrock_logs.id
   block_public_acls       = true
