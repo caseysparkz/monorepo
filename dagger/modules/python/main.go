@@ -27,7 +27,7 @@ func New(
 	pkg string,
 	// Project source directory
 	// +optional
-	// +ignore=["*","!**/*.py","!**/*.toml","!*.ini","**/.venv"]
+	// +ignore=["*","!**/*.py","!**/*.toml","!**/*.ini","!**/*.yaml","!**/*.yml","**/.venv"]
 	// +defaultPath="/"
 	source *dagger.Directory,
 ) *Python {
