@@ -1,0 +1,79 @@
+---
+version: "0.1"
+projects:
+  # tfstate ===================================================================
+  - &default
+    name: "tfstate"
+    path: "./infra/manifests/tfstate/"
+    skip_autodetect: false
+    terraform_workspace: "default"
+    usage_file: "./infra/manifests/tfstate/infracost_usage.yml"
+    terraform_var_files: []
+    dependency_paths: ["./infra/manifests/tfstate/*"]
+
+  # amazonaws.com =============================================================
+  - <<: *default
+    name: "amazonaws.com"
+    path: "./infra/manifests/com/amazonaws/"
+    usage_file: "./infra/manifests/com/amazonaws/infracost_usage.yml"
+    dependency_paths: ["./infra/manifests/com/amazonaws/*"]
+
+  - <<: *default
+    name: "iam.amazonaws.com"
+    path: "./infra/manifests/com/amazonaws/iam/"
+    usage_file: "./infra/manifests/com/amazonaws/iam/infracost_usage.yml"
+    dependency_paths: ["./infra/manifests/com/amazonaws/iam/*"]
+
+  - <<: *default
+    name: "github_actions.oidc.iam.amazonaws.com"
+    path: "./infra/manifests/com/amazonaws/iam/oidc/github_actions"
+    usage_file: "./infra/manifests/com/amazonaws/iam/oidc/github_actions/infracost_usage.yml"
+    dependency_paths: ["./infra/manifests/com/amazonaws/iam/oidc/github_actions/*"]
+
+  # caseyspar.kz ==============================================================
+  - <<: *default
+    name: "caseyspar.kz"
+    path: "./infra/manifests/kz/caseyspar/"
+    usage_file: "./infra/manifests/kz/caseyspar/infracost_usage.yml"
+    dependency_paths:
+      - "./infra/manifests/kz/caseyspar/*"
+      - "./infra/modules/proton_domain/**"
+
+  # caseysparkz.com ===========================================================
+  - <<: *default
+    name: "caseysparkz.com"
+    path: "./infra/manifests/com/caseysparkz/"
+    usage_file: "./infra/manifests/com/caseysparkz/infracost_usage.yml"
+    terraform_var_files: ["./production.tfvars"]
+    dependency_paths:
+      - "./infra/manifests/com/caseysparkz/*"
+      - "./infra/modules/proton_domain/**"
+
+  - <<: *default
+    name: "ecr.caseysparkz.com"
+    path: "./infra/manifests/com/caseysparkz/ecr/"
+    usage_file: "./infra/manifests/com/caseysparkz/ecr/infracost_usage.yml"
+    dependency_paths:
+      - "./infra/manifests/com/caseysparkz/ecr/*"
+      - "./infra/modules/ecr/**"
+
+  - <<: *default
+    name: "photos.caseysparkz.com"
+    path: "./infra/manifests/com/caseysparkz/photos/"
+    usage_file: "./infra/manifests/com/caseysparkz/photos/infracost_usage.yml"
+    dependency_paths: ["./infra/manifests/com/caseysparkz/photos/*"]
+
+  - <<: *default
+    name: "store.caseysparkz.com"
+    path: "./infra/manifests/com/caseysparkz/store/"
+    usage_file: "./infra/manifests/com/caseysparkz/store/infracost_usage.yml"
+    dependency_paths: ["./infra/manifests/com/caseysparkz/store/*"]
+
+  - <<: *default
+    name: "www.caseysparkz.com"
+    path: "./infra/manifests/com/caseysparkz/www/"
+    usage_file: "./infra/manifests/com/caseysparkz/www/infracost_usage.yml"
+    dependency_paths:
+      - "./infra/manifests/com/caseysparkz/www/*"
+      - "./infra/modules/hugo_static_site/**"
+      - "./infra/modules/s3_artifacts/**"

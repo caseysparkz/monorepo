@@ -1,0 +1,352 @@
+---
+version: "0.1"
+resource_type_default_usage:
+  aws_acmpca_certificate_authority:
+    monthly_requests: 0
+  aws_alb:
+    new_connections: 0
+    active_connections: 0
+    processed_bytes_gb: 0
+    rule_evaluations: 0
+  aws_api_gateway_rest_api:
+    monthly_requests: 50
+  aws_apigatewayv2_api:
+    monthly_requests: 50
+    request_size_kb: 128
+    monthly_messages: 100
+    message_size_kb: 8
+    monthly_connection_mins: 50
+  aws_backup_vault:
+    monthly_efs_warm_restore_gb: 0
+    monthly_efs_cold_restore_gb: 0
+    monthly_efs_item_restore_requests: 0
+    monthly_efs_warm_backup_gb: 0
+    monthly_efs_cold_backup_gb: 0
+    monthly_ebs_snapshot_gb: 0
+    monthly_rds_snapshot_gb: 0
+    monthly_aurora_snapshot_gb: 0
+    monthly_dynamodb_backup_gb: 0
+    monthly_dynamodb_restore_gb: 0
+    monthly_fsx_windows_backup_gb: 0
+    monthly_fsx_lustre_backup_gb: 0
+  aws_cloudformation_stack:
+    monthly_handler_operations: 0
+    monthly_duration_secs: 0
+  aws_cloudformation_stack_set:
+    monthly_handler_operations: 0
+    monthly_duration_secs: 0
+  aws_cloudfront_distribution:
+    monthly_data_transfer_to_internet_gb:
+      us: 0
+      europe: 0
+      south_africa: 0
+      south_america: 0
+      japan: 0
+      australia: 0
+      asia_pacific: 0
+      india: 0
+    monthly_data_transfer_to_origin_gb:
+      us: 0
+      europe: 0
+      south_africa: 0
+      south_america: 0
+      japan: 0
+      australia: 0
+      asia_pacific: 0
+      india: 0
+    monthly_http_requests:
+      us: 0
+      europe: 0
+      south_africa: 0
+      south_america: 0
+      japan: 0
+      australia: 0
+      asia_pacific: 0
+      india: 0
+    monthly_https_requests:
+      us: 0
+      europe: 0
+      south_africa: 0
+      south_america: 0
+      japan: 0
+      australia: 0
+      asia_pacific: 0
+      india: 0
+    monthly_shield_requests:
+      us: 0
+      europe: 0
+      south_america: 0
+      japan: 0
+      australia: 0
+      singapore: 0
+      south_korea: 0
+      india: 0
+    monthly_invalidation_requests: 0
+    monthly_encryption_requests: 0
+    monthly_log_lines: 0
+    custom_ssl_certificates: 0
+  aws_cloudhsm_v2_hsm:
+    monthly_hrs: 0
+  aws_cloudtrail:
+    monthly_additional_management_events: 2500
+    monthly_data_events: 5000
+    monthly_insight_events: 5000
+  aws_cloudwatch_event_bus:
+    monthly_custom_events: 5000
+    monthly_third_party_events: 0
+    monthly_archive_processing_gb: 1
+    archive_storage_gb: 1
+    monthly_schema_discovery_events: 5000
+  aws_cloudwatch_log_group:
+    storage_gb: 166
+    monthly_data_ingested_gb: 10
+    monthly_data_scanned_gb: 1000
+  aws_codebuild_project:
+    monthly_build_mins: 0
+  aws_config_config_rule:
+    monthly_rule_evaluations: 0
+  aws_config_configuration_recorder:
+    monthly_config_items: 0
+    monthly_custom_config_items: 0
+  aws_config_organization_custom_rule:
+    monthly_rule_evaluations: 0
+  aws_config_organization_managed_rule:
+    monthly_rule_evaluations: 0
+  aws_db_instance:
+    additional_backup_storage_gb: 0
+    monthly_standard_io_requests: 0
+    monthly_additional_performance_insights_requests: 0
+  aws_directory_service_directory:
+    additional_domain_controllers: 0
+    shared_accounts: 0
+  aws_docdb_cluster:
+    backup_storage_gb: 0
+  aws_docdb_cluster_instance:
+    data_storage_gb: 0
+    monthly_io_requests: 0
+    monthly_cpu_credit_hrs: 0
+  aws_docdb_cluster_snapshot:
+    backup_storage_gb: 0
+  aws_dx_gateway_association:
+    monthly_data_processed_gb: 0
+  aws_dynamodb_table:
+    monthly_write_request_units: 0
+    monthly_read_request_units: 0
+    storage_gb: 0
+    pitr_backup_storage_gb: 0
+    on_demand_backup_storage_gb: 0
+    monthly_data_restored_gb: 0
+    monthly_streams_read_request_units: 0
+  aws_ebs_snapshot:
+    monthly_list_block_requests: 0
+    monthly_get_block_requests: 0
+    monthly_put_block_requests: 0
+    fast_snapshot_restore_hours: 0
+  aws_ebs_volume:
+    monthly_standard_io_requests: 0
+  aws_ec2_transit_gateway_vpc_attachment:
+    monthly_data_processed_gb: 0
+  aws_ecr_repository:
+    storage_gb: 50
+  aws_efs_file_system:
+    storage_gb: 250
+    infrequent_access_storage_gb: 250
+    monthly_infrequent_access_read_gb: 0
+    monthly_infrequent_access_write_gb: 0
+  aws_elasticache_cluster:
+    snapshot_storage_size_gb: 0
+  aws_elasticache_replication_group:
+    snapshot_storage_size_gb: 0
+  aws_elb:
+    monthly_data_processed_gb: 0
+  aws_fsx_openzfs_file_system:
+    backup_storage_gb: 0
+  aws_fsx_windows_file_system:
+    backup_storage_gb: 0
+  aws_glue_catalog_database:
+    monthly_objects: 0
+    monthly_requests: 0
+  aws_glue_crawler:
+    monthly_hours: 0
+  aws_glue_job:
+    monthly_hours: 0
+  aws_kinesis_analytics_application:
+    kinesis_processing_units: 0
+    durable_application_backup_gb: 0
+  aws_kinesisanalyticsv2_application:
+    kinesis_processing_units: 0
+    durable_application_backup_gb: 0
+  aws_kinesisanalyticsv2_application_snapshot:
+    durable_application_backup_gb: 0
+  aws_kinesis_firehose_delivery_stream:
+    monthly_data_ingested_gb: 0
+  aws_kinesis_stream:
+    monthly_on_demand_data_in_gb: 0
+    monthly_on_demand_data_out_gb: 0
+    monthly_on_demand_efo_data_out_gb: 0
+    monthly_on_demand_extended_retention_gb: 0
+    monthly_on_demand_long_term_retention_gb: 0
+    monthly_provisioned_put_units: 0
+    monthly_provisioned_extended_retention_gb: 0
+    monthly_provisioned_long_term_retention_gb: 0
+    monthly_provisioned_long_term_retrieval_gb: 0
+    monthly_provisioned_efo_data_out_gb: 0
+    monthly_provisioned_efo_consumer_hours: 0
+  aws_lambda_function:
+    monthly_requests: 250
+    request_duration_ms: 25
+  aws_lambda_provisioned_concurrency_config:
+    monthly_duration_hrs: 0
+    request_duration_ms: 10
+    monthly_requests: 50
+    memory_mb: 128
+  aws_lb:
+    new_connections: 0
+    active_connections: 0
+    processed_bytes_gb: 0
+    rule_evaluations: 0
+  aws_mq_broker:
+    storage_size_gb: 0
+  aws_mwaa_environment:
+    additional_workers: 0
+    additional_schedulers: 0
+    meta_database_gb: 0
+  aws_nat_gateway:
+    monthly_data_processed_gb: 0
+  aws_neptune_cluster:
+    storage_gb: 0
+    monthly_io_requests: 0
+    backup_storage_gb: 0
+  aws_neptune_cluster_instance:
+    monthly_cpu_credit_hrs: 0
+  aws_neptune_cluster_snapshot:
+    backup_storage_gb: 0
+  aws_networkfirewall_firewall:
+    monthly_data_processed_gb: 0
+  aws_rds_cluster:
+    capacity_units_per_hr: 0
+    storage_gb: 0
+    write_requests_per_sec: 0
+    read_requests_per_sec: 0
+    backup_snapshot_size_gb: 0
+    average_statements_per_hr: 0
+    change_records_per_statement: 0
+    backtrack_window_hrs: 0
+    snapshot_export_size_gb: 0
+  aws_rds_cluster_instance:
+    monthly_additional_performance_insights_requests: 0
+    capacity_units_per_hr: 0
+  aws_redshift_cluster:
+    managed_storage_gb: 0
+    excess_concurrency_scaling_secs: 0
+    spectrum_data_scanned_tb: 0
+    backup_storage_gb: 0
+  aws_route53_record:
+    monthly_standard_queries: 0
+    monthly_latency_based_queries: 0
+    monthly_geo_queries: 0
+  aws_route53_resolver_endpoint:
+    monthly_queries: 0
+  aws_s3_bucket_analytics_configuration:
+    monthly_monitored_objects: 200
+  aws_s3_bucket_inventory:
+    monthly_listed_objects: 200
+  aws_s3_bucket:
+    object_tags: 200
+    standard:
+      storage_gb: 250
+      monthly_tier_1_requests: 1000
+      monthly_tier_2_requests: 5000
+      monthly_select_data_scanned_gb: 250
+      monthly_select_data_returned_gb: 250
+    intelligent_tiering:
+      frequent_access_storage_gb: 0
+      infrequent_access_storage_gb: 0
+      monitored_objects: 0
+      monthly_tier_1_requests: 0
+      monthly_tier_2_requests: 0
+      monthly_lifecycle_transition_requests: 0
+      monthly_select_data_scanned_gb: 0
+      monthly_select_data_returned_gb: 0
+      early_delete_gb: 0
+    standard_infrequent_access:
+      storage_gb: 0
+      monthly_tier_1_requests: 0
+      monthly_tier_2_requests: 0
+      monthly_lifecycle_transition_requests: 0
+      monthly_data_retrieval_gb: 0
+      monthly_select_data_scanned_gb: 0
+      monthly_select_data_returned_gb: 0
+    one_zone_infrequent_access:
+      storage_gb: 0
+      monthly_tier_1_requests: 0
+      monthly_tier_2_requests: 0
+      monthly_lifecycle_transition_requests: 0
+      monthly_data_retrieval_gb: 0
+      monthly_select_data_scanned_gb: 0
+      monthly_select_data_returned_gb: 0
+    glacier_flexible_retrieval:
+      storage_gb: 0
+      monthly_tier_1_requests: 0
+      monthly_tier_2_requests: 0
+      monthly_lifecycle_transition_requests: 0
+      monthly_standard_select_data_scanned_gb: 0
+      monthly_standard_select_data_returned_gb: 0
+      monthly_bulk_select_data_scanned_gb: 0
+      monthly_bulk_select_data_returned_gb: 0
+      monthly_expedited_select_data_scanned_gb: 0
+      monthly_expedited_select_data_returned_gb: 0
+      monthly_standard_data_retrieval_requests: 0
+      monthly_expedited_data_retrieval_requests: 0
+      monthly_standard_data_retrieval_gb: 0
+      monthly_expedited_data_retrieval_gb: 0
+      early_delete_gb: 0
+    glacier_deep_archive:
+      storage_gb: 0
+      monthly_tier_1_requests: 0
+      monthly_tier_2_requests: 0
+      monthly_lifecycle_transition_requests: 0
+      monthly_standard_data_retrieval_requests: 0
+      monthly_bulk_data_retrieval_requests: 0
+      monthly_standard_data_retrieval_gb: 0
+      monthly_bulk_data_retrieval_gb: 0
+      early_delete_gb: 0
+  aws_secretsmanager_secret:
+    monthly_requests: 500
+  aws_sfn_state_machine:
+    monthly_transitions: 0
+    monthly_requests: 0
+    memory_mb: 0
+    workflow_duration_ms: 0
+  aws_sns_topic:
+    monthly_requests: 0
+    request_size_kb: 0
+    http_subscriptions: 0
+    email_subscriptions: 0
+    kinesis_subscriptions: 0
+    mobile_push_subscriptions: 0
+    macos_subscriptions: 0
+    sms_subscriptions: 0
+    sms_notification_price: 0
+  aws_sqs_queue:
+    monthly_requests: 0
+    request_size_kb: 0
+  aws_ssm_activation:
+    instances: 1
+  aws_ssm_parameter:
+    monthly_api_interactions: 0
+    parameter_storage_hrs: 0
+  aws_transfer_server:
+    monthly_data_downloaded_gb: 0
+    monthly_data_uploaded_gb: 0
+  aws_vpc_endpoint:
+    monthly_data_processed_gb: 0
+  aws_vpn_connection:
+    monthly_data_processed_gb: 0
+  aws_waf_web_acl:
+    rule_group_rules: 0
+    monthly_requests: 0
+  aws_wafv2_web_acl:
+    rule_group_rules: 0
+    managed_rule_group_rules: 0
+    monthly_requests: 0
