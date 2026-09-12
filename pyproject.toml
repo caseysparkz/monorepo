@@ -30,6 +30,7 @@ dev = [
     "cs-monorepo[test]",
 
     "ipython==9.17.1",
+    "yq==4.1.2",
 ]
 all = [
     "cs-ansible[all]",

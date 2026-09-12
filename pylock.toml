@@ -35,6 +35,17 @@ url = "https://files.pythonhosted.org/packages/69/27/c9707a6165683c85ff67cb8e5ef
 sha256 = "94e58501cc7fafaa505dd9daea3bddb4affa6e8efe8217323c06d7194a312f57"
 
 [[packages]]
+name = "argcomplete"
+version = "3.7.2"
+
+[[packages.wheels]]
+name = "argcomplete-3.7.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/46/bd/551ee6af426af84ca33e02622be722925c196608e9127d731ef17c47f06e/argcomplete-3.7.2-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "6029205678bdd9c1c728a155f5f9ecf5812393f969eef58807641a2bc2aa5b19"
+
+[[packages]]
 name = "ast-serialize"
 version = "0.11.1"
 
@@ -960,6 +971,17 @@ url = "https://files.pythonhosted.org/packages/c7/18/c86eb8e0202e32dd3df50d43d7f
 sha256 = "188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90"
 
 [[packages]]
+name = "tomlkit"
+version = "0.15.1"
+
+[[packages.wheels]]
+name = "tomlkit-0.15.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/13/bc/8c13eb66537dce1d2bd3a57132902f38d0e7f5bb46fa9f4daed9fe9d76ee/tomlkit-0.15.1-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "177a05aece5a8ca5266fd3c448abb47b8d352f09d477d3ca8332db4d89b24304"
+
+[[packages]]
 name = "traitlets"
 version = "5.16.1"
 
@@ -1079,3 +1101,14 @@ url = "https://files.pythonhosted.org/packages/05/92/aed08e68de6e6a3d7c2328ce738
 
 [packages.wheels.hashes]
 sha256 = "fc394a5b3be980a4062607b8fdddc0843f4fa394152b6da21722f5d59013c220"
+
+[[packages]]
+name = "yq"
+version = "4.1.2"
+
+[[packages.wheels]]
+name = "yq-4.1.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/47/8c/3b00e800e0293a0bb66b3cd9b180962c49f0a9fabdcd8198085bdb8316d1/yq-4.1.2-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "25252ae6cc2dba71c26b262fe7f3cb2ed04ffda908556bb602c9e40e9c975c4d"
