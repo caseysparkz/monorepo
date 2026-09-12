@@ -18,6 +18,7 @@ data "aws_iam_policy_document" "denied_services" {
 }
 
 // Resources ===================================================================
+/*
 resource "aws_organizations_policy" "denied_services" {
   name        = "DeniedServices"
   description = "Disallow the use of specified services."
@@ -30,3 +31,4 @@ resource "aws_organizations_policy_attachment" "denied_services" {
   policy_id = aws_organizations_policy.denied_services.id
   target_id = aws_organizations_organization.this.roots[0].id
 }
+*/

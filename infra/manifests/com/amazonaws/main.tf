@@ -26,17 +26,6 @@ locals {
 // Data ========================================================================
 data "aws_caller_identity" "this" {}
 
-data "terraform_remote_state" "this" {
-  backend = "s3"
-  config = {
-    bucket       = "com.caseysparkz.tfstate"
-    key          = "com/caseysparkz.tfstate"
-    region       = "us-west-2"
-    use_lockfile = true
-    encrypt      = true
-  }
-}
-
 // Modules =====================================================================
 module "aws_resourcegroups_group" {
   source              = "../../../modules/aws_resourcegroup_by_tagset"
