@@ -15,8 +15,10 @@ projects:
   - <<: *default
     name: "amazonaws.com"
     path: "./infra/manifests/com/amazonaws/"
-    usage_file: "./infra/manifests/com/amazonaws/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/amazonaws/*"]
+    usage_file: "./infra/manifests/com/amazonaws/infracost-usage.yml"
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   - <<: *default
     name: "iam.amazonaws.com"
@@ -44,7 +46,6 @@ projects:
     name: "caseysparkz.com"
     path: "./infra/manifests/com/caseysparkz/"
     usage_file: "./infra/manifests/com/caseysparkz/infracost_usage.yml"
-    terraform_var_files: ["./production.tfvars"]
     dependency_paths:
       - "./infra/manifests/com/caseysparkz/*"
       - "./infra/modules/proton_domain/**"

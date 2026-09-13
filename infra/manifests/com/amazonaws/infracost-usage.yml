@@ -2,19 +2,19 @@
 version: "0.1"
 resource_usage:
   aws_s3_bucket.bedrock_logs:
-    object_tags: 10000000
+    object_tags: 0
     standard:
-      storage_gb: 10000
-      monthly_tier_1_requests: 1000000
-      monthly_tier_2_requests: 100000
-      monthly_select_data_scanned_gb: 10000
-      monthly_select_data_returned_gb: 1000
+      storage_gb: 100
+      monthly_tier_1_requests: 10000
+      monthly_tier_2_requests: 10000
+      monthly_select_data_scanned_gb: 100
+      monthly_select_data_returned_gb: 100
     standard_infrequent_access:
-      storage_gb: 30000
-      monthly_tier_1_requests: 3000
-      monthly_tier_2_requests: 3000
-      monthly_lifecycle_transition_requests: 300000
-      monthly_data_retrieval_gb: 5
+      storage_gb: 1000
+      monthly_tier_1_requests: 100
+      monthly_tier_2_requests: 100
+      monthly_lifecycle_transition_requests: 20000
+      monthly_data_retrieval_gb: 0
       monthly_select_data_scanned_gb: 0
       monthly_select_data_returned_gb: 0
     one_zone_infrequent_access:
@@ -42,15 +42,15 @@ resource_usage:
       monthly_expedited_data_retrieval_gb: 0
       early_delete_gb: 0
     glacier_deep_archive:
-      storage_gb: 60000
-      monthly_tier_1_requests: 6000
-      monthly_tier_2_requests: 6000
-      monthly_lifecycle_transition_requests: 600000
-      monthly_standard_data_retrieval_requests: 600000
-      monthly_bulk_data_retrieval_requests: 600000
-      monthly_standard_data_retrieval_gb: 6000
-      monthly_bulk_data_retrieval_gb: 6000
-      early_delete_gb: 600000
+      storage_gb: 1200
+      monthly_tier_1_requests: 100
+      monthly_tier_2_requests: 100
+      monthly_lifecycle_transition_requests: 60000
+      monthly_standard_data_retrieval_requests: 100
+      monthly_bulk_data_retrieval_requests: 100
+      monthly_standard_data_retrieval_gb: 10
+      monthly_bulk_data_retrieval_gb: 5
+      early_delete_gb: 1200
 resource_type_default_usage:
   aws_acmpca_certificate_authority:
     monthly_requests: 20000
