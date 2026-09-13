@@ -1,7 +1,10 @@
 /* Organization Policy: Denied Services  */
 
 locals {
-  disallowed_services = ["bedrock", "nova"]
+  disallowed_services = [
+    //"bedrock",
+    "nova",
+  ]
 }
 
 // Data ========================================================================
