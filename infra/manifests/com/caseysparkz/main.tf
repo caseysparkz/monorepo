@@ -71,6 +71,35 @@ data "aws_iam_policy_document" "aws_kms_key" {
   }
 
   statement {
+    sid    = "AllowBedrockToUseKMSKey"
+    effect = "Allow"
+    actions = [
+      "kms:Decrypt",
+      "kms:Encrypt",
+      "kms:GenerateDataKey",
+      "kms:Reencrypt",
+    ]
+    resources = ["*"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["bedrock.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
+      values   = [local.aws_account_id]
+    }
+
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values   = ["arn:aws:bedrock:${var.aws_region}:${local.aws_account_id}:*"]
+    }
+  }
+
+  statement {
     sid       = "EnableIAMUserPermissions"
     effect    = "Allow"
     actions   = ["kms:*"]
