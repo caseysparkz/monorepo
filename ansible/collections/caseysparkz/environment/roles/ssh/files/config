@@ -1,0 +1,6 @@
+Host *
+    IdentityFile "${HOME}/.ssh/keys/himself@caseysparkz.com"
+    IdentitiesOnly yes
+    KexAlgorithms sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org
+    #PubkeyAcceptedAlgorithms +ssh-rsa
+    #HostkeyAlgorithms +ssh-rsa
