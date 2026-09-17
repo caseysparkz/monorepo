@@ -49,6 +49,7 @@
     cmsg = "! printf 'build\nchore\nci\ndocs\nfeat\nfix\nperf\nrefactor\nrevert\nstyle\ntest\n'"
     cp = "cherry-pick"
     fdiff = "!f() { git diff \"${1:-main}\" --name-only; }; f"
+    deps = "! git branch -r | grep dependabot"
     graph = "log                                                                                                    \
         --all                                                                                                       \
         --graph                                                                                                     \
