@@ -5,14 +5,17 @@
 
 # Check if AWS CLI is installed
 if ! which aws > /dev/null 2>&1; then
-   printf 'AWS CLI not installed.' >&2
+   printf 'AWS CLI not installed.\n' >&2
    exit 1
 fi
 
-# Log in to AWS if needed
-if ! aws sts get-caller-identity --no-cli-pager | grep -q caseysparkz; then aws sso login; fi
+# Check we're authenticated
+if ! aws sts get-caller-identity > /dev/null 2>&1 ; then
+    printf 'Not logged in to AWS CLI.\n' >&2
+    exit 1
+fi
 
-# Retreive secret
+# Retreive secret to STDOUT
 aws secretsmanager get-secret-value                                         \
     --region us-west-2                                                      \
     --secret-id ansible/vault                                               \
