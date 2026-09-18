@@ -43,7 +43,7 @@ jobs:
         uses: "aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd"  # v2.1.7
 
       - name: "export DAGGER_CLOUD_TOKEN=$(aws secretsmanager get-secret-value --secret-id dagger/api_token)"
-        uses: "aws-actions/aws-secretsmanager-get-secrets@2cb1a461cbd4865ac4299648312e4704c646cd53"  # v3.0.1
+        uses: "aws-actions/aws-secretsmanager-get-secrets@2297f9a879480a9e3af9b293ed15c70caf8e1c88"  # v3.0.2
         with:
           secret-ids: "DAGGER_CLOUD_TOKEN, dagger/api_token"
           name-transformation: "none"
