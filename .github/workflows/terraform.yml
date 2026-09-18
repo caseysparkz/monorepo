@@ -149,8 +149,8 @@ jobs:
       - name: "terraform validate"
         run: "terraform validate"
 
-  tfsec: # TODO: update to trivy
-    name: "tfsec"
+  trivy:
+    name: "trivy"
     runs-on: "ubuntu-latest"
     needs:
       - "changed_terraform"
@@ -168,10 +168,10 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: "tfsec"
-        uses: "aquasecurity/tfsec-action@b466648d6e39e7c75324f25d83891162a721f2d6" # v1.0.3
+      - name: "trivy"
+        uses: "aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25"
         with:
-          github_token: "${{ github.token }}"
+          scan-type: "fs"
           working_directory: "${{ matrix.dir }}"
 
   infracost_diff:
