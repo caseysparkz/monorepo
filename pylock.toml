@@ -47,14 +47,14 @@ sha256 = "6029205678bdd9c1c728a155f5f9ecf5812393f969eef58807641a2bc2aa5b19"
 
 [[packages]]
 name = "ast-serialize"
-version = "0.11.1"
+version = "0.11.2"
 
 [[packages.wheels]]
-name = "ast_serialize-0.11.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/93/c2/1749fa4efae0dc98aad3c3d29f0178e2609208c3ba34700b4551082e40d5/ast_serialize-0.11.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+name = "ast_serialize-0.11.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/04/6f/4c992cd7841ba589fefb14ddc9aff2f6db7f2a615d4074f9ad04115b5ce0/ast_serialize-0.11.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "3eebd3dd25a81839ac7d25b5f3fb3527f6141b35eca29f63d2613fe6254307fd"
+sha256 = "a7004ba572f09be34342ccb98dcd4bad5707d3d81adc8cb4c3f685d2a2c51bbc"
 
 [[packages]]
 name = "asttokens"
@@ -124,14 +124,14 @@ sha256 = "6350af6f4199d759d04654ce831bf5d4e90bfc7d606ae18c0085b1566b9af418"
 
 [[packages]]
 name = "botocore"
-version = "1.43.93"
+version = "1.43.98"
 
 [[packages.wheels]]
-name = "botocore-1.43.93-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/2c/7e/f858c401f32d980f924c8f8328b62fab463313834a9ad2326f44613b97ec/botocore-1.43.93-py3-none-any.whl"
+name = "botocore-1.43.98-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/65/ca/c7617e99c3247f545233ab2181840d142c5f72034e22864172866fb1369a/botocore-1.43.98-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "3ca57bb5d26d88b554a74de708a5c991f45306436c91aacca931252d1d4d54ff"
+sha256 = "84b35b10402c2fc0c265f634fbf86336eecc6489ee23f55074b329924b2cfd6f"
 
 [[packages]]
 name = "botocore-stubs"
@@ -212,14 +212,14 @@ sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
 
 [[packages]]
 name = "coverage"
-version = "7.16.0"
+version = "7.16.1"
 
 [[packages.wheels]]
-name = "coverage-7.16.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/12/d8/ab0bdaa45dfd6b8cbf1a3ec548fdf827684b1997f9724375c5b3e89144fb/coverage-7.16.0-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
+name = "coverage-7.16.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/ca/8d/1fd78899513244b065ccecdd1cfc6aa8b8f1bdee796d8c4f2aa8e8e5397d/coverage-7.16.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "e9883a2f8206ce3af59117dc278e5d043fea06912bca3f199816129e5e2de354"
+sha256 = "6b3fd0f3435ebb7a7183b32a6062a8b755f08242ced1f3f22761d30b56b3c2a5"
 
 [[packages]]
 name = "cryptography"
@@ -301,25 +301,25 @@ sha256 = "760643d3452b4d777d295bb167ccc74c64a81df23fb5e08eff250c425a4b2017"
 
 [[packages]]
 name = "filelock"
-version = "3.32.6"
+version = "4.0.1"
 
 [[packages.wheels]]
-name = "filelock-3.32.6-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/cc/06/4f138f618dbea66803291274f228f01daf29f306fe8b96bc30dab765df75/filelock-3.32.6-py3-none-any.whl"
+name = "filelock-4.0.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/29/33/af0635ab07fe83b1788a1dbe370ff3e226062495a998335cb18a1cac81aa/filelock-4.0.1-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "3f16ecd0117feae0dfc147e8c62eb5daeccd8bd800378c3ddf416de9b4feb6b1"
+sha256 = "481a321a27bef441e23c53371c6abc8d7d16e26b97090074ba44f7538a3fd55a"
 
 [[packages]]
 name = "idna"
-version = "3.19"
+version = "3.20"
 
 [[packages.wheels]]
-name = "idna-3.19-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/57/b0/0e52c878c53f245edd3a11020f20979b3f490f245af532c7cae3027754b5/idna-3.19-py3-none-any.whl"
+name = "idna-3.20-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/58/a2/bb081bab032533a855d44de1d56f8e8426114ff1ba5d1f07a438a0a654f8/idna-3.20-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "815e7be7a7806d54abb586dc943addc79e8b2ee16915059658cbeff4b1b43bf4"
+sha256 = "ab7ae7122974553370f0bdb919e1a960b2cd1bc1ef0276416d896db81c14582c"
 
 [[packages]]
 name = "iniconfig"
@@ -631,14 +631,14 @@ sha256 = "4659bc2a667783e7a15d190f6fccf8b2486685b6dba4c19c3876314769c57526"
 
 [[packages]]
 name = "platformdirs"
-version = "4.11.8"
+version = "4.11.11"
 
 [[packages.wheels]]
-name = "platformdirs-4.11.8-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/f4/e1/5b7b8bbb55084d1425bcb9bc823ff519e1b2be05f6ebb0089e2eacc38413/platformdirs-4.11.8-py3-none-any.whl"
+name = "platformdirs-4.11.11-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/39/be/3ae887e84c38c4dd1c549cd5825adc93f48069a94fe1cb8ac52a9da16f15/platformdirs-4.11.11-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "52f2f181bbfde907966932cc8312d967d02976422d66d537ea16092b8e291081"
+sha256 = "972ea6b2b387155a536226a0750e46923d731d459a387c4a255c583ed2f64547"
 
 [[packages]]
 name = "pluggy"
@@ -884,14 +884,14 @@ sha256 = "4d1032919280ebc04a80e4fb1e93f7a738129857eaec9448310e638c8bccefcf"
 
 [[packages]]
 name = "ruff"
-version = "0.16.6"
+version = "0.16.7"
 
 [[packages.wheels]]
-name = "ruff-0.16.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/8b/98/083d8b4ef3c51a0d19db84367791cbe9f44e4b53343d19dfa83556e1cd9a/ruff-0.16.6-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+name = "ruff-0.16.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/21/33/81f3da371942ea031105ba679d8d6e28ec1660ccd690a45f42d381161356/ruff-0.16.7-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "d72c591a96986ee4268860e2b7235082129ca5e4cb9cbba653a4b57c11893757"
+sha256 = "9ce7f8f22df67c93ed96c717f9128eadb797144ac2bad475cf536f31d6100c55"
 
 [[packages]]
 name = "s3transfer"
@@ -994,14 +994,14 @@ sha256 = "f775618166caa0396c8e337099240f2bd3e5e917d203b2e6fbe21a58d3cb1f6b"
 
 [[packages]]
 name = "types-boto3"
-version = "1.43.93"
+version = "1.43.98"
 
 [[packages.wheels]]
-name = "types_boto3-1.43.93-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/b2/c5/c5788b26be314229a0596f2fef819c489ac186c1bea96e92430ef552d5e3/types_boto3-1.43.93-py3-none-any.whl"
+name = "types_boto3-1.43.98-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/fc/d5/19f58b169ad8ef1d517df1ef83f29a60a673120bcf97efa792496262c760/types_boto3-1.43.98-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "f41e8cd0e05321e916365951d1a06d75e3f5dc98275eb6eeeedc0ea8511d50cd"
+sha256 = "a28e0481acd55ecc210757c602467460318d41b0cfab2114e789438ba3744395"
 
 [[packages]]
 name = "types-boto3-ses"
@@ -1038,14 +1038,14 @@ sha256 = "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8"
 
 [[packages]]
 name = "urllib3"
-version = "2.7.0"
+version = "2.8.0"
 
 [[packages.wheels]]
-name = "urllib3-2.7.0-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl"
+name = "urllib3-2.8.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897"
+sha256 = "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
 
 [[packages]]
 name = "wcmatch"
@@ -1060,14 +1060,14 @@ sha256 = "fd149ecddb9f0a88ea780017d6dde17c994e494e7f7303d4e3c9d6251f978f4b"
 
 [[packages]]
 name = "wcwidth"
-version = "0.8.3"
+version = "0.8.4"
 
 [[packages.wheels]]
-name = "wcwidth-0.8.3-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/c4/0e/57f6bb3024a597b2e8ec4aee710ffe62ddc95af2e2bb1ee7a7abdc22c68c/wcwidth-0.8.3-py3-none-any.whl"
+name = "wcwidth-0.8.4-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/39/cc/9c0adc5861020de426ec71716b6c1bef8d90694b7d6d0a16202cdb1647f5/wcwidth-0.8.4-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "d5b73dba6158a595ec9370350e7f2637bcac8d6c5e4fde34f30fcffb6103a5e4"
+sha256 = "2097bb1d28a0ba8fe177c2eb607317f9b1627b03f33ebebfd3da670b337a65ba"
 
 [[packages]]
 name = "werkzeug"
