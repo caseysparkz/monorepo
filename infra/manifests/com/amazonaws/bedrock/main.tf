@@ -10,7 +10,7 @@ locals {
   aws_account_id = data.aws_caller_identity.this.account_id
   environment    = "prod"
   project        = "ai"
-  application    = split(".", var.aws_bedrock_foundation_model_id)[0] // Evaluates to model company
+  application    = replace(split(".", var.aws_bedrock_foundation_model_id)[1], "-", "") // Evaluates to model name
   namespace      = "${local.environment}-${local.project}-${local.application}"
   common_tags = {
     Application = local.application
