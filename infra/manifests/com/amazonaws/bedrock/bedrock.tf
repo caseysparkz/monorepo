@@ -49,3 +49,8 @@ resource "aws_bedrock_inference_profile" "this" {
 }
 
 // Outputs =====================================================================
+output "aws_bedrock_inference_profile_arn" {
+  description = "ARN of the Bedrock application inference profile. Use as `modelId` when invoking."
+  sensitive   = false
+  value       = var.enabled ? aws_bedrock_inference_profile.this[0].arn : ""
+}
