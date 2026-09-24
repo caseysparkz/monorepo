@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "global_permissions_boundary" { // trivy:ignore:A
     actions = [
       "iam:DeleteRolePermissionsBoundary",
       "iam:DeleteUserPermissionsBoundary",
-      //"iam:PutRolePermissionsBoundary"
-      //"iam:PutUserPermissionsBoundary",
+      "iam:PutRolePermissionsBoundary",
+      "iam:PutUserPermissionsBoundary",
     ]
   }
 
