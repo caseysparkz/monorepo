@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "global_permissions_boundary" { // trivy:ignore:A
 resource "aws_iam_policy" "global_permissions_boundary" {
   name   = "${local.namespace}-iam-policy-permissionsboundary"
   policy = data.aws_iam_policy_document.global_permissions_boundary.json
-  path   = "/global/policies/"
+  path   = "/global/permissions-boundaries/"
   tags   = { Name = "${local.namespace}-iam-policy-permissionsboundary" }
 }
 
