@@ -167,7 +167,7 @@ resource "cloudflare_dns_record" "pka" {
 module "aws_resourcegroups_group" {
   source              = "../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
-  common_tags         = local.common_tags
+  common_tags         = { Namespace = local.namespace }
 }
 
 //// Proton: @ -----------------------------------------------------------------
