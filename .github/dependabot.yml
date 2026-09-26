@@ -11,7 +11,7 @@ updates:
       time: "16:45"
       timezone: "America/Los_Angeles"
     commit-message:
-      prefix: "chore(github-actions)"
+      prefix: "chore(githubactions)"
 
   - package-ecosystem: "gomod"
     directories: ["**/*"]
@@ -50,6 +50,9 @@ updates:
       day: "friday"
       time: "16:45"
       timezone: "America/Los_Angeles"
+    groups:
+      python-packages:
+        patterns: ["*"]
     commit-message:
       prefix: "chore(python-pip)"
 
@@ -62,5 +65,8 @@ updates:
       day: "friday"
       time: "16:45"
       timezone: "America/Los_Angeles"
+    groups:
+      all-terraform-providers:
+        patterns: ["*"]
     commit-message:
       prefix: "chore(terraform)"
