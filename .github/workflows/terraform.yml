@@ -90,6 +90,9 @@ jobs:
     needs: ["changed_terraform"]
     # Runs on pull request if Terraform modules changed.
     if: "${{ github.event == 'pull_request' }}"
+    concurrency:
+      group: "${{ github.workflow }}-terraformtest"
+      cancel-in-progress: false
     permissions:
       contents: "read"
     strategy:
@@ -274,6 +277,9 @@ jobs:
     runs-on: "ubuntu-latest"
     # Runs on both PR+push if Terraform manifests change
     if: "${{ needs.changed_terraform.outputs.manifest_dirs != '[]' }}"
+    concurrency:
+      group: "${{ github.workflow }}-terraformplanapply"
+      cancel-in-progress: false
     needs:
       - "changed_terraform"
       - "terraform_validate"
@@ -289,9 +295,6 @@ jobs:
     defaults:
       run:
         working-directory: "${{ matrix.dir }}"
-    concurrency:
-      group: "${{ github.workflow-}}-${{ github.ref_name }}-terraformplanapply-${{ matrix.dir }}"
-      cancel-in-progress: false
     steps:
       - name: "git checkout"
         uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
