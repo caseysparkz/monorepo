@@ -107,3 +107,9 @@ output "aws_s3_bucket_uri" {
   description = "URI of the S3 bucket (as expected by the AWS CLI)."
   value       = "s3://${aws_s3_bucket.this.id}/"
 }
+
+output "aws_kms_key_arn" {
+  description = "ARN of the KMS key used to encrypt tfstate."
+  value       = aws_kms_key.this.arn
+  sensitive   = true
+}

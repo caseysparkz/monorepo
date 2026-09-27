@@ -6,6 +6,7 @@ locals {
   project        = "iam"
   application    = "githubactions"
   namespace      = "${local.environment}-${local.project}-${local.application}"
+  tfstate_bucket = "com.caseysparkz.tfstate"
   common_tags = {
     Application = local.application
     Domain      = "github.com"
@@ -21,36 +22,14 @@ locals {
 // Data ========================================================================
 data "aws_caller_identity" "this" {}
 
-data "aws_iam_policy_document" "this" {
-  statement {
-    sid     = "GitHubActionsAssumeRole"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
-    effect  = "Allow"
-
-    principals {
-      type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.this.arn]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:caseysparkz@45407933/monorepo@578333854:*"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "token.actions.githubusercontent.com:aud"
-      values   = ["sts.amazonaws.com"]
-    }
+data "terraform_remote_state" "tfstate" {
+  backend = "s3"
+  config = {
+    bucket       = "com.caseysparkz.tfstate"
+    key          = "tfstate.tfstate"
+    region       = "us-west-2"
+    use_lockfile = true
   }
-}
-
-// Modules =====================================================================
-module "aws_resourcegroups_group" {
-  source              = "../../../../../../modules/aws_resourcegroup_by_tagset"
-  resource_group_name = "${local.namespace}-rg"
-  common_tags         = local.common_tags
 }
 
 // Resources ===================================================================
@@ -58,30 +37,12 @@ resource "aws_iam_openid_connect_provider" "this" {
   url             = "https://token.actions.githubusercontent.com"
   client_id_list  = ["sts.amazonaws.com"]
   thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"]
-  tags            = { Name = "${local.namespace}-iam-idp" }
+  tags            = { Name = "${local.namespace}-iam-oidc-provider-gha" }
 }
 
-resource "aws_iam_role" "this" {
-  depends_on           = [aws_iam_openid_connect_provider.this]
-  name                 = "${local.namespace}-iam-role"
-  description          = "IAM role assumed by GitHub Actions allowing Terraform deployments."
-  assume_role_policy   = data.aws_iam_policy_document.this.json
-  max_session_duration = 3600 // Min. allowable
-  tags                 = { Name = "${local.namespace}-iam-role" }
-}
-
-resource "aws_iam_role_policy_attachment" "github_actions" {
-  /*
-   Unfortunately over-scoped, but GHA/Terraform action may need to perform
-   any arbitrary action.
-  */
-  role       = aws_iam_role.this.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
-}
-
-// Outputs =====================================================================
-output "aws_role_arn" {
-  description = "ARN of the AWS IAM role for GitHub Actions to assume."
-  value       = aws_iam_role.this.arn
-  sensitive   = true
+// Modules =====================================================================
+module "aws_resourcegroups_group" {
+  source              = "../../../../../../modules/aws_resourcegroup_by_tagset"
+  resource_group_name = "${local.namespace}-rg"
+  common_tags         = { Namespace = local.namespace }
 }
