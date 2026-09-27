@@ -37,10 +37,10 @@ jobs:
     permissions:
       contents: "read"
     outputs:
-      manifest_dirs: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
-      module_dirs: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
       all_dirs: "${{ steps.all_changed.outputs.tf_all_changed_dirs }}"
       infracost_updated: "${{ steps.changed_manifests.outputs.infracost_any_changed }}"
+      manifest_dirs: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
+      module_dirs: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
@@ -66,11 +66,14 @@ jobs:
 
       - name: "Get all changed Terraform directories"
         id: "all_changed"
+        env:
+          MANIFEST_DIRS: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
+          MODULE_DIRS: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
         run: |
           ALL_DIRS="$(                                                                          \
             echo                                                                                \
-              '${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}'             \
-              '${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}'                 \
+              "${MANIFEST_DIRS}"                                                                \
+              "${MODULE_DIRS}"                                                                  \
             | jq -s '.[0] + .[1]'                                                               \
             | jq -r tostring                                                                    \
           )"
@@ -78,11 +81,16 @@ jobs:
           echo "tf_all_changed_dirs=${ALL_DIRS}" >> "${GITHUB_OUTPUT}"
 
       - name: "Debug outputs"
+        env:
+          MANIFEST_DIRS: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
+          MODULE_DIRS: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
+          ALL_DIRS: "${{ steps.all_changed.outputs.tf_all_changed_dirs }}"
+          INFRACOST_UPDATED: "${{ steps.changed_manifests.outputs.infracost_any_changed }}"
         run: |
-          printf 'manifest_dirs: ${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}\n'
-          printf 'module_dirs: ${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}\n'
-          printf 'all_dirs: ${{ steps.all_changed.outputs.tf_all_changed_dirs }}\n'
-          printf 'infracost_updated: ${{ steps.changed_manifests.outputs.infracost_any_changed }}\n'
+          printf 'manifest_dirs: %s\n' "${MANIFEST_DIRS}"
+          printf 'module_dirs: %s\n' "${MODULE_DIRS}"
+          printf 'all_dirs: %s\n' "${ALL_DIRS}"
+          printf 'infracost_updated: %s\n' "${INFRACOST_UPDATED}"
 
   terraform_test:
     name: "terraform test"
@@ -152,8 +160,8 @@ jobs:
       - name: "terraform validate"
         run: "terraform validate"
 
-  tfsec: # TODO: update to trivy
-    name: "tfsec"
+  trivy:
+    name: "trivy"
     runs-on: "ubuntu-latest"
     needs:
       - "changed_terraform"
@@ -171,11 +179,12 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: "tfsec"
-        uses: "aquasecurity/tfsec-action@b466648d6e39e7c75324f25d83891162a721f2d6" # v1.0.3
+      - name: "trivy config ${{ matrix.dir }}"
+        uses: "aquasecurity/trivy-action@a9c7b0f06e461e9d4b4d1711f154ee024b8d7ab8" # v0.36.0
         with:
-          github_token: "${{ github.token }}"
-          working_directory: "${{ matrix.dir }}"
+          scan-type: "config"
+          scan-ref: "${{ matrix.dir }}"
+          exit-code: "1"
 
   infracost_diff:
     name: "infracost diff"
@@ -272,13 +281,12 @@ jobs:
             --github-token ${{ github.token }}                                \
             --behavior update
 
-  terraform_plan_apply:
-    name: "terraform plan && terraform apply"
+  terraform_plan:
+    name: "terraform plan"
     runs-on: "ubuntu-latest"
-    # Runs on both PR+push if Terraform manifests change
     if: "${{ needs.changed_terraform.outputs.manifest_dirs != '[]' }}"
     concurrency:
-      group: "${{ github.workflow }}-terraformplanapply"
+      group: "${{ github.workflow }}-terraformplan-${{ matrix.dir }}"
       cancel-in-progress: false
     needs:
       - "changed_terraform"
@@ -310,8 +318,13 @@ jobs:
         uses: "aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd"  # v6.3.0
         with:
           aws-region: "${{ env.AWS_DEFAULT_REGION }}"
-          role-to-assume: "${{ github.event_name == 'push' && secrets.AWS_ROLE_ARN_ADMIN || secrets.AWS_ROLE_ARN_READONLY }}"
           role-session-name: "gha-${{ github.run_id }}"
+          role-to-assume: >
+            ${{
+              github.event_name == 'push'
+              && secrets.AWS_ROLE_ARN_ADMIN
+              || secrets.AWS_ROLE_ARN_READONLY
+            }}
 
       - name: "terraform init"
         run: "terraform init"
@@ -332,6 +345,51 @@ jobs:
           skip-empty: false
           expand-comment: false
 
+  terraform_apply:
+    name: "terraform apply"
+    runs-on: "ubuntu-latest"
+    if: "${{ github.event_name == 'push' && needs.changed_terraform.outputs.manifest_dirs != '[]' }}"
+    concurrency:
+      group: "${{ github.workflow }}-terraformapply-${{ matrix.dir }}"
+      cancel-in-progress: false
+    needs:
+      - "changed_terraform"
+      - "terraform_validate"
+      - "terraform_plan"
+    permissions:
+      contents: "read"
+      id-token: "write"
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        dir: "${{ fromJSON(needs.changed_terraform.outputs.manifest_dirs) }}"
+    defaults:
+      run:
+        working-directory: "${{ matrix.dir }}"
+    steps:
+      - name: "git checkout"
+        uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
+        with:
+          fetch-depth: 2
+
+      - name: "apt install -y terraform"
+        uses: "hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e" # v4.0.1
+        with:
+          terraform_version: "${{ env.TERRAFORM_VERSION }}"
+
+      - name: "aws sso login"
+        uses: "aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd"  # v6.3.0
+        with:
+          aws-region: "${{ env.AWS_DEFAULT_REGION }}"
+          role-session-name: "gha-${{ github.run_id }}"
+          role-to-assume: "${{ secrets.AWS_ROLE_ARN_ADMIN }}"
+
+      - name: "terraform init"
+        run: "terraform init"
+
+      - name: "terraform plan"
+        run: "terraform plan -out=${TERRAFORM_PLANFILE}"
+
       - name: "terraform apply"
-        if: "${{ github.event_name == 'push' }}"
         run: "terraform apply --auto-approve ${TERRAFORM_PLANFILE}"
