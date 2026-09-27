@@ -310,7 +310,7 @@ jobs:
         uses: "aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd"  # v6.3.0
         with:
           aws-region: "${{ env.AWS_DEFAULT_REGION }}"
-          role-to-assume: "${{ secrets.AWS_ROLE_ARN }}"
+          role-to-assume: "${{ github.event_name == 'push' && secrets.AWS_ROLE_ARN_ADMIN || secrets.AWS_ROLE_ARN_READONLY }}"
           role-session-name: "gha-${{ github.run_id }}"
 
       - name: "terraform init"
