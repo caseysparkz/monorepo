@@ -22,7 +22,7 @@ locals {
     { key = "adkim", value = "s" },
     { key = "aspf", value = "s" },
     { key = "fo", value = 1 },
-    { key = "pct", value = 5 },
+    { key = "pct", value = 100 },
     { key = "rua", value = "mailto:dmarc_rua@${var.root_domain}" },
     { key = "ruf", value = "mailto:dmarc_ruf@${var.root_domain}" },
   ]
