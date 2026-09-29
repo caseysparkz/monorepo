@@ -124,14 +124,14 @@ sha256 = "4063f534b1d4db39af94a7611cccedcddd595ff35c8ec2128e0039288f87a069"
 
 [[packages]]
 name = "botocore"
-version = "1.43.103"
+version = "1.43.105"
 
 [[packages.wheels]]
-name = "botocore-1.43.103-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/8c/47/790ba88ec849d1e07b5866458b67e79b291164f3de7f23429b4dcb7e2ced/botocore-1.43.103-py3-none-any.whl"
+name = "botocore-1.43.105-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/f3/94/50923cd46840e4d2b56cad1dcf5008fb20c099b04b2d93d32231f2d0bfaa/botocore-1.43.105-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "6a6a561a6de43845ae42bc7ff7e2c798742bfa277f5215398f9c15ed9b1bd67c"
+sha256 = "7abd19e1ef2c5e4a0314ca493fa7cebefabe33e559d7dd570fe2432a5431e6ec"
 
 [[packages]]
 name = "botocore-stubs"
@@ -212,14 +212,14 @@ sha256 = "255bc9599cf7748b4b1a446ccc735421bd08a2ae529a8b88597d3de5664ee360"
 
 [[packages]]
 name = "coverage"
-version = "7.16.1"
+version = "7.16.2"
 
 [[packages.wheels]]
-name = "coverage-7.16.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/ca/8d/1fd78899513244b065ccecdd1cfc6aa8b8f1bdee796d8c4f2aa8e8e5397d/coverage-7.16.1-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
+name = "coverage-7.16.2-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/1d/56/6785397d07c29c8e70fbb9a07e97d062b43c21ffc5f12385917847f09f63/coverage-7.16.2-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "6b3fd0f3435ebb7a7183b32a6062a8b755f08242ced1f3f22761d30b56b3c2a5"
+sha256 = "4358b9c8c0125b460407f3017c6cce8156e904b32772c5630d27112f52bdbfe5"
 
 [[packages]]
 name = "cryptography"
@@ -301,14 +301,14 @@ sha256 = "760643d3452b4d777d295bb167ccc74c64a81df23fb5e08eff250c425a4b2017"
 
 [[packages]]
 name = "filelock"
-version = "4.0.3"
+version = "4.0.7"
 
 [[packages.wheels]]
-name = "filelock-4.0.3-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/7a/6d/db8b86e168fef0cf904737e275bccb683558088ef971e92d3b41ce980699/filelock-4.0.3-py3-none-any.whl"
+name = "filelock-4.0.7-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/06/cf/1731c0dd182ee35f80a39e63afb3d03056ea0dd561b7498932b10b2e34d9/filelock-4.0.7-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "30cd166e2aee2c7534ce2c33c6367c4cd051b8368e20e2c4eb0c34f699bacfab"
+sha256 = "a93c4d93269b339a6af4848342c7e940d0f9928ad95eff64764699e5f1bf8a6a"
 
 [[packages]]
 name = "idna"
@@ -422,14 +422,14 @@ sha256 = "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe"
 
 [[packages]]
 name = "librt"
-version = "0.15.0"
+version = "0.16.0"
 
 [[packages.wheels]]
-name = "librt-0.15.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/8d/e2/c08fd1d36ce63ea5a12b85c5d37f4550b5f86a692167e41e5a74222607ae/librt-0.15.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+name = "librt-0.16.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/a9/59/16c409c56f708eda2db9a0553662845d45e3871c77d70a240dae3f3bdc56/librt-0.16.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "234d8d394721fa0d786af15ebf1f3fb7f3ed82fd1cd0cde45c2f247b5d4281d2"
+sha256 = "17bac7f7a16b328fff77e440287693eb017abde913595b5827ebccbc21ecd8a6"
 
 [[packages]]
 name = "license-expression"
@@ -499,14 +499,14 @@ sha256 = "5ec31b3cdbb383a19d46030157bd82aaaa7a9cc5f564200f995663d347bd4728"
 
 [[packages]]
 name = "msgpack"
-version = "1.2.2"
+version = "1.2.3"
 
 [[packages.wheels]]
-name = "msgpack-1.2.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/6e/d3/6592e4064619b04f2dd0054c5fa13e37e3d55eb26044483d871fadb2f46b/msgpack-1.2.2-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+name = "msgpack-1.2.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/b0/30/c394d37898db9212d1693456cdf363c7e1a097d0b63e10664007f3df3ec1/msgpack-1.2.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "d24b38a825bcca41bb956de50eb98451ef291304a8607fad99e619043d3e79b9"
+sha256 = "07c9733089d1b176c3dd2f7fa268452f9d5d784d076473499d754a58e8d1fbbb"
 
 [[packages]]
 name = "mypy"
@@ -631,14 +631,14 @@ sha256 = "4659bc2a667783e7a15d190f6fccf8b2486685b6dba4c19c3876314769c57526"
 
 [[packages]]
 name = "platformdirs"
-version = "4.11.15"
+version = "4.12.2"
 
 [[packages.wheels]]
-name = "platformdirs-4.11.15-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/84/83/246d3052d043683cc5f400ab5748bd07a99fbdf311dc771cfad7e3f9e7e0/platformdirs-4.11.15-py3-none-any.whl"
+name = "platformdirs-4.12.2-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/d0/89/446044f33aba0348d35e433f56d12206d010a5281a1df54054d4cfb82388/platformdirs-4.12.2-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "84508421c77d3c6462e71dd8c0d2776c2ace0e94eb006dc4fd383bc1dcf5a176"
+sha256 = "29dbf06d96c500bc6bdbce75fb0a14d63279c93b1842f97e72a135b33e856983"
 
 [[packages]]
 name = "pluggy"
@@ -983,14 +983,14 @@ sha256 = "f775618166caa0396c8e337099240f2bd3e5e917d203b2e6fbe21a58d3cb1f6b"
 
 [[packages]]
 name = "types-boto3"
-version = "1.43.103"
+version = "1.43.105"
 
 [[packages.wheels]]
-name = "types_boto3-1.43.103-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/a5/81/569117cbb074d48dfb73b27f71255b90b70700a520d1502f95511d316e38/types_boto3-1.43.103-py3-none-any.whl"
+name = "types_boto3-1.43.105-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/46/41/9392cf3f462fbe783136a5a0fb86200668639f5a1914d15d2c98833d4a63/types_boto3-1.43.105-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "c64897bf7cff2cda49640661ddf6e8188aeda9072dd0fec3bd135b9a7dbc840b"
+sha256 = "c393260f37ab74b66844165dbc23bb766e39877f4cef90454b9b5104525c7d4d"
 
 [[packages]]
 name = "types-boto3-ses"
@@ -1060,14 +1060,14 @@ sha256 = "747fb724223f417a17541a95a17c1dac3a8ef9a0cf41684950f0eab191a35f65"
 
 [[packages]]
 name = "werkzeug"
-version = "3.1.8"
+version = "3.1.9"
 
 [[packages.wheels]]
-name = "werkzeug-3.1.8-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/93/8c/2e650f2afeb7ee576912636c23ddb621c91ac6a98e66dc8d29c3c69446e1/werkzeug-3.1.8-py3-none-any.whl"
+name = "werkzeug-3.1.9-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/a1/38/df03f564f43cec2684823f3cccae1a652ee7face1cbaa76fb223096e64d7/werkzeug-3.1.9-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "63a77fb8892bf28ebc3178683445222aa500e48ebad5ec77b0ad80f8726b1f50"
+sha256 = "6392e50c78460ba618e5b21f08a71f59c99ce99cdc6cf6e3dd7e6ccca8754fab"
 
 [[packages]]
 name = "xmltodict"
