@@ -11,12 +11,7 @@ data "aws_iam_policy_document" "allow_bedrock_usage" {
       "bedrock:InvokeModel",
       "bedrock:InvokeModelWithResponseStream",
     ]
-    resources = concat(
-      var.enabled ? [aws_bedrock_inference_profile.this[0].arn] : [],
-      [data.aws_bedrock_inference_profile.this.inference_profile_arn],
-      // Cross-region calls are also authorized against the foundation model in each destination region.
-      data.aws_bedrock_inference_profile.this.models[*].model_arn,
-    )
+    resources = module.bedrock.aws_bedrock_inference_profile_arns
 
     condition { // Mitigate confused deputy
       test     = "StringEquals"

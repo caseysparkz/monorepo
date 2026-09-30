@@ -6,3 +6,4 @@
 **/.terraformrc
 **/terraform.rc
 **/.infracost*
+modules/**/.terraform.lock.hcl

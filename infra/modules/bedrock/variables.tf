@@ -1,17 +1,9 @@
 /* Variables */
-
 variable "enabled" {
-  description = "Whether or not Bedrock is enabled on my account."
+  description = "Whether or not the Bedrock model is enabled."
   type        = bool
   sensitive   = false
   default     = false
-}
-
-variable "aws_region" {
-  description = "AWS region to deploy resources to."
-  type        = string
-  sensitive   = false
-  default     = "us-west-2"
 }
 
 variable "aws_bedrock_foundation_model_id" {
@@ -35,18 +27,13 @@ variable "aws_bedrock_cross_region" {
 
 variable "aws_bedrock_use_case_for_model_access" {
   description = "Use case passed to Anthropic (not needed for non-Anthropic models)."
-  type        = map(string)
+  type        = map(any)
   sensitive   = false
-  default = {
-    companyName         = "CaseySparkz",
-    companyWebsite      = "https://www.caseysparkz.com",
-    intendedUsers       = "1",
-    industryOption      = "Software"
-    otherIndustryOption = "",
-    useCases            = <<-EOT
-      * Generating developer documentation.
-      * Code generation/refactoring.
-      * Summarization of issues/documents.
-    EOT
-  }
+  default     = {}
+}
+
+variable "resource_name_prefix" {
+  description = "String to prepend to all created resource names."
+  type        = string
+  sensitive   = false
 }

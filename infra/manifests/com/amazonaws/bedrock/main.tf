@@ -37,14 +37,29 @@ data "terraform_remote_state" "this" {
   }
 }
 
+// Resources ===================================================================
+resource "aws_bedrock_use_case_for_model_access" "this" {
+  form_data = jsonencode(var.aws_bedrock_use_case_for_model_access)
+
+  lifecycle { ignore_changes = [form_data] }
+}
+
 // Modules =====================================================================
 module "aws_resourcegroups_group" {
+  depends_on          = [aws_bedrock_use_case_for_model_access.this]
   source              = "../../../../modules/aws_resourcegroup_by_tagset"
   resource_group_name = "${local.namespace}-rg"
   common_tags         = local.common_tags
 }
 
-// Resources ===================================================================
+module "bedrock" {
+  source                                = "../../../../modules/bedrock"
+  enabled                               = var.enabled
+  aws_bedrock_foundation_model_id       = var.aws_bedrock_foundation_model_id
+  aws_bedrock_cross_region              = var.aws_bedrock_cross_region
+  resource_name_prefix                  = local.namespace
+  aws_bedrock_use_case_for_model_access = var.aws_bedrock_use_case_for_model_access
+}
 
 // Outputs =====================================================================
 output "aws_region" {
