@@ -9,26 +9,51 @@ projects:
     terraform_workspace: "default"
     usage_file: "./infra/manifests/tfstate/infracost_usage.yml"
     terraform_var_files: []
-    dependency_paths: ["./infra/manifests/tfstate/*"]
+    dependency_paths:
+      - "./infra/manifests/tfstate/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   # amazonaws.com =============================================================
   - <<: *default
     name: "amazonaws.com"
     path: "./infra/manifests/com/amazonaws/"
     usage_file: "./infra/manifests/com/amazonaws/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/amazonaws/*"]
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   - <<: *default
     name: "iam.amazonaws.com"
     path: "./infra/manifests/com/amazonaws/iam/"
     usage_file: "./infra/manifests/com/amazonaws/iam/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/amazonaws/iam/*"]
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/iam/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   - <<: *default
     name: "github_actions.oidc.iam.amazonaws.com"
     path: "./infra/manifests/com/amazonaws/iam/oidc/github_actions"
     usage_file: "./infra/manifests/com/amazonaws/iam/oidc/github_actions/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/amazonaws/iam/oidc/github_actions/*"]
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/iam/oidc/github_actions/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
+
+  - <<: *default
+    name: "bedrock.amazonaws.com"
+    path: "./infra/manifests/com/amazonaws/bedrock"
+    usage_file: "./infra/manifests/com/amazonaws/bedrock/infracost_usage.yml"
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/bedrock/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
+      - "./infra/modules/bedrock/*"
+
+  - <<: *default
+    name: "ecr.amazonaws.com"
+    path: "./infra/manifests/com/amazonaws/ecr"
+    usage_file: "./infra/manifests/com/amazonaws/ecr/infracost_usage.yml"
+    dependency_paths:
+      - "./infra/manifests/com/amazonaws/ecr/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   # caseyspar.kz ==============================================================
   - <<: *default
@@ -37,6 +62,7 @@ projects:
     usage_file: "./infra/manifests/kz/caseyspar/infracost_usage.yml"
     dependency_paths:
       - "./infra/manifests/kz/caseyspar/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
       - "./infra/modules/proton_domain/**"
 
   # caseysparkz.com ===========================================================
@@ -44,30 +70,26 @@ projects:
     name: "caseysparkz.com"
     path: "./infra/manifests/com/caseysparkz/"
     usage_file: "./infra/manifests/com/caseysparkz/infracost_usage.yml"
-    terraform_var_files: ["./production.tfvars"]
     dependency_paths:
       - "./infra/manifests/com/caseysparkz/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
       - "./infra/modules/proton_domain/**"
-
-  - <<: *default
-    name: "ecr.caseysparkz.com"
-    path: "./infra/manifests/com/caseysparkz/ecr/"
-    usage_file: "./infra/manifests/com/caseysparkz/ecr/infracost_usage.yml"
-    dependency_paths:
-      - "./infra/manifests/com/caseysparkz/ecr/*"
-      - "./infra/modules/ecr/**"
 
   - <<: *default
     name: "photos.caseysparkz.com"
     path: "./infra/manifests/com/caseysparkz/photos/"
     usage_file: "./infra/manifests/com/caseysparkz/photos/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/caseysparkz/photos/*"]
+    dependency_paths:
+      - "./infra/manifests/com/caseysparkz/photos/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   - <<: *default
     name: "store.caseysparkz.com"
     path: "./infra/manifests/com/caseysparkz/store/"
     usage_file: "./infra/manifests/com/caseysparkz/store/infracost_usage.yml"
-    dependency_paths: ["./infra/manifests/com/caseysparkz/store/*"]
+    dependency_paths:
+      - "./infra/manifests/com/caseysparkz/store/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
 
   - <<: *default
     name: "www.caseysparkz.com"
@@ -75,5 +97,6 @@ projects:
     usage_file: "./infra/manifests/com/caseysparkz/www/infracost_usage.yml"
     dependency_paths:
       - "./infra/manifests/com/caseysparkz/www/*"
+      - "./infra/modules/aws_resourcegroup_by_tagset/*"
       - "./infra/modules/hugo_static_site/**"
       - "./infra/modules/s3_artifacts/**"
