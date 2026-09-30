@@ -1,11 +1,78 @@
 ---
 version: '0.1'
-resource_usage: {}
+resource_usage:
+  aws_lambda_function:
+    monthly_requests: 10
+    request_duration_ms: 2000
+  aws_s3_bucket_analytics_configuration:
+    monthly_monitored_objects: 1000
+  aws_s3_bucket_inventory:
+    monthly_listed_objects: 1000
+  aws_s3_bucket:
+    object_tags: 20
+    standard:
+      storage_gb: 100
+      monthly_tier_1_requests: 2000
+      monthly_tier_2_requests: 1000
+      monthly_select_data_scanned_gb: 100
+      monthly_select_data_returned_gb: 100
+#   intelligent_tiering:
+#     frequent_access_storage_gb: 20000
+#     infrequent_access_storage_gb: 20000
+#     monitored_objects: 2000
+#     monthly_tier_1_requests: 2000000
+#     monthly_tier_2_requests: 200000
+#     monthly_lifecycle_transition_requests: 200000
+#     monthly_select_data_scanned_gb: 20000
+#     monthly_select_data_returned_gb: 2000
+#     early_delete_gb: 200000
+#   standard_infrequent_access:
+#     storage_gb: 30000
+#     monthly_tier_1_requests: 3000000
+#     monthly_tier_2_requests: 300000
+#     monthly_lifecycle_transition_requests: 300000
+#     monthly_data_retrieval_gb: 30000
+#     monthly_select_data_scanned_gb: 30000
+#     monthly_select_data_returned_gb: 3000
+#   one_zone_infrequent_access:
+#     storage_gb: 40000
+#     monthly_tier_1_requests: 4000000
+#     monthly_tier_2_requests: 400000
+#     monthly_lifecycle_transition_requests: 400000
+#     monthly_data_retrieval_gb: 40000
+#     monthly_select_data_scanned_gb: 40000
+#     monthly_select_data_returned_gb: 4000
+#   glacier_flexible_retrieval:
+#     storage_gb: 50000
+#     monthly_tier_1_requests: 5000000
+#     monthly_tier_2_requests: 500000
+#     monthly_lifecycle_transition_requests: 500000
+#     monthly_standard_select_data_scanned_gb: 500000
+#     monthly_standard_select_data_returned_gb: 500000
+#     monthly_bulk_select_data_scanned_gb: 500000
+#     monthly_bulk_select_data_returned_gb: 500000
+#     monthly_expedited_select_data_scanned_gb: 500000
+#     monthly_expedited_select_data_returned_gb: 500000
+#     monthly_standard_data_retrieval_requests: 500000
+#     monthly_expedited_data_retrieval_requests: 500000
+#     monthly_standard_data_retrieval_gb: 5000
+#     monthly_expedited_data_retrieval_gb: 5000
+#     early_delete_gb: 500000
+#   glacier_deep_archive:
+#     storage_gb: 60000
+#     monthly_tier_1_requests: 6000000
+#     monthly_tier_2_requests: 600000
+#     monthly_lifecycle_transition_requests: 600000
+#     monthly_standard_data_retrieval_requests: 600000
+#     monthly_bulk_data_retrieval_requests: 600000
+#     monthly_standard_data_retrieval_gb: 6000
+#     monthly_bulk_data_retrieval_gb: 6000
+#     early_delete_gb: 600000
 resource_type_default_usage:
   aws_acmpca_certificate_authority:
     monthly_requests: 20000
   aws_api_gateway_rest_api:
-    monthly_requests:  100000000
+    monthly_requests: 100000000
   aws_apigatewayv2_api:
     monthly_requests: 100000000
     request_size_kb: 512
