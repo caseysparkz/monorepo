@@ -1,6 +1,7 @@
 # `caseyspar.kz`
 
-This directory contains Terraform configurations for my domain, `caseyspar.kz`.
+This directory contains Terraform configurations for my old domain,
+`caseyspar.kz`.
 
 Presently, that configuration is limited to a Proton mail server, as I have
 migrated most other services to

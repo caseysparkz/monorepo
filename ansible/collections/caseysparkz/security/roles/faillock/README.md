@@ -1,4 +1,4 @@
-# faillock
+# caseysparkz.security.faillock
 
 Configures `faillock`.
 

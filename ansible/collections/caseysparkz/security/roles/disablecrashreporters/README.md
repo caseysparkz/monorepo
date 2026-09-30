@@ -1,4 +1,4 @@
-# disablecrashreporters
+# caseysparkz.security.disablecrashreporters
 
 Disable system crash reporters.
 

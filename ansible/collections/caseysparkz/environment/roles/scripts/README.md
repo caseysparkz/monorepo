@@ -1,6 +1,6 @@
-# scripts
+# caseysparkz.environment.scripts
 
-Installs my scripts.
+Installs my shell/Python scripts.
 
 ## Example Playbook
 

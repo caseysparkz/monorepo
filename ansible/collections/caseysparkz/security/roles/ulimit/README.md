@@ -1,4 +1,4 @@
-# ulimit
+# caseysparkz.security.ulimit
 
 Hardens ulimits.
 
@@ -9,10 +9,18 @@ Hardens ulimits.
 ```yaml
 ---
 ulimit_values:
-  - domain: "*"  # Max. three concurrent logins
+  - domain: "*"  # 0kb core filesize soft limit
+    type: "soft"
+    item: "core"
+    value: "0"
+  - domain: "*"  # 0kb core filesize hard limit
+    type: "hard"
+    item: "core"
+    value: "0"
+  - domain: "*"  # Max. 5 concurrent logins
     type: "hard"
     item: "maxlogins"
-    value: "3"
+    value: "5"
 ```
 
 ## Example Playbook

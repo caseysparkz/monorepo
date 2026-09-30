@@ -1,6 +1,6 @@
-# git
+# caseysparkz.environment.git
 
-Installs/configures git and its helpers.
+Installs/configures git and associated helpers.
 
 ## Example Playbook
 

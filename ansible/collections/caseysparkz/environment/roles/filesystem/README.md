@@ -1,10 +1,10 @@
-# filesystem
+# caseysparkz.environment.filesystem
 
-Creates directories in the home dir.
+Creates directories in the home directory.
 
 ## Role Variables
 
-## `filesystem_paths`
+### `filesystem_paths`
 
 List of paths to create (nested under ~).
 

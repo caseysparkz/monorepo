@@ -8,13 +8,13 @@ infrastructure-as-code, with a view to cloud security, and CI/CD.
 ### Required Software and Languages
 
 * [Dagger](https://dagger.io/)
-  * [Go](https://go.dev/doc/install) 1.24.4+
+   * [Go](https://go.dev/doc/install) 1.26.4+
 * [Docker](https://docs.docker.com/engine/install)
-  * Docker Compose
+   * Docker Compose
 * [Python](https://www.python.org/downloads/) 3.13+. Dependencies installed via
   `pip install .` include:
-  * `ansible`
-  * `boto3`
+   * `ansible-core`
+   * `boto3`
 * [Terraform](https://developer.hashicorp.com/terraform/install)
 
 ### Recommended Software
@@ -28,20 +28,28 @@ infrastructure-as-code, with a view to cloud security, and CI/CD.
 * [tfschema](https://github.com/minamijoyo/tfschema)
 * [trivy](https://trivy.dev/docs/latest/getting-started/installation/)
 * Python `[dev,test]` dependencies installed via `pip install .[all]` include:
-  * `ansible-lint`
-  * `ipython`
-  * `mypy`
-  * `pip-audit`
-  * `pytest-cov`
-  * `pytest`
-  * `ruff`
-  * `yamllint`
+   * `ansible-lint`
+   * `ipython`
+   * `moto`
+   * `mypy`
+   * `pip-audit`
+   * `pytest-cov`
+   * `pytest`
+   * `ruff`
+   * `yamllint`
+   * `yq`
 
 ## Repository Structure
 
-* Each domain contains its own directory in the top-level repository.
-* Each component (Docker images, k8s configurations, Ansible playbooks,
-   Terraform configurations) has its own subdirectory under its relevant domain.
+* [`ansible/`](./ansible/README.md). Ansible collections for hardening, tuning,
+  and configuring Linux hosts.
+* [`dagger/`](./dagger/README.md). Dagger CI modules (`dagger check`).
+* [`docker/`](./docker/README.md). Dockerfiles and Compose files for base
+  images pushed to ECR.
+* `infra/manifests/`. Terraform root configurations, laid out by reverse domain
+  (e.g. `com/caseysparkz/`).
+* [`infra/modules/`](./infra/modules/README.md). Reusable Terraform modules.
+* `.github/`. GitHub Actions workflows and supplementary configuration.
 
 ## Security
 
@@ -63,15 +71,17 @@ Run prowler scans against the AWS environment with:
 prowler aws                                                                   \
     --region "${AWS_REGION}"                                                  \
     --profile "${AWS_PROFILE}"                                                \
-    --mutelist-file .prowler_mutelist.yml                                     \
+    --mutelist-file .prowler/mutelist.yml                                     \
     --security-hub
 ```
 
 ## CI/CD
 
 At this moment, CI/CD is split between GitHub Actions (old) and
-Dagger (new). GitHub is becoming less-and-less reliable, and my CI/CD pipelines
-are really the only part of my workflow with high vendor-lock-in.
+Dagger (new). The `CI` GitHub Actions workflow already delegates most checks to
+`dagger check`, filtered by which files changed in the pull request. GitHub is
+becoming less-and-less reliable, and my CI/CD pipelines are really the only part
+of my workflow with high vendor-lock-in.
 
 I'll be fixing this over the coming weeks and months, as I move to a pure-Dagger
 approach.

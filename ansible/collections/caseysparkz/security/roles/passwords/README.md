@@ -1,6 +1,6 @@
-# passwords
+# caseysparkz.security.passwords
 
-Sets resonable password requirements via PAM.
+Sets reasonable password requirements via PAM.
 
 ## Example Playbook
 

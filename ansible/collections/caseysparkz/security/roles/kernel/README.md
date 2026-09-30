@@ -1,14 +1,16 @@
-# kernel
+# caseysparkz.security.kernel
 
 Hardens the Linux kernel.
 
 ## Role Variables
 
-### `hardenkernel_grubflags`
+### `kernel_grubflags`
+
+Kernel command-line flags added to GRUB.
 
 ```yaml
 ---
-hardenkernel_grubflags:
+kernel_grubflags:
   - option: "rhgb"
     value: "slab_nomerge quiet"
   - option: "amd_iommu"
@@ -19,13 +21,16 @@ hardenkernel_grubflags:
     value: 1
   - option: "init_on_free"
     value: 1
+  # ...
 ```
 
-### `hardenkernel_sysctlvars`
+### `kernel_sysctlvars`
+
+Sysctl values to set.
 
 ```yaml
 ---
-hardenkernel_sysctlvars:
+kernel_sysctlvars:
   - name: "net.ipv6.conf.default.use_tempaddr"
     value: 2
   - name: "net.unix.max_dgram_qlen"
@@ -42,7 +47,10 @@ hardenkernel_sysctlvars:
     value: 50
   - name: "vm.unprivileged_userfaultfd"
     value: 0
+  # ...
 ```
+
+See `defaults/main.yml` for the full lists.
 
 ## Example Playbook
 

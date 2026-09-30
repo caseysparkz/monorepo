@@ -1,4 +1,4 @@
-# bash
+# caseysparkz.environment.bash
 
 Sets up my preferred bash environment.
 

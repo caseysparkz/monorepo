@@ -1,6 +1,6 @@
-# fail2ban
+# caseysparkz.security.fail2ban
 
-Install and configure fail2ban.
+Install and configure Fail2Ban.
 
 ## Role Variables
 

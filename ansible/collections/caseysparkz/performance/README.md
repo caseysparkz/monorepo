@@ -1,3 +1,3 @@
 # Ansible Collection - caseysparkz.performance
 
-Documentation for the collection.
+An Ansible collection of Linux performance tweaks.

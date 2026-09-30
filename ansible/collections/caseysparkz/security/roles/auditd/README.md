@@ -1,4 +1,4 @@
-# auditd
+# caseysparkz.security.auditd
 
 Configures auditd.
 

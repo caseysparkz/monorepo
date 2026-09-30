@@ -1,4 +1,4 @@
-# all
+# caseysparkz.performance.all
 
 Runs all performance roles.
 
@@ -6,14 +6,15 @@ Runs all performance roles.
 
 * `caseysparkz.performance.filesystem`
 * `caseysparkz.performance.ioscheduler`
+* `caseysparkz.performance.zswap`
 
 ## Example Playbook
 
 ```yaml
 ---
-- hosts: servers
+- hosts: "all"
   roles:
-     - { role: username.rolename, x: 42 }
+     - role: "caseysparkz.performance.all"
 ```
 
 ## License

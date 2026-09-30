@@ -1,6 +1,6 @@
-# vim
+# caseysparkz.environment.vim
 
-Configures Vim.
+Installs my Vim configuration.
 
 ## Example Playbook
 

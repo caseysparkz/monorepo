@@ -1,4 +1,4 @@
-# zswap
+# caseysparkz.performance.zswap
 
 Enable and tune `zswap`.
 

@@ -1,4 +1,4 @@
-# dotfiles
+# caseysparkz.environment.dotfiles
 
 Installs my config files.
 
@@ -10,19 +10,19 @@ A list of directories to create prior to symlinking config files.
 
 ```yaml
 dotfiles_subdirectories:
-  - path: "{{ ansible_env.HOME }}/.config/SOMEDIRECTORY"
+  - path: "{{ ansible_facts.env.HOME }}/.config/SOMEDIRECTORY"
     mode: "0700"
 ```
 
 ### `dotfiles_symlinks`
 
-A list of (config) files to symlink.
+A list of (config) files to link. `src` is relative to the role's `files/`
+directory.
 
 ```yaml
 dotfiles_symlinks:
-  - src: "{{ role_path }}/files/config/SOMEFILE.conf
-    dest: "{{ ansible_env.HOME }}/.config/SOMEFILE.conf
-    mode: "0640"
+  - src: "config/SOMEFILE.conf"
+    dest: "{{ ansible_facts.env.HOME }}/.config/SOMEFILE.conf"
 ```
 
 ## Example Playbook

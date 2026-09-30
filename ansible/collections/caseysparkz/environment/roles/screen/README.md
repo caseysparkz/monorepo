@@ -1,6 +1,6 @@
-# screen
+# caseysparkz.environment.screen
 
-Install Gnu Screen and its configs.
+Install Gnu Screen and associated configuration files.
 
 ## Example Playbook
 

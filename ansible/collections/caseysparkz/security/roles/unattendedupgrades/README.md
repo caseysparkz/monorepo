@@ -1,6 +1,6 @@
-# unattendedupgrades
+# caseysparkz.security.unattendedupgrades
 
-Enable unattended upgrades for security packages.
+Enable unattended upgrades for security packages via APT.
 
 ## Example Playbook
 

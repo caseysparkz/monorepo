@@ -1,3 +1,3 @@
 # Ansible Collection - caseysparkz.security
 
-Documentation for the collection.
+An Ansible collection to harden Linux systems.

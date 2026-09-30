@@ -1,11 +1,10 @@
-# all
+# caseysparkz.security.all
 
-Runs all security collecion roles.
+Runs all security collection roles.
 
 ## Dependencies
 
 * `caseysparkz.security.auditd`
-* `caseysparkz.security.defaultdeny`
 * `caseysparkz.security.disablecrashreporters`
 * `caseysparkz.security.fail2ban`
 * `caseysparkz.security.faillock`

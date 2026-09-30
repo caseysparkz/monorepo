@@ -1,4 +1,4 @@
-# privilegeescalation
+# caseysparkz.security.privilegeescalation
 
 Mitigates common privilege escalation techniques.
 
@@ -6,14 +6,15 @@ Mitigates common privilege escalation techniques.
 
 ### `privilegeescalation_sudotimeout`
 
-Set the sudo timeout (minutes).
+Set the `sudo` timeout (minutes). Defined in `vars/main.yml`, so it can only be
+overridden with `--extra-vars`.
 
 ```yaml
 ---
-privilegeescalation_sudotimeout: 3  # Set sudo timeout to 3 minutes.
+privilegeescalation_sudotimeout: 0  # Always prompt for a password.
 ```
 
-### Example Playbook
+## Example Playbook
 
 ```yaml
 ---
