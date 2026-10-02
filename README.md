@@ -1,5 +1,9 @@
 # `caseysparkz/monorepo`
 
+[![CodeQL](https://github.com/caseysparkz/monorepo/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/caseysparkz/monorepo/actions/workflows/github-code-scanning/codeql)
+[![CI](https://github.com/caseysparkz/monorepo/actions/workflows/ci.yml/badge.svg)](https://github.com/caseysparkz/monorepo/actions/workflows/ci.yml)
+[![Terraform](https://github.com/caseysparkz/monorepo/actions/workflows/terraform.yml/badge.svg)](https://github.com/caseysparkz/monorepo/actions/workflows/terraform.yml)
+
 This repository is a monorepo for everything I write. Its focus is predominantly
 infrastructure-as-code, with a view to cloud security, and CI/CD.
 
