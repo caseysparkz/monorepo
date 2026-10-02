@@ -47,14 +47,14 @@ sha256 = "6029205678bdd9c1c728a155f5f9ecf5812393f969eef58807641a2bc2aa5b19"
 
 [[packages]]
 name = "ast-serialize"
-version = "0.12.0"
+version = "0.12.1"
 
 [[packages.wheels]]
-name = "ast_serialize-0.12.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/02/12/ea8eba9943d1417a32f9c3c8933bfd92bf330d9d44ad1b2640930562e760/ast_serialize-0.12.0-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+name = "ast_serialize-0.12.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/c0/60/58961e7fd129e226ce36788fe328d20034f3105f5d3380df690050517737/ast_serialize-0.12.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "151b7aacecd9d95b1cad2301875b8b5d913fad8ab7ce8f6170116983c123592e"
+sha256 = "50a9eaedf1db4857dad7cc47dd757ed70bfcc40b89d44d516c4a2f0d5033bd76"
 
 [[packages]]
 name = "asttokens"
@@ -102,36 +102,36 @@ sha256 = "ef28a70bd43115208441b53a045d1549e2f0ec6e3d08a9d142cbc41c1938e8d9"
 
 [[packages]]
 name = "boto3"
-version = "1.43.104"
+version = "1.43.105"
 
 [[packages.wheels]]
-name = "boto3-1.43.104-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/c7/94/518f876ac2ea906c67ab3d08c7659c78bbeed358604911bfba773bc2bbda/boto3-1.43.104-py3-none-any.whl"
+name = "boto3-1.43.105-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/bc/8e/0310a37ff609529dab9153cbc9fd0b66c685364d741bb6d1ae31134b728e/boto3-1.43.105-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "dc0c4b5c217fa38792d6b2e3c89b0d26220fd938dc173e48adab45d2d05e6977"
+sha256 = "b8b6236ae7fe2724eee608c9b0649afbb86f0ec98158f39f67e64e678ec47499"
 
 [[packages]]
 name = "boto3-stubs"
-version = "1.43.104"
+version = "1.43.105"
 
 [[packages.wheels]]
-name = "boto3_stubs-1.43.104-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/97/27/06fb40548d9bc4ad30157222024fb145f088185f85862a70072346f298bb/boto3_stubs-1.43.104-py3-none-any.whl"
+name = "boto3_stubs-1.43.105-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/53/b2/20996224483118ce44afd9304c2d3ddcc8817abbeac06b54f0a005db7172/boto3_stubs-1.43.105-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "95490f20724e0e00aa18b19625a280785bd26689c89e38363bbb9f2c6b5fa360"
+sha256 = "0039f83a4c8672f86585b509c1bb9642a92114c0ff35d5e00fb7dfa7151e8d3e"
 
 [[packages]]
 name = "botocore"
-version = "1.43.107"
+version = "1.43.108"
 
 [[packages.wheels]]
-name = "botocore-1.43.107-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/7e/39/3a0db1ba57531062cda616dae68b69faef8114939414a2a291b3aac7617b/botocore-1.43.107-py3-none-any.whl"
+name = "botocore-1.43.108-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/7a/0b/4670b7e23914b5cc357be5ca45fae503b57d98ecff4b3eabea70412809fd/botocore-1.43.108-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "23cbe854e815dbaccf097f7fd32b461c9e1d2ed7e0c7dcc5658218704509d840"
+sha256 = "ab9d16c6b4350aaa54ed28202dfa2998b2d735fdbf3247eb60af469d8d48a5b8"
 
 [[packages]]
 name = "botocore-stubs"
@@ -455,14 +455,14 @@ sha256 = "9f7ebbcd14fe59494226453aed97c1070d83f8d24b6fc3a3bcf9a38092641c4a"
 
 [[packages]]
 name = "markupsafe"
-version = "3.0.3"
+version = "3.0.4"
 
 [[packages.wheels]]
-name = "markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
-url = "https://files.pythonhosted.org/packages/a9/21/9b05698b46f218fc0e118e1f8168395c65c8a2c750ae2bab54fc4bd4e0e8/markupsafe-3.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+name = "markupsafe-3.0.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/63/e0/cec6865dfe88cb48fedd4b20aed6af5158e41092adcbf3e028bcc6ec2108/markupsafe-3.0.4-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
 
 [packages.wheels.hashes]
-sha256 = "ccfcd093f13f0f0b7fdd0f198b90053bf7b2f02a3927a30e63f3ccc9df56b676"
+sha256 = "434139499bb20b502ed3baa1f169e618f924a97e7a777fea1a49446d80106cf6"
 
 [[packages]]
 name = "matplotlib-inline"
@@ -983,14 +983,14 @@ sha256 = "f775618166caa0396c8e337099240f2bd3e5e917d203b2e6fbe21a58d3cb1f6b"
 
 [[packages]]
 name = "types-boto3"
-version = "1.43.107"
+version = "1.43.108"
 
 [[packages.wheels]]
-name = "types_boto3-1.43.107-py3-none-any.whl"
-url = "https://files.pythonhosted.org/packages/f2/bc/ed761d52551351ec1792de80af667172cf8cec666ae8775bcafd96ffbe8e/types_boto3-1.43.107-py3-none-any.whl"
+name = "types_boto3-1.43.108-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/e7/aa/9767d14adf8e2228f311279fc285badfad438574e8b504cdcc5125842509/types_boto3-1.43.108-py3-none-any.whl"
 
 [packages.wheels.hashes]
-sha256 = "879dfe06b259791c11df46492f05059400bae1d3e2973a86eeea01eda7c55136"
+sha256 = "5f99a1b8ba72cb13b751a88cad95b16cca044c6fd716e77bafba4ac9aafc1303"
 
 [[packages]]
 name = "types-boto3-ses"
