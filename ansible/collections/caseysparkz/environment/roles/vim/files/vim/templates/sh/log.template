@@ -1,0 +1,37 @@
+log(){
+    local MSG="${1:?}"          # Log message
+    local LEVEL="${2:-INFO}"    # Log level
+    local CLR='\033[0m'         # No color
+    local GRN='\033[0;32m'      # Green
+    local YLW='\033[0;33m'      # Yellow
+    local RED='\033[0;31m'      # Red
+    local COLOR="${CLR}"        # Default log message color
+    local EXIT=false            # Exit after log
+    local OUT=1                 # STDOUT
+    local RC=0                  # Return code
+
+    # ANSI color codes
+    case "${LEVEL}" in
+        'INFO')     COLOR="${GRN}" ;;
+        "WARN*")    COLOR="${YLW}" ;;
+        "ERR*")
+            COLOR="${YLW}"
+            OUT=2
+            ;;
+        "CRIT*|FATAL")
+            COLOR="${RED}"
+            EXIT=true
+            OUT=2
+            RC=1
+            ;;
+    esac
+
+    printf '%b%-10s %-80s%b\n' "${COLOR}" "${LEVEL}" "${MSG}" "${CLR}" >&"${OUT}"
+
+    if "${EXIT}"; then
+        log 'Exiting.' DEBUG
+        exit "${RC}"
+    fi
+
+    return "${RC}"
+}
