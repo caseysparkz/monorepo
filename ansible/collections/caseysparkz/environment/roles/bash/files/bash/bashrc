@@ -10,15 +10,6 @@ HISTCONTROL=ignoreboth  # Don't save duplicate lines in history.
 HISTSIZE=1000  # Set history length.
 HISTFILESIZE=2000  # Set history file size.
 TERM=xterm-256color
-PATH_DIRS=(
-    "${HOME}/.local/share/go/bin"
-    "${HOME}/.local/bin"
-    "${SCRIPTS}/gsh"
-    "${SCRIPTS}/python"
-    "${SCRIPTS}/sh"
-    "${PNPM_HOME}/bin"
-    "${HOME}/.local/share/gem/ruby/3.3.0/bin"
-)
 
 # Shell options.
 shopt -s histappend  # Append to the history file.
@@ -52,7 +43,19 @@ case "$(uname -s)" in
         ;;
 esac
 
-# Set PATH
+# shellcheck disable=SC1091
+source "${HOME}/.bash/vars.sh" || true # Defines SCRIPTS; must run after `brew shellenv` (uses gpgconf).
+
+PATH_DIRS+=(
+    "${HOME}/.local/share/go/bin"
+    "${HOME}/.local/bin"
+    "${SCRIPTS}/gsh"
+    "${SCRIPTS}/python"
+    "${SCRIPTS}/sh"
+    "${PNPM_HOME}/bin"
+    "${HOME}/.local/share/gem/ruby/3.3.0/bin"
+)
+
 for DIR in "${PATH_DIRS[@]}"; do
     case ":${PATH}:" in
       *":${DIR}:"*) ;;
@@ -94,7 +97,7 @@ if [ -x "$(which dircolors)" ]; then  # Enable color support.
 fi
 
 # shellcheck disable=SC1090
-for BASHFILE in ".bash/vars.sh" ".bash_aliases" ".bashrc.local"; do
+for BASHFILE in ".bash_aliases" ".bashrc.local"; do
     if [ -f "${HOME}/${BASHFILE}" ]; then source "${HOME}/${BASHFILE}"; fi
 done
 
