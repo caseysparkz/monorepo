@@ -17,10 +17,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 6.66.0"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 5.25.0"
-    }
   }
 }
 
@@ -29,15 +25,4 @@ provider "aws" {
   region = "us-west-2"
 
   default_tags { tags = local.common_tags }
-}
-
-provider "cloudflare" { api_token = ephemeral.aws_secretsmanager_secret_version.cloudflare_token.secret_string }
-
-// Data ========================================================================
-data "aws_secretsmanager_secret" "cloudflare_token" {
-  arn = "arn:aws:secretsmanager:${local.aws_region}:${local.aws_account_id}:secret:cloudflare/api_token"
-}
-
-ephemeral "aws_secretsmanager_secret_version" "cloudflare_token" {
-  secret_id = data.aws_secretsmanager_secret.cloudflare_token.id
 }
