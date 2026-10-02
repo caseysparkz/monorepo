@@ -1,7 +1,11 @@
 /* IAM */
 
 locals {
-  ci_secrets = ["dagger/api_token"]
+  ci_secrets = [ // Needed by the ReadOnly account to perform `terraform plan`
+    "ansible/vault",
+    "cloudflare/api_token",
+    "dagger/api_token",
+  ]
 }
 
 // Data ========================================================================
