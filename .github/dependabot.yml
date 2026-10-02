@@ -10,6 +10,9 @@ updates:
       day: "friday"
       time: "16:45"
       timezone: "America/Los_Angeles"
+    groups:
+      all-github-actions:
+        patterns: ["*"]
     commit-message:
       prefix: "chore(githubactions)"
 
@@ -22,6 +25,9 @@ updates:
       day: "friday"
       time: "16:45"
       timezone: "America/Los_Angeles"
+    groups:
+      all-go-packages:
+        patterns: ["*"]
     commit-message:
       prefix: "chore(go-gomod)"
 
@@ -35,6 +41,9 @@ updates:
       day: "friday"
       time: "16:45"
       timezone: "America/Los_Angeles"
+    groups:
+      all-node-packages:
+        patterns: ["*"]
     commit-message:
       prefix: "chore(node-npm)"
 
@@ -51,7 +60,7 @@ updates:
       time: "16:45"
       timezone: "America/Los_Angeles"
     groups:
-      python-packages:
+      all-python-packages:
         patterns: ["*"]
     commit-message:
       prefix: "chore(python-pip)"
