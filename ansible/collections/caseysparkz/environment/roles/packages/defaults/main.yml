@@ -26,6 +26,7 @@ packages_apt:
 packages_homebrew:
   - "bash-completion@2"
   - "colima"
+  - "coreutils"
   - "docker"
   - "docker-agent"
   - "docker-buildx"
