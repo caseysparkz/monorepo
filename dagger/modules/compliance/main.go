@@ -12,6 +12,7 @@ import (
 )
 
 var mountPoint = "/mnt"
+var sbomPath = "/sbom.json"
 
 func New(
 	// Version of Grype to use.
@@ -24,7 +25,7 @@ func New(
 	syftVersion string,
 	// Repository root dir.
 	// +optional
-	// +ignore=["*cache*",".coverage",".env",".git*",".terraform",".venv","build","dist","node_modules","*.log"]
+	// +ignore=["*","!*/pyproject.toml","!/*.tf","!.github/workflows/*","!dagger/*"]
 	// +defaultPath="/"
 	source *dagger.Directory,
 ) *Compliance {
@@ -50,10 +51,11 @@ func (m *Compliance) sbomFile() *dagger.File {
 		From(syftImage).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithMountedCache(syftCacheDir, dag.CacheVolume(syftImage)).
-		WithEnvVariable("SYFT_CACHE_DIR", syftCacheDir).
 		WithWorkdir(mountPoint).
+		WithEnvVariable("SYFT_CACHE_DIR", syftCacheDir).
+		WithEnvVariable("SYFT_OUTPUT", fmt.Sprintf("spdx-json=%s", sbomPath)).
 		WithExec([]string{"/syft", "scan", "."}).
-		File("./spdx.json")
+		File(sbomPath)
 }
 
 // TODO: implement
@@ -66,6 +68,7 @@ func (m *Compliance) Sbom(ctx context.Context) (string, error) {
 	return dag.Container().
 		From("docker.io/imega/jq:latest").
 		WithMountedFile(sbomPath, m.sbomFile()).
+		Terminal().
 		WithExec([]string{"jq", ".", sbomPath}).
 		Stdout(ctx)
 }
