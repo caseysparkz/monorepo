@@ -7,92 +7,101 @@
 
 unset _EXPERIMENTAL_DAGGER_RUNNER_HOST
 
-load_aws() {
-    if which aws > /dev/null 2>&1; then  # Check AWS CLI installed
-        if ! aws sts get-caller-identity > /dev/null 2>&1; then
-            printf 'Logging in to AWS.\n'
-            aws sso login
-        fi
+log(){
+    local MSG="${1:?}"          # Log message
+    local LEVEL="${2:-INFO}"    # Log level
+    local CLR='\033[0m'         # No color
+    local GRN='\033[0;32m'      # Green
+    local YLW='\033[0;33m'      # Yellow
+    local RED='\033[0;31m'      # Red
+    local COLOR="${CLR}"        # Default log message color
+    local EXIT=false            # Exit after log
+    local OUT=1                 # STDOUT
+    local RC=0                  # Return code
+
+    # ANSI color codes
+    case "${LEVEL}" in
+        'DEBUG')    COLOR="${CLR}" ;;
+        'INFO')     COLOR="${GRN}" ;;
+        "WARN*")    COLOR="${YLW}" ;;
+        "ERR*")
+            COLOR="${YLW}"
+            OUT=2
+            ;;
+        "CRIT*|FATAL")
+            COLOR="${RED}"
+            EXIT=true
+            OUT=2
+            RC=1
+            ;;
+    esac
+
+    printf '%b%-10s %-80s%b\n' "${COLOR}" "${LEVEL}" "${MSG}" "${CLR}" >&"${OUT}"
+
+    if [ "${EXIT}" == true ]; then
+        printf 'Exiting.'
+        exit "${RC}"
     else
-        printf 'AWS CLI not installed.\n'
-        exit 1
+        return "${RC}"
     fi
+}
 
-    printf 'Setting AWS environment variables.\n'
-    printf '* AWS_ACCESS_KEY_ID\n'
-    printf '* AWS_SECRET_ACCESS_KEY\n'
-    printf '* AWS_SESSION_TOKEN\n'
-    printf '* AWS_CREDENTIAL_EXPIRATION\n'
-
-    unset AWS_ACCESS_KEY_ID
-    unset AWS_SECRET_ACCESS_KEY
-    unset AWS_SESSION_TOKEN
-    unset AWS_CREDENTIAL_EXPIRATION
+load_aws() {
+    if ! which aws > /dev/null 2>&1; then log 'AWS CLI not installed.' FATAL; fi
+    if ! aws sts get-caller-identity > /dev/null 2>&1; then log 'Not logged in in to AWS.' FATAL; fi
 
     eval "$(aws configure export-credentials --format env)"
 
+    log 'Setting AWS environment variables.'
+    log '* AWS_ACCESS_KEY_ID' DEBUG
     export AWS_ACCESS_KEY_ID
+    log '* AWS_SECRET_ACCESS_KEY' DEBUG
     export AWS_SECRET_ACCESS_KEY
+    log '* AWS_SESSION_TOKEN' DEBUG
     export AWS_SESSION_TOKEN
+    log '* AWS_CREDENTIAL_EXPIRATION' DEBUG
     export AWS_CREDENTIAL_EXPIRATION
-
-    printf 'Done.\n\n'
+    log 'Done.\n'
 }
 
 load_github() {
-    if which gh > /dev/null 2>&1; then  # Check AWS CLI installed
-        if ! gh auth token > /dev/null 2>&1; then
-            printf 'Logging in to GitHub CLI.\n'
-            gh auth login
-        fi
-    else
-        printf 'GitHub CLI not installed.\n'
-        exit 1
-    fi
+    if ! which gh > /dev/null 2>&1; then log 'GitHub CLI not installed.' FATAL; fi
+    if ! gh auth token > /dev/null 2>&1; then log 'Not logged in to GitHub CLI.' FATAL; fi
 
-    printf 'Setting GitHub environment variables.\n'
-    printf '* GITHUB_TOKEN\n'
-
-    unset GITHUB_TOKEN
+    log 'Setting GitHub environment variables.'
+    log '* GITHUB_TOKEN' DEBUG
 
     GITHUB_TOKEN="$(gh auth token)"
 
     export GITHUB_TOKEN
 
-    printf 'Done.\n\n'
+    log 'Done.\n'
 }
 
 login_ecr() {
-    if which aws > /dev/null 2>&1; then  # Check AWS CLI installed
-        printf 'Logging into AWS ECR.\n'
+    if ! which aws > /dev/null 2>&1; then log 'AWS CLI not installed.' FATAL; fi
 
-        aws ecr get-login-password                                          \
-        | docker login                                                      \
-            --username AWS                                                  \
-            --password-stdin                                                \
-            770088062852.dkr.ecr.us-west-2.amazonaws.com
-    else
-        printf 'AWS CLI not installed.\n'
-        exit 1
-    fi
+    # shellcheck disable=SC2016
+    if [ -z "${ECR}" ]; then log 'Need to set $ECR.' FATAL; fi
 
-    printf 'Done.\n\n'
+    log 'Logging into AWS ECR.'
+
+    aws ecr get-login-password                                          \
+    | docker login                                                      \
+        --username AWS                                                  \
+        --password-stdin                                                \
+        "${ECR}"
+
+    log 'Done.\n'
 }
 
 setup_kubernetes_environment() {
-    if ! which helm > /dev/null 2>&1; then
-        printf 'Helm not installed.\n'
-        exit 1
-    fi
-
-    if ! which kubectl > /dev/null 2>&1; then
-        printf 'kubectl not installed.\n'
-        exit 1
-    fi
+    if ! which helm > /dev/null 2>&1; then log 'Helm not installed.' FATAL; fi
+    if ! which kubectl > /dev/null 2>&1; then log 'kubectl not installed.' FATAL; fi
 
     local DAGGER_ENGINE_POD_NAME
 
-    printf 'Setting up dagger namespace.\n'
+    log 'Setting up dagger namespace.'
 
     helm upgrade                                                            \
         --install                                                           \
@@ -117,6 +126,8 @@ setup_kubernetes_environment() {
     _EXPERIMENTAL_DAGGER_RUNNER_HOST="kube-pod://${DAGGER_ENGINE_POD_NAME}?namespace=dagger"
 
     export _EXPERIMENTAL_DAGGER_RUNNER_HOST
+
+    log 'Done\n.'
 }
 
 load_aws
@@ -125,4 +136,4 @@ login_ecr
 
 if [[ "${1:-}" == '--kubernetes' ]]; then setup_kubernetes_environment; fi
 
-printf 'Environment is ready.\n'
+log 'Environment is ready.'
