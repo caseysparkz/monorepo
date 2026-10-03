@@ -54,8 +54,9 @@ func (m *Python) container() *dagger.Container {
 		From(fmt.Sprintf("docker.io/library/python:%s-slim", m.Version)).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
+		WithEnvVariable("PIP_ROOT_USER_ACTION", "ignore").
 		WithExec([]string{"python", "-m", "ensurepip"}).
-		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet", "--root-user-action=ignore"})
+		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet"})
 }
 
 // Returns a container with an initialized and empty virtual environment.
@@ -72,18 +73,12 @@ func (m *Python) Venv(container *dagger.Container) *dagger.Container {
 
 // Returns a container with an installed package.
 func (m *Python) PipInstall() *dagger.Container {
-	return m.Venv(m.container()).WithExec([]string{
-		"pip",
-		"install",
-		"--quiet",
-		"--root-user-action=ignore",
-		m.Pkg,
-	})
+	return m.Venv(m.container()).WithExec([]string{"pip", "install", "--quiet", m.Pkg})
 }
 
 // Runs PyTest
 // +check
-func (m *Python) Pytest(
+func (m *Python) Test(
 	ctx context.Context,
 	// Files/directories to lint.
 	// +optional
@@ -95,7 +90,7 @@ func (m *Python) Pytest(
 
 // Runs MyPy
 // +check
-func (m *Python) Mypy(
+func (m *Python) LintMypy(
 	ctx context.Context,
 	// Files/directories to lint.
 	// +optional
@@ -107,7 +102,7 @@ func (m *Python) Mypy(
 
 // Runs ruff-check
 // +check
-func (m *Python) RuffCheck(
+func (m *Python) LintRuffCheck(
 	ctx context.Context,
 	// Files/directories to lint.
 	// +optional
@@ -119,7 +114,7 @@ func (m *Python) RuffCheck(
 
 // Runs ruff-format --check
 // +check
-func (m *Python) RuffFormat(
+func (m *Python) LintRuffFormat(
 	ctx context.Context,
 	// Files/directories to lint.
 	// +optional
@@ -140,7 +135,10 @@ func (m *Python) PipAudit(ctx context.Context) (string, error) {
 func (m *Python) Pylock(ctx context.Context) (string, error) {
 	lockfile := fmt.Sprintf("%s/pylock.toml", mountPoint)
 	prehash, hashError := m.container().File(lockfile).Digest(ctx)
-	posthash, _ := m.PipInstall().WithExec([]string{"pip", "lock", m.Pkg}).File(lockfile).Digest(ctx)
+	posthash, _ := m.PipInstall().
+		WithExec([]string{"pip", "lock", m.Pkg}).
+		File(lockfile).
+		Digest(ctx)
 
 	if hashError != nil {
 		return "", fmt.Errorf("could not hash pylock.toml: %s", hashError)

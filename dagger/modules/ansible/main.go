@@ -72,7 +72,7 @@ func (m *Ansible) container() *dagger.Container {
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(ansibleDir).
 		WithExec([]string{"python", "-m", "ensurepip"}).
-		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet", "--root-user-action=ignore"})
+		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet"})
 
 	return dag.Python().Venv(container).
 		// Make the AWS CLI available within context
@@ -84,7 +84,7 @@ func (m *Ansible) container() *dagger.Container {
 		WithSecretVariable("AWS_SESSION_TOKEN", m.AwsSessionToken).
 		// Set up Ansible
 		WithWorkdir(m.AnsibleDir).
-		WithExec([]string{"pip", "install", "--quiet", "--root-user-action=ignore", m.PipPackage})
+		WithExec([]string{"pip", "install", "--quiet", m.PipPackage})
 }
 
 // Runs ansible-lint against the ansible/ directory.

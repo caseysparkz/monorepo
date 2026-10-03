@@ -114,7 +114,7 @@ func (m *Terraform) plan(chdir string, varFile string) *dagger.Container {
 
 // Returns the output of 'terraform -chdir={:arg chdir:} fmt -recursive -check'.
 // +check
-func (m *Terraform) Fmt(
+func (m *Terraform) Lint(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
 	// +optional
