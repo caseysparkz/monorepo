@@ -1,4 +1,4 @@
-// A Dagger module for Python functions
+// A Dagger module for Python code
 //
 // This module runs any code pertaining to Python, eg: PyTest, MyPy.
 
@@ -12,6 +12,7 @@ import (
 
 var mountPoint = "/mnt"
 
+// New - Default options for the Python Dagger module.
 func New(
 	// Version of Python to run
 	// +optional
@@ -40,6 +41,7 @@ func New(
 	}
 }
 
+// Python - the Python Dagger module
 type Python struct {
 	Version string
 	VenvDir string
@@ -59,7 +61,7 @@ func (m *Python) container() *dagger.Container {
 		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet"})
 }
 
-// Returns a container with an initialized and empty virtual environment.
+// Venv - Returns a container with an initialized and empty virtual environment.
 func (m *Python) Venv(container *dagger.Container) *dagger.Container {
 	return container.
 		WithMountedCache(
@@ -71,12 +73,12 @@ func (m *Python) Venv(container *dagger.Container) *dagger.Container {
 		WithEnvVariable("PATH", "${VIRTUAL_ENV}/bin:${PATH}", dagger.ContainerWithEnvVariableOpts{Expand: true})
 }
 
-// Returns a container with an installed package.
+// PipInstall - Returns a container with an installed package.
 func (m *Python) PipInstall() *dagger.Container {
 	return m.Venv(m.container()).WithExec([]string{"pip", "install", "--quiet", m.Pkg})
 }
 
-// Runs PyTest
+// Test - Runs PyTest
 // +check
 func (m *Python) Test(
 	ctx context.Context,
@@ -88,7 +90,7 @@ func (m *Python) Test(
 	return m.PipInstall().WithExec(append([]string{"pytest"}, file...)).Stdout(ctx)
 }
 
-// Runs MyPy
+// LintMypy - Runs MyPy
 // +check
 func (m *Python) LintMypy(
 	ctx context.Context,
@@ -100,7 +102,7 @@ func (m *Python) LintMypy(
 	return m.PipInstall().WithExec(append([]string{"mypy"}, file...)).Stdout(ctx)
 }
 
-// Runs ruff-check
+// LintRuffCheck - Runs ruff-check
 // +check
 func (m *Python) LintRuffCheck(
 	ctx context.Context,
@@ -112,7 +114,7 @@ func (m *Python) LintRuffCheck(
 	return m.PipInstall().WithExec(append([]string{"ruff", "check"}, file...)).Stdout(ctx)
 }
 
-// Runs ruff-format --check
+// LintRuffFormat - Runs ruff-format --check
 // +check
 func (m *Python) LintRuffFormat(
 	ctx context.Context,
@@ -124,13 +126,13 @@ func (m *Python) LintRuffFormat(
 	return m.PipInstall().WithExec(append([]string{"ruff", "format", "--check"}, file...)).Stdout(ctx)
 }
 
-// Runs pip-audit
+// PipAudit - Runs pip-audit
 // +check
 func (m *Python) PipAudit(ctx context.Context) (string, error) {
 	return m.PipInstall().WithExec([]string{"pip-audit", mountPoint}).Stdout(ctx)
 }
 
-// Checks if pylock.toml is up-to-date
+// Pylock - Checks if pylock.toml is up-to-date
 // +check
 func (m *Python) Pylock(ctx context.Context) (string, error) {
 	lockfile := fmt.Sprintf("%s/pylock.toml", mountPoint)

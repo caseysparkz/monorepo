@@ -15,8 +15,9 @@
 package main
 
 import (
-	"context"
 	"dagger/monorepo/internal/dagger"
 )
 
+// The Monorepo module is the top-level repository dagger module.
+// It contains no functions in itself, but is required by Dagger.
 type Monorepo struct{}

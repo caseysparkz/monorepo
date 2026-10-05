@@ -11,13 +11,14 @@ import (
 var mountPoint = "/mnt"
 var ansibleDir = "./ansible/"
 
+// New - Default options for the Ansible Dagger module.
 func New(
 	// Path to the Ansible directory, relative to :arg source:.
 	// +optional
 	// +default="ansible"
 	ansibleDir string,
 	// AWS Access Key ID
-	awsAccessKeyId *dagger.Secret,
+	awsAccessKeyID *dagger.Secret,
 	// AWS default region
 	// +optional
 	// +default="us-west-2"
@@ -43,7 +44,7 @@ func New(
 ) *Ansible {
 	return &Ansible{
 		AnsibleDir:         fmt.Sprintf("%s/%s", mountPoint, ansibleDir),
-		AwsAccessKeyId:     awsAccessKeyId,
+		AwsAccessKeyID:     awsAccessKeyID,
 		AwsDefaultRegion:   awsDefaultRegion,
 		AwsSecretAccessKey: awsSecretAccessKey,
 		AwsSessionToken:    awsSessionToken,
@@ -53,9 +54,10 @@ func New(
 	}
 }
 
+// Ansible - Dagger Ansible module.
 type Ansible struct {
 	AnsibleDir         string
-	AwsAccessKeyId     *dagger.Secret
+	AwsAccessKeyID     *dagger.Secret
 	AwsDefaultRegion   string
 	AwsSecretAccessKey *dagger.Secret
 	AwsSessionToken    *dagger.Secret
@@ -79,7 +81,7 @@ func (m *Ansible) container() *dagger.Container {
 		WithDirectory(awsDirPath, dag.Container().From("docker.io/amazon/aws-cli:latest").Directory(awsDirPath)).
 		WithExec([]string{"ln", "-s", fmt.Sprintf("%s/v2/current/bin/aws", awsDirPath), "/usr/local/bin/aws"}).
 		WithEnvVariable("AWS_DEFAULT_REGION", m.AwsDefaultRegion).
-		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyId).
+		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyID).
 		WithSecretVariable("AWS_SECRET_ACCESS_KEY", m.AwsSecretAccessKey).
 		WithSecretVariable("AWS_SESSION_TOKEN", m.AwsSessionToken).
 		// Set up Ansible
@@ -87,7 +89,7 @@ func (m *Ansible) container() *dagger.Container {
 		WithExec([]string{"pip", "install", "--quiet", m.PipPackage})
 }
 
-// Runs ansible-lint against the ansible/ directory.
+// Lint - Runs ansible-lint against the ansible/ directory.
 // +check
 func (m *Ansible) Lint(ctx context.Context) (string, error) {
 	stdout, err := m.container().
@@ -97,13 +99,7 @@ func (m *Ansible) Lint(ctx context.Context) (string, error) {
 
 	if err != nil {
 		return "", err
-	} else {
-		return stdout, nil
 	}
-}
 
-// Runs yamllint against the ansible/ directory.
-// +check
-func (m *Ansible) Yamllint(ctx context.Context) (string, error) {
-	return dag.Yaml().Lint(ctx, dagger.YamlLintOpts{Path: ansibleDir})
+	return stdout, nil
 }

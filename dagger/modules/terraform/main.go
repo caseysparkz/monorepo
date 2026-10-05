@@ -14,11 +14,12 @@ import (
 var mountPoint = "/mnt"
 var tmpDir = "/tmp"
 
+// New - Default options for the Terraform Dagger module.
 func New(
 	// AWS default region
 	awsDefaultRegion string,
 	// AWS Access Key ID
-	awsAccessKeyId *dagger.Secret,
+	awsAccessKeyID *dagger.Secret,
 	// AWS Secret Access Key
 	awsSecretAccessKey *dagger.Secret,
 	// AWS Session Token
@@ -36,7 +37,7 @@ func New(
 ) *Terraform {
 	return &Terraform{
 		AwsDefaultRegion:   awsDefaultRegion,
-		AwsAccessKeyId:     awsAccessKeyId,
+		AwsAccessKeyID:     awsAccessKeyID,
 		AwsSecretAccessKey: awsSecretAccessKey,
 		AwsSessionToken:    awsSessionToken,
 		Version:            terraformVersion,
@@ -45,9 +46,10 @@ func New(
 	}
 }
 
+// Terraform - the Terraform Dagger module.
 type Terraform struct {
 	AwsDefaultRegion   string
-	AwsAccessKeyId     *dagger.Secret
+	AwsAccessKeyID     *dagger.Secret
 	AwsSecretAccessKey *dagger.Secret
 	AwsSessionToken    *dagger.Secret
 	Version            string
@@ -74,7 +76,7 @@ func (m *Terraform) init(chdir string) *dagger.Container {
 		WithExec([]string{"apk", "add", "pnpm", "libc6-compat"}).
 		WithWorkdir(mountPoint).
 		WithEnvVariable("AWS_DEFAULT_REGION", m.AwsDefaultRegion).
-		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyId).
+		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyID).
 		WithSecretVariable("AWS_SECRET_ACCESS_KEY", m.AwsSecretAccessKey).
 		WithSecretVariable("AWS_SESSION_TOKEN", m.AwsSessionToken).
 		WithExec([]string{"terraform", fmt.Sprintf("-chdir=%s", chdir), "init"})
@@ -112,7 +114,7 @@ func (m *Terraform) plan(chdir string, varFile string) *dagger.Container {
 		})
 }
 
-// Returns the output of 'terraform -chdir={:arg chdir:} fmt -recursive -check'.
+// Lint - Returns the output of 'terraform -chdir={:arg chdir:} fmt -recursive -check'.
 // +check
 func (m *Terraform) Lint(
 	ctx context.Context,
@@ -127,12 +129,12 @@ func (m *Terraform) Lint(
 
 	if err != nil {
 		return "", err
-	} else {
-		return "Files already formatted.", nil
 	}
+
+	return "Files already formatted.", nil
 }
 
-// Returns the output of 'terraform -chdir={:arg chdir:} validate'.
+// Validate - Returns the output of 'terraform -chdir={:arg chdir:} validate'.
 func (m *Terraform) Validate(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
@@ -144,12 +146,12 @@ func (m *Terraform) Validate(
 
 	if err != nil {
 		return "", err
-	} else {
-		return stdout, nil
 	}
+
+	return stdout, nil
 }
 
-// Returns the output of 'terraform plan'.
+// Plan - Returns the output of 'terraform plan'.
 func (m *Terraform) Plan(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
@@ -164,12 +166,12 @@ func (m *Terraform) Plan(
 
 	if err != nil {
 		return "", err
-	} else {
-		return stdout, nil
 	}
+
+	return stdout, nil
 }
 
-// Returns the output of 'terraform apply'.
+// Apply - Returns the output of 'terraform apply'.
 func (m *Terraform) Apply(
 	ctx context.Context,
 	// Directory to run Terraform in. Passed as '-chdir={}'.
@@ -184,7 +186,7 @@ func (m *Terraform) Apply(
 
 	if err != nil {
 		return "", fmt.Errorf("error: %s", err)
-	} else {
-		return stdout, nil
 	}
+
+	return stdout, nil
 }

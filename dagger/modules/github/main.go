@@ -28,6 +28,7 @@ var validTypes = []string{ // Valid commit types
 	"test",
 }
 
+// New - Default options for the GitHub Dagger module.
 func New(
 	// GitHub Token
 	githubToken *dagger.Secret,
@@ -43,6 +44,7 @@ func New(
 	}
 }
 
+// Github - the Dagger GitHub module
 type Github struct {
 	GithubToken *dagger.Secret
 	Source      *dagger.Directory
@@ -86,16 +88,16 @@ func (m *Github) container() *dagger.Container {
 		WithSecretVariable("GH_TOKEN", m.GithubToken)
 }
 
-// Automatically applies labels to a pull request
+// LabelPr - Automatically applies labels to a pull request
 // +check
 func (m *Github) LabelPr(ctx context.Context) (string, error) {
 	commitTypes := m.getPrCommitTypes(ctx)
 
 	if len(commitTypes) == 0 {
 		return "", nil
-	} else {
-		return m.container().
-			WithExec([]string{"gh", "pr", "edit", "--add-label", strings.Join(commitTypes, ",")}). // Label PR
-			Stdout(ctx)
 	}
+
+	return m.container().
+		WithExec([]string{"gh", "pr", "edit", "--add-label", strings.Join(commitTypes, ",")}). // Label PR
+		Stdout(ctx)
 }

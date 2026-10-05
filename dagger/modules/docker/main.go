@@ -10,6 +10,7 @@ import (
 
 var mountPoint = "/mnt"
 
+// New - Default options for the Docker Dagger module.
 func New(
 	// Project source directory
 	// +optional
@@ -22,11 +23,12 @@ func New(
 	}
 }
 
+// Docker - The dagger Docker module
 type Docker struct {
 	Source *dagger.Directory
 }
 
-// Runs hadolint (Dockerfile linter) against files.
+// Hadolint - Runs hadolint (Dockerfile linter) against files.
 func (m *Docker) Hadolint(
 	ctx context.Context,
 	// Files to lint.
@@ -45,7 +47,7 @@ func (m *Docker) Hadolint(
 		Stdout(ctx)
 }
 
-// Checks the validity of a docker compose file.
+// ComposeConfig - Checks the validity of a docker compose file.
 func (m *Docker) ComposeConfig(
 	ctx context.Context,
 	// File to lint.

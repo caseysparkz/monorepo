@@ -10,6 +10,7 @@ import (
 
 var mountPoint = "/mnt"
 
+// New - Default options for the Shell Dagger module.
 func New(
 	// Version of shellcheck to run
 	// +optional
@@ -27,12 +28,13 @@ func New(
 	}
 }
 
+// Shell - the Shell Dagger module.
 type Shell struct {
 	Version string
 	Source  *dagger.Directory
 }
 
-// Runs shellcheck against a given path (or paths).
+// Lint - Runs shellcheck against a given path (or paths).
 func (m *Shell) Lint(
 	ctx context.Context,
 	// Files to lint (relative to :arg source:).

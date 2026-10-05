@@ -14,6 +14,7 @@ import (
 var mountPoint = "/mnt"
 var sbomPath = "/sbom.json"
 
+// New - Default options for the Compliance Dagger module.
 func New(
 	// Version of Grype to use.
 	// +optional
@@ -36,6 +37,7 @@ func New(
 	}
 }
 
+// Compliance - Dagger module providing Anchore (syft/grype/grant) functionality
 type Compliance struct {
 	GrypeVersion string
 	SyftVersion  string
@@ -61,7 +63,7 @@ func (m *Compliance) sbomFile() *dagger.File {
 // TODO: implement
 // func (m *Compliance) Grype(ctx context.Context) (string, error) {}
 
-// Returns the contents of the Syft (SPDX) SBOM (JSON)
+// Sbom - Returns the contents of the Syft (SPDX) SBOM (JSON)
 func (m *Compliance) Sbom(ctx context.Context) (string, error) {
 	sbomPath := "/sbom.json"
 
