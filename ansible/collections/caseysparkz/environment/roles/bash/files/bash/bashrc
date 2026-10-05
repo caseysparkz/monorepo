@@ -56,6 +56,8 @@ PATH_DIRS+=(
     "${HOME}/.local/share/gem/ruby/3.3.0/bin"
 )
 
+if [ ! -z "${GOPATH}" ] && [ -d "${GOPATH}/bin" ]; then PATH_DIRS+=("${GOPATH}/bin"); fi
+
 for DIR in "${PATH_DIRS[@]}"; do
     case ":${PATH}:" in
       *":${DIR}:"*) ;;
