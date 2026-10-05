@@ -18,6 +18,10 @@
       "source": "dagger/modules/github"
     },
     {
+      "name": "go",
+      "source": "dagger/modules/go"
+    },
+    {
       "name": "python",
       "source": "dagger/modules/python"
     },
@@ -46,6 +50,10 @@
     {
       "name": "github",
       "source": "dagger/modules/github"
+    },
+    {
+      "name": "go",
+      "source": "dagger/modules/go"
     },
     {
       "name": "python",

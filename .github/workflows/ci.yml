@@ -50,6 +50,15 @@ jobs:
           parse-json-secrets: false
           auto-select-family-attempt-timeout: 500
 
+      - name: "dagger check github:*"  # Run on all PRs
+        uses: "dagger/checks@64525befa1c36dd55577dae083df5c8968d9325a"  # v1.1.0
+        env:
+          GITHUB_TOKEN: "${{ github.token }}"
+        with:
+          filter: "github:*"
+          version: "${{ env.DAGGER_VERSION }}"
+          cloud-token: "${{ env.DAGGER_CLOUD_TOKEN }}"
+
       - name: "dagger check ansible:*"
         if: "${{ steps.changed_files.outputs.ansible_any_changed == 'true' }}"
         uses: "dagger/checks@64525befa1c36dd55577dae083df5c8968d9325a"  # v1.1.0
@@ -58,12 +67,11 @@ jobs:
           version: "${{ env.DAGGER_VERSION }}"
           cloud-token: "${{ env.DAGGER_CLOUD_TOKEN }}"
 
-      - name: "dagger check github:*"
+      - name: "dagger check go:*"
+        if: "${{ steps.changed_files.outputs.go_any_changed == 'true' }}"
         uses: "dagger/checks@64525befa1c36dd55577dae083df5c8968d9325a"  # v1.1.0
-        env:
-          GITHUB_TOKEN: "${{ github.token }}"
         with:
-          filter: "github:*"
+          filter: "go:*"
           version: "${{ env.DAGGER_VERSION }}"
           cloud-token: "${{ env.DAGGER_CLOUD_TOKEN }}"
 

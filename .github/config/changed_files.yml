@@ -5,7 +5,11 @@
 ansible:
   - "ansible/**/*.yaml"
   - "ansible/**/*.yml"
-github: [".github"]
+github: [".github/**"]
+go:
+  - "**/*.go"
+  - "**/go.mod"
+  - "**/go.sum"
 graphviz:
   - "**/*.dot"
   - "**/*.gv"
