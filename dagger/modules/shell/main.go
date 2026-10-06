@@ -18,7 +18,7 @@ func New(
 	version string,
 	// Project source directory
 	// +optional
-	// +ignore=["*cache*",".coverage",".env",".git",".terraform",".venv","build","dist","node_modules","*.log"]
+	// +ignore=["*","!**/*.sh","!**/*.bash"]
 	// +defaultPath="/"
 	source *dagger.Directory,
 ) *Shell {
@@ -37,13 +37,15 @@ type Shell struct {
 // Lint - Runs shellcheck against a given path (or paths).
 func (m *Shell) Lint(
 	ctx context.Context,
-	// Files to lint (relative to :arg source:).
-	file []string,
+	// File to lint (relative to :arg source:).
+	// +default="**"
+	file string,
 ) (string, error) {
 	return dag.Container().
 		From(fmt.Sprintf("770088062852.dkr.ecr.us-west-2.amazonaws.com/shellcheck:%s", m.Version)).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
-		WithExec(append([]string{"shellcheck"}, file...)).
+		Terminal().
+		WithExec([]string{"shellcheck"}, file).
 		Stdout(ctx)
 }
