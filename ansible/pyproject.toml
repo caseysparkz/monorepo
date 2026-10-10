@@ -4,7 +4,7 @@ description = "Ansible collections and playbooks for configuring Linux systems."
 requires-python = ">=3.13"
 version = "1.0.0"
 readme = { file = "README.md", content-type = "text/markdown" }
-dependencies = ["ansible-core==2.21.4"]
+dependencies = ["ansible-core==2.21.5"]
 
 [project.optional-dependencies]
 test = ["ansible-lint==26.9.0"]
@@ -16,7 +16,7 @@ where = []
 [build-system]
 build-backend = "setuptools.build_meta"
 requires-python = ">= 3.13"
-requires = ["setuptools-git-versioning==3.1.0"]
+requires = ["setuptools-git-versioning==3.2.0"]
 
 [tool.ipdb]
 context = 20
