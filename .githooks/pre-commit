@@ -8,14 +8,15 @@
 
 REPO_DIR="$(git rev-parse --show-toplevel)"
 GIT_DIR="$(git rev-parse --absolute-git-dir)"
-PY_VER='3.11'
-EXTENSIONS=(
-    'dot' 'gv'
-    'md' 'markdown'
+PY_VER='3.13'
+EXTENSIONS=( # Regex alternations. The first extension names the function to call: precommit_<extension>
+    'dot|gv'
+    'md|markdown'
     'py'
-    'tf' 'hcl'
-    'xml' 'mobileconfig'
-    'yaml' 'yml'
+    'sh|bash'
+    'tf|hcl'
+    'xml|mobileconfig'
+    'yaml|yml'
 )
 
 cd "${REPO_DIR}" || exit 1
@@ -36,19 +37,19 @@ log(){
         'INFO')
             COLOR="${GRN}"
             ;;
-        "WARN*")
+        WARN*)
             COLOR="${YLW}"
             ;;
-        "ERR*")
-            COLOR="${YLW}"
+        ERR*)
+            COLOR="${RED}"
             OUT=2
             ;;
-        "CRIT*|FATAL")
+        CRIT*|FATAL)
             LEVEL='FATAL' # Override CRIT*
             COLOR="${RED}"
             OUT=2
             ;;
-        "*");; # Default shell color, stdout
+        *);; # Default shell color, stdout
     esac
 
     printf '%b%-10s %-80s%b\n' "${COLOR}" "${LEVEL}" "${MSG}" "${CLR}" >&"${OUT}"
@@ -60,27 +61,24 @@ log(){
 }
 
 venv_activate(){
-    if ! git diff HEAD --exit-code -- **/*.py > /dev/null 2>&1; then
-        case "${VIRTUAL_ENV:-}" in
-            "${VENV_DIR}")  return          ;; # Exit early if venv active
-            '')             true            ;; # Do nothing if no venv
-            "*")            venv_deactivate ;; # Deactivate other venv
-        esac
+    case "${VIRTUAL_ENV:-}" in
+        "${VENV_DIR}")  return          ;; # Exit early if venv active
+        '')             true            ;; # Do nothing if no venv
+        *)              venv_deactivate ;; # Deactivate other venv
+    esac
 
-        if [ -f "${VENV_DIR}/bin/activate" ]; then # Script exists
-            log DEBUG "Activating existing virtual environment: ${VENV_DIR}/"
-            source "${VENV_DIR}/bin/activate"
-        elif [ ! -d "${VENV_DIR}" ]; then # Script does not exist, dir does not exist
-            # Create and activate virtual environment
-            log DEBUG 'Creating Python virtual environment.'
-            "python${PY_VER}" -m venv "${VENV_DIR}"
-            venv_activate
-        else # Script does not exist, dir DOES exist
-            log FATAL "${VENV_DIR}/ exists, but is not a Python virtual environment."
-        fi
+    if [ -f "${VENV_DIR}/bin/activate" ]; then # Script exists
+        log DEBUG "Activating existing virtual environment: ${VENV_DIR}/"
+        source "${VENV_DIR}/bin/activate"
+    elif [ ! -d "${VENV_DIR}" ]; then # Script does not exist, dir does not exist
+        # Create and activate virtual environment
+        log DEBUG 'Creating Python virtual environment.'
+        "python${PY_VER}" -m venv "${VENV_DIR}" || log CRITICAL 'venv creation failed'
+        source "${VENV_DIR}/bin/activate"
+        pip install --upgrade pip
+    else # Script does not exist, dir DOES exist
+        log FATAL "${VENV_DIR}/ exists, but is not a Python virtual environment."
     fi
-
-    pip install --upgrade pip
 }
 
 venv_deactivate(){
@@ -113,7 +111,7 @@ venv_deactivate(){
 }
 
 precommit_ansible(){ # TODO: find a way to call this
-    ANSIBLE_DIR="${GIT_DIR}/ansible"
+    ANSIBLE_DIR="${REPO_DIR}/ansible"
     VENV_DIR="${ANSIBLE_DIR}/.venv"
 
     cd "${ANSIBLE_DIR}" || exit 1
@@ -129,27 +127,25 @@ precommit_ansible(){ # TODO: find a way to call this
 precommit_dot(){
     if which -s dot; then
         log DEBUG 'Running Graphviz pre-commit steps'
-        log INFO "dot -P ${*}"
+        log INFO "dot -Tcanon ${*}"
 
-        dot -P "${@}" >&1 > /dev/null || log CRITICAL 'graphviz check failed'
+        dot -Tcanon "${@}" > /dev/null || log CRITICAL 'graphviz check failed'
     else log CRITICAL 'dot not installed'
     fi
 }
-
-precommit_gv(){ precommit_dot "${@}"; }
 
 precommit_md(){
     log DEBUG 'Running Markdown pre-commit steps'
 
     if which -s mdl; then
         mdl "${@}" || log CRITICAL 'mdl check failed'
-    else log CRITICAL 'mdl not installed. Skipping.'
+    else log WARN 'mdl not installed. Skipping.'
     fi
 }
 
-precommit_markdown(){ precommit_md "${@}"; }
-
 precommit_py(){
+    local PYTEST_RC
+
     VENV_DIR="${REPO_DIR}/.venv"
 
     log DEBUG 'Running Python pre-commit steps'
@@ -175,10 +171,13 @@ precommit_py(){
     else log CRITICAL 'mypy not installed'
     fi
 
-    # pytest
     if which -s pytest; then
         log INFO 'pytest'
-        pytest "${@}" || log CRITICAL 'pytest failed'
+        pytest "${@}"
+        PYTEST_RC="${?}"
+
+        # rc5: No tests collected, which is expected for a non-test Python file
+        if [ "${PYTEST_RC}" -ne 0 ] && [ "${PYTEST_RC}" -ne 5 ]; then log CRITICAL 'pytest failed'; fi
     else log CRITICAL 'pytest not installed'
     fi
 
@@ -187,103 +186,112 @@ precommit_py(){
     unset VENV_DIR
 }
 
+tf_init(){ # Initialize a Terraform directory, if it isn't already
+    if [ ! -d "${1:?}/.terraform" ]; then
+        log INFO "terraform init -backend=false ${1}"
+        terraform -chdir="${1}" init -backend=false -input=false > /dev/null || log CRITICAL 'terraform init failed'
+    fi
+}
+
 precommit_tf(){
-    local TF_MNFSTS=() # This is a set
-    local TF_MDLS=() # This is a set
+    local -A TF_MNFSTS=() # Keys are a set of manifest directories
+    local -A TF_MDLS=() # Keys are a set of module directories
     local PARENT_DIR
 
+    log INFO 'Finding Terraform directories'
+
+    for FILE in "${@}"; do # All files ending with *.{tf,hcl}
+        PARENT_DIR="$(dirname "${FILE}")"
+        PARENT_DIR="${PARENT_DIR%/tests/*}" # Files in tests/<subdir>/ belong to the parent directory
+        PARENT_DIR="${PARENT_DIR%/tests}"   # Files in tests/ belong to the parent directory
+
+        case "${PARENT_DIR}" in
+            "${REPO_DIR}/infra/modules/"*)      TF_MDLS["${PARENT_DIR}"]=1      ;;
+            "${REPO_DIR}/infra/manifests/"*)    TF_MNFSTS["${PARENT_DIR}"]=1    ;;
+            *)                                  true                            ;; # Not deployable, e.g. templates
+        esac
+    done
+
+    log DEBUG "Found ${#TF_MNFSTS[@]} Terraform manifest directories: ${!TF_MNFSTS[*]}"
+    log DEBUG "Found ${#TF_MDLS[@]} Terraform modules: ${!TF_MDLS[*]}"
+
     if which -s terraform; then # Terraform
-        log INFO 'Finding Terraform directories'
-
-        for FILE in "${@}"; do # All files ending with *.{tf,hcl}
-            PARENT_DIR="$(dirname "${FILE}")"
-
-            case "${PARENT_DIR}" in
-                *'/infra/modules/'*) # Find module directories
-                    PARENT_DIR="${PARENT_DIR/'tests'*}"
-
-                    if ! printf '%s\n' "${TF_MDLS[@]}" | grep -q --line-regexp --fixed-strings "${PARENT_DIR}"; then
-                        TF_MDLS+=("${TF_MDLS[@]}" "${PARENT_DIR}")
-                    fi
-                    ;;
-                *) # Find manifest directories
-                    if ! printf '%s\n' "${TF_MNFSTS[@]}" | grep -q --line-regexp --fixed-strings "${PARENT_DIR}"; then
-                        TF_MNFSTS+=("${TF_MNFSTS[@]}" "${PARENT_DIR}")
-                    fi
-                    ;;
-            esac
-        done
-
-        log DEBUG "Found ${#TF_MNFSTS[@]} Terraform manifest directories: ${TF_MNFSTS[*]}"
-        log DEBUG "Found ${#TF_MDLS[@]} Terraform modules: ${TF_MDLS[*]}"
-
         log DEBUG 'Running Terraform pre-commit steps'
 
-        log INFO 'terraform fmt --recursive'
-        terraform -chdir="${REPO_DIR}/infra" fmt --recursive
+        log INFO 'terraform fmt --check --recursive'
+        terraform -chdir="${REPO_DIR}/infra" fmt --check --recursive || log CRITICAL 'terraform fmt check failed'
 
-        # Validate manifests
-        for MANIFEST in "${TF_MNFSTS[@]}"; do
+        # Validate manifests, and test those that have tests
+        for MANIFEST in "${!TF_MNFSTS[@]}"; do
+            tf_init "${MANIFEST}"
+
             log INFO "terraform validate ${MANIFEST}"
             terraform -chdir="${MANIFEST}" validate || log CRITICAL 'terraform validation failed'
+
+            if [ -d "${MANIFEST}/tests" ]; then
+                log INFO "terraform test ${MANIFEST}"
+                terraform -chdir="${MANIFEST}" test || log CRITICAL 'terraform tests failed'
+            fi
         done
 
         # Test modules
-        for MODULE in "${TF_MDLS[@]}"; do
-            log INFO "terraform test ${MODULE}"
+        for MODULE in "${!TF_MDLS[@]}"; do
+            tf_init "${MODULE}"
 
+            log INFO "terraform test ${MODULE}"
             terraform -chdir="${MODULE}" test || log CRITICAL 'terraform tests failed'
         done
-    else log CRITICAL 'terraform not installed. Skipping.'
+    else log WARN 'terraform not installed. Skipping.'
     fi
 
     if which -s trivy; then # Trivy
         log INFO 'Running trivy pre-commit steps'
 
-        for TF_DIR in "${TF_MNFSTS[@]}" "${TF_MDLS[@]}"; do
+        for TF_DIR in "${!TF_MNFSTS[@]}" "${!TF_MDLS[@]}"; do
             log INFO "trivy config ${TF_DIR}"
             trivy conf "${TF_DIR}"
         done
-    else log CRITICAL 'trivy not installed. Skipping.'
+    else log WARN 'trivy not installed. Skipping.'
     fi
 }
-
-precommit_hcl(){ precommit_tf "${@}"; }
 
 precommit_sh(){
     if which -s shellcheck; then
         shellcheck "${@}" || log CRITICAL 'shellcheck failed'
-    else log CRITICAL 'shellcheck not installed. Skipping.'
+    else log WARN 'shellcheck not installed. Skipping.'
     fi
 }
 
-precommit_bash(){ precommit_sh "${@}"; }
+precommit_xml(){
+    if which -s xmllint; then
+        xmllint --noout "${@}" || log CRITICAL 'xmllint failed'
+    else log WARN 'xmllint not installed. Skipping.'
+    fi
+}
 
 precommit_yaml(){
     if which -s yamllint; then
         yamllint --config-file "${REPO_DIR}/.yamllint.yml" "${@}" || log CRITICAL 'yamllint failed'
-    else log CRITICAL 'yamllint not installed. Skipping.'
+    else log WARN 'yamllint not installed. Skipping.'
     fi
 }
-
-precommit_yml(){ precommit_yaml "${@}"; }
 
 pre_check(){
     log INFO 'Running repository pre-commit hooks.'
 }
 
 run_hook(){
-    # Find files by extension
+    # Find staged files by extension
     for EXTENSION in "${EXTENSIONS[@]}"; do
         readarray -t EXTENSION_FILES < <( # Array of files ending with extension
-            git status --porcelain                                      |
-            awk -v dir="${REPO_DIR}" '$1 ~/^[AM??]/ {print dir"/"$2}'   |
-            grep --extended-regexp "^.*\.${EXTENSION}$"
+            git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR    |
+            grep --extended-regexp "\.(${EXTENSION})$"                                  |
+            awk -v dir="${REPO_DIR}" '{print dir"/"$0}'
         )
 
         # Run relevant function for extension
         if [ "${#EXTENSION_FILES[@]}" -ge 1 ]; then
-            "precommit_${EXTENSION}" "${EXTENSION_FILES[@]}"
+            "precommit_${EXTENSION%%|*}" "${EXTENSION_FILES[@]}"
         fi
     done
 }
