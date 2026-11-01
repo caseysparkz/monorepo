@@ -38,9 +38,8 @@ jobs:
       contents: "read"
     outputs:
       all_dirs: "${{ steps.all_changed.outputs.tf_all_changed_dirs }}"
-      infracost_updated: "${{ steps.changed_manifests.outputs.infracost_any_changed }}"
       manifest_dirs: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
-      module_dirs: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
+      infracost_updated: "${{ steps.changed_manifests.outputs.infracost_any_changed }}"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # v7.0.1
@@ -85,15 +84,14 @@ jobs:
           ALL_DIRS: "${{ steps.all_changed.outputs.tf_all_changed_dirs }}"
           INFRACOST_UPDATED: "${{ steps.changed_manifests.outputs.infracost_any_changed }}"
         run: |
-          printf 'manifest_dirs: %s\n' "${MANIFEST_DIRS}"
-          printf 'module_dirs: %s\n' "${MODULE_DIRS}"
           printf 'all_dirs: %s\n' "${ALL_DIRS}"
+          printf 'manifest_dirs: %s\n' "${MANIFEST_DIRS}"
           printf 'infracost_updated: %s\n' "${INFRACOST_UPDATED}"
 
   terraform_test:
     name: "terraform test"
     runs-on: "ubuntu-latest"
-    if: "${{ github.event_name == 'pull_request' && needs.changed_terraform.outputs.module_dirs != '[]' }}"
+    if: "${{ github.event_name == 'pull_request' && needs.changed_terraform.outputs.all_dirs != '[]' }}"
     needs: ["changed_terraform"]
     concurrency:
       group: "${{ github.workflow }}-terraformtest-${{ matrix.dir }}"
@@ -103,7 +101,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        dir: "${{ fromJSON(needs.changed_terraform.outputs.module_dirs) }}"
+        dir: "${{ fromJSON(needs.changed_terraform.outputs.all_dirs) }}"
     defaults:
       run:
         working-directory: "${{ matrix.dir }}"
@@ -408,7 +406,7 @@ jobs:
           PR="$(                                                                \
             gh api "repos/${REPO}/commits/${SHA}/pulls"                         \
               --jq '[.[] | select(.merged_at != null)][0] // empty
-                  | "\(.number) \(.head.sha)"'                                  \
+            | "\(.number) \(.head.sha)"'                                        \
           )"
 
           if [ -z "${PR}" ]; then
@@ -428,7 +426,8 @@ jobs:
           RUN_ID="${RUN_IDS%%$'\n'*}"  # Newest first
 
           if [ -z "${RUN_ID}" ]; then
-            printf '::error::No planfile for %s at %s (PR #%s). It may have expired; re-run the PR terraform plan, then re-run this job.\n' "${DIR}" "${PR_HEAD_SHA}" "${PR_NUMBER}"
+            printf '::error::No planfile for %s at %s (PR #%s). ' "${DIR}" "${PR_HEAD_SHA}" "${PR_NUMBER}"
+            printf 'It may have expired; re-run the PR terraform plan, then re-run this job.\n'
             exit 1
           fi
 
