@@ -111,6 +111,7 @@ setup_kubernetes_environment() {
         dagger                                                              \
         oci://registry.dagger.io/dagger-helm
 
+    log 'Waiting for pod to become ready...\n'
     kubectl wait                                                            \
         --for condition=Ready                                               \
         --timeout=60s                                                       \
@@ -128,7 +129,7 @@ setup_kubernetes_environment() {
 
     export _EXPERIMENTAL_DAGGER_RUNNER_HOST
 
-    log 'Done\n.'
+    log 'Done.\n'
 }
 
 load_aws
