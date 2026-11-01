@@ -34,6 +34,8 @@ tfmanifest:
   - "infra/manifests/**/.terraform.lock.hcl"
   - "infra/manifests/**/tfvars/*"
   - "infra/manifests/*.tf"
+  - "!infra/manifests/**/tests/**"
+tfmanifest_tests: ["infra/manifests/**/tests/**"]
 tfmodule:
   - "infra/modules/**/*.hcl"
   - "infra/modules/**/*.json"

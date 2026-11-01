@@ -67,12 +67,13 @@ jobs:
         id: "all_changed"
         env:
           MANIFEST_DIRS: "${{ steps.changed_manifests.outputs.tfmanifest_all_changed_files }}"
+          MANIFEST_TEST_DIRS: "${{ steps.changed_manifests.outputs.tfmanifest_tests_all_changed_files }}"
           MODULE_DIRS: "${{ steps.changed_modules.outputs.tfmodule_all_changed_files }}"
         run: |
+          # Test directories aren't root modules: map them to the manifest they test.
           ALL_DIRS="$(                                                                          \
-            printf '%s\n' "${MANIFEST_DIRS}" "${MODULE_DIRS}"                                   \
-            | jq -s '.[0] + .[1]'                                                               \
-            | jq -r tostring                                                                    \
+            printf '%s\n' "${MANIFEST_DIRS}" "${MANIFEST_TEST_DIRS}" "${MODULE_DIRS}"           \
+            | jq -cs 'add | map(sub("/tests(/.*)?$"; "")) | unique'                             \
           )"
 
           printf 'tf_all_changed_dirs=%s\n' "${ALL_DIRS}" >> "${GITHUB_OUTPUT}"
