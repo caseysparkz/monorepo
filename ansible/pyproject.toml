@@ -1,22 +1,16 @@
 [project]
 name = "cs-ansible"
 description = "Ansible collections and playbooks for configuring Linux systems."
-requires-python = ">=3.13"
 version = "1.0.0"
+requires-python = ">=3.13"
 readme = { file = "README.md", content-type = "text/markdown" }
 dependencies = ["ansible-core==2.22.0"]
 
 [project.optional-dependencies]
 test = ["ansible-lint==26.10.1"]
-all = ["cs-ansible[test]"]
 
-[tool.setuptools.packages.find]
-where = []
-
-[build-system]
-build-backend = "setuptools.build_meta"
-requires-python = ">= 3.13"
-requires = ["setuptools-git-versioning==3.2.0"]
+[tool.uv]
+package = false
 
 [tool.ipdb]
 context = 20

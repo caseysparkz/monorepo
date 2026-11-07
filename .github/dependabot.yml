@@ -47,10 +47,8 @@ updates:
     commit-message:
       prefix: "chore(node-npm)"
 
-  - package-ecosystem: "pip"
-    directories:
-      - "/"
-      - "**/*"
+  - package-ecosystem: "uv"
+    directories: ["/"]
     target-branch: "main"
     rebase-strategy: "auto"
     versioning-strategy: "increase"
@@ -63,7 +61,7 @@ updates:
       all-python-packages:
         patterns: ["*"]
     commit-message:
-      prefix: "chore(python-pip)"
+      prefix: "chore(python-uv)"
 
   - package-ecosystem: "terraform"
     directories: ["**/*"]

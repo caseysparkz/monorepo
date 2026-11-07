@@ -12,7 +12,7 @@
 - name: "Stat homebrew"
   when: &macos "ansible_facts.os_family == 'Darwin'"
   tags: ["brew"]
-  register: "stat_homebrew"
+  register: "packages_stat_homebrew"
   ansible.builtin.stat:
     path: &homebrew_dir "/opt/homebrew/"
 
@@ -20,7 +20,7 @@
   tags: ["brew"]
   when: &needs_brew
     - *macos
-    - "not stat_homebrew.stat.exists"
+    - "not packages_stat_homebrew.stat.exists"
   ansible.builtin.get_url:
     url: "https://raw.githubusercontent.com/Homebrew/install/150c69df1e54b0b74c9fcca5a201410a2300816a/install.sh"
     dest: &install_script "/tmp/install_homebrew.sh"

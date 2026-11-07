@@ -25,10 +25,6 @@ type Yaml struct {
 	Source *dagger.Directory
 }
 
-func (m *Yaml) container() *dagger.Container {
-	return dag.Python().PipInstall()
-}
-
 // Lint - Returns the output of yamllint .
 // +check
 func (m *Yaml) Lint(
@@ -38,5 +34,5 @@ func (m *Yaml) Lint(
 	// +default="."
 	path string,
 ) (string, error) {
-	return m.container().WithExec([]string{"yamllint", path}).Stdout(ctx)
+	return dag.Python().UvSync().WithExec([]string{"uv", "run", "yamllint", path}).Stdout(ctx)
 }

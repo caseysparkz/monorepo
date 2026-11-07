@@ -22,60 +22,39 @@ func New(
 	// +optional
 	// +default="."
 	pyPath string,
-	// Package to install.
-	// +optional
-	// +default=".[all]"
-	pkg string,
 	// Project source directory
 	// +optional
-	// +ignore=["*","!**/*.py","!**/*.toml","!**/*.ini","!**/*.yaml","!**/*.yml","**/.venv"]
+	// +ignore=["*","!**/*.py","!**/*.toml","!**/*.ini","!**/*.yaml","!**/*.yml","!**/*.cfg","**/.venv","!uv.lock"]
 	// +defaultPath="/"
 	source *dagger.Directory,
 ) *Python {
 	return &Python{
 		Version: pythonVersion,
-		VenvDir: fmt.Sprintf("%s/.venv", mountPoint),
 		Path:    pyPath,
 		Source:  source,
-		Pkg:     pkg,
 	}
 }
 
 // Python - the Python Dagger module
 type Python struct {
 	Version string
-	VenvDir string
 	Path    string
 	Source  *dagger.Directory
-	Pkg     string
 }
 
-// Returns a container with pip installed and the repo as the pwd.
+// Returns a container with uv installed and the repo as the pwd.
 func (m *Python) container() *dagger.Container {
 	return dag.Container().
 		From(fmt.Sprintf("docker.io/library/python:%s-slim", m.Version)).
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
 		WithEnvVariable("PIP_ROOT_USER_ACTION", "ignore").
-		WithExec([]string{"python", "-m", "ensurepip"}).
-		WithExec([]string{"pip", "install", "--upgrade", "pip", "--quiet"})
+		WithExec([]string{"python", "-m", "pip", "install", "uv", "--quiet"})
 }
 
-// Venv - Returns a container with an initialized and empty virtual environment.
-func (m *Python) Venv(container *dagger.Container) *dagger.Container {
-	return container.
-		WithMountedCache(
-			m.VenvDir,
-			dag.CacheVolume(fmt.Sprintf("docker.io/library/python:%s-slim", m.Version)),
-		).
-		WithExec([]string{"python", "-m", "venv", m.VenvDir}).
-		WithEnvVariable("VIRTUAL_ENV", m.VenvDir).
-		WithEnvVariable("PATH", "${VIRTUAL_ENV}/bin:${PATH}", dagger.ContainerWithEnvVariableOpts{Expand: true})
-}
-
-// PipInstall - Returns a container with an installed package.
-func (m *Python) PipInstall() *dagger.Container {
-	return m.Venv(m.container()).WithExec([]string{"pip", "install", "--quiet", m.Pkg})
+// Returns a container with all uv dependency groups synced
+func (m *Python) UvSync() *dagger.Container {
+	return m.container().WithExec([]string{"uv", "sync", "--locked"})
 }
 
 // Test - Runs PyTest
@@ -87,7 +66,7 @@ func (m *Python) Test(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.PipInstall().WithExec(append([]string{"pytest"}, file...)).Stdout(ctx)
+	return m.UvSync().WithExec(append([]string{"uv", "run", "pytest"}, file...)).Stdout(ctx)
 }
 
 // LintMypy - Runs MyPy
@@ -99,7 +78,9 @@ func (m *Python) LintMypy(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.PipInstall().WithExec(append([]string{"mypy"}, file...)).Stdout(ctx)
+	return m.UvSync().
+		WithEnvVariable("UV_LINK_MODE", "copy").
+		WithExec(append([]string{"uv", "run", "mypy"}, file...)).Stdout(ctx)
 }
 
 // LintRuffCheck - Runs ruff-check
@@ -111,7 +92,7 @@ func (m *Python) LintRuffCheck(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.PipInstall().WithExec(append([]string{"ruff", "check"}, file...)).Stdout(ctx)
+	return m.UvSync().WithExec(append([]string{"uv", "run", "ruff", "check"}, file...)).Stdout(ctx)
 }
 
 // LintRuffFormat - Runs ruff-format --check
@@ -123,30 +104,17 @@ func (m *Python) LintRuffFormat(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.PipInstall().WithExec(append([]string{"ruff", "format", "--check"}, file...)).Stdout(ctx)
+	return m.UvSync().WithExec(append([]string{"uv", "run", "ruff", "format", "--check"}, file...)).Stdout(ctx)
 }
 
-// PipAudit - Runs pip-audit
+// UvAudit - Runs uv-audit
 // +check
-func (m *Python) PipAudit(ctx context.Context) (string, error) {
-	return m.PipInstall().WithExec([]string{"pip-audit", mountPoint}).Stdout(ctx)
+func (m *Python) UvAudit(ctx context.Context) (string, error) {
+	return m.UvSync().WithExec([]string{"uv", "run", "uv-audit"}).Stdout(ctx)
 }
 
-// Pylock - Checks if pylock.toml is up-to-date
+// UvLock - Checks if uv.lock is up-to-date
 // +check
-func (m *Python) Pylock(ctx context.Context) (string, error) {
-	lockfile := fmt.Sprintf("%s/pylock.toml", mountPoint)
-	prehash, hashError := m.container().File(lockfile).Digest(ctx)
-	posthash, _ := m.PipInstall().
-		WithExec([]string{"pip", "lock", m.Pkg}).
-		File(lockfile).
-		Digest(ctx)
-
-	if hashError != nil {
-		return "", fmt.Errorf("could not hash pylock.toml: %s", hashError)
-	} else if prehash != posthash {
-		return "", fmt.Errorf("hashes do not match: pylock.toml has not been updated")
-	} else {
-		return "pylock.toml is up to date", nil
-	}
+func (m *Python) UvLock(ctx context.Context) (string, error) {
+	return m.UvSync().WithExec([]string{"uv", "lock", "--check"}).Stdout(ctx)
 }

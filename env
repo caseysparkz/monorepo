@@ -111,7 +111,7 @@ setup_kubernetes_environment() {
         dagger                                                              \
         oci://registry.dagger.io/dagger-helm
 
-    log 'Waiting for pod to become ready...\n'
+    log 'Waiting for pod to become ready...'
     kubectl wait                                                            \
         --for condition=Ready                                               \
         --timeout=60s                                                       \
@@ -127,7 +127,7 @@ setup_kubernetes_environment() {
 
     export _EXPERIMENTAL_DAGGER_RUNNER_HOST="kube-pod://${DAGGER_ENGINE_POD_NAME}?namespace=dagger"
 
-    log 'Done.\n'
+    log 'Done.'
 }
 
 load_aws
@@ -135,5 +135,7 @@ load_github
 login_ecr
 
 if [[ "${1:-}" == '--kubernetes' ]]; then setup_kubernetes_environment; fi
+
+set +eu
 
 log 'Environment is ready.'
