@@ -125,9 +125,7 @@ setup_kubernetes_environment() {
         --output=jsonpath='{.items[0].metadata.name}'                       \
     )"
 
-    _EXPERIMENTAL_DAGGER_RUNNER_HOST="kube-pod://${DAGGER_ENGINE_POD_NAME}?namespace=dagger"
-
-    export _EXPERIMENTAL_DAGGER_RUNNER_HOST
+    export _EXPERIMENTAL_DAGGER_RUNNER_HOST="kube-pod://${DAGGER_ENGINE_POD_NAME}?namespace=dagger"
 
     log 'Done.\n'
 }
