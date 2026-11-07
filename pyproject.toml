@@ -7,18 +7,18 @@ readme = { file = "README.md", content-type = "text/markdown" }
 authors = [{ name = "CaseySparkz", email = "contact@caseysparkz.com" }]
 dependencies = [
     "cs-ansible @ file:./ansible",
-    "boto3==1.43.120",
+    "boto3==1.43.123",
 ]
 
 [project.optional-dependencies]
 test = [
     "cs-ansible[test]",
 
-    "boto3-stubs==1.43.120",
-    "botocore-stubs==1.43.120",
+    "boto3-stubs==1.43.123",
+    "botocore-stubs==1.43.123",
     "ipdb==0.13.13",
     "moto==5.2.5",
-    "mypy==2.4.0",
+    "mypy==2.4.1",
     "pip-audit==2.10.1",
     "pytest-cov==7.1.0",
     "pytest==9.2.0",
@@ -29,7 +29,7 @@ test = [
 dev = [
     "cs-monorepo[test]",
 
-    "ipython==9.17.1",
+    "ipython==9.18.1",
     "yq==4.4.5",
 ]
 all = [
