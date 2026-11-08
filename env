@@ -5,7 +5,6 @@
 # Usage:        `source ./env`
 # To do:        Write in error handling.
 
-set -eu
 unset _EXPERIMENTAL_DAGGER_RUNNER_HOST  # Non-local runtime
 
 log(){
@@ -16,7 +15,6 @@ log(){
     local YLW='\033[0;33m'      # Yellow
     local RED='\033[0;31m'      # Red
     local COLOR="${CLR}"        # Default log message color
-    local EXIT=false            # Exit after log
     local OUT=1                 # STDOUT
     local RC=0                  # Return code
 
@@ -26,23 +24,19 @@ log(){
         'INFO')     COLOR="${GRN}" ;;
         "WARN*")    COLOR="${YLW}" ;;
         "ERR*")
-            COLOR="${YLW}"
-            OUT=2
-            ;;
+                    COLOR="${YLW}"
+                    OUT=2
+                    ;;
         "CRIT*|FATAL")
-            COLOR="${RED}"
-            EXIT=true
-            OUT=2
-            RC=1
-            ;;
+                    COLOR="${RED}"
+                    OUT=2
+                    RC=1
+                    ;;
     esac
 
     printf '%b%-10s %-80s%b\n' "${COLOR}" "${LEVEL}" "${MSG}" "${CLR}" >&"${OUT}"
 
-    if [ "${EXIT}" == true ]; then
-        printf 'Exiting.'
-        exit "${RC}"
-    fi
+    if [ ! "${RC}" -eq 0 ]; then printf 'Exiting.'; fi
 
     return "${RC}"
 }
@@ -56,12 +50,16 @@ load_aws() {
     log 'Setting AWS environment variables.'
     log '* AWS_ACCESS_KEY_ID' DEBUG
     export AWS_ACCESS_KEY_ID
+
     log '* AWS_SECRET_ACCESS_KEY' DEBUG
     export AWS_SECRET_ACCESS_KEY
+
     log '* AWS_SESSION_TOKEN' DEBUG
     export AWS_SESSION_TOKEN
+
     log '* AWS_CREDENTIAL_EXPIRATION' DEBUG
     export AWS_CREDENTIAL_EXPIRATION
+
     log 'Done.'
 }
 
@@ -71,9 +69,7 @@ load_github() {
 
     log 'Setting GitHub environment variables.'
     log '* GITHUB_TOKEN' DEBUG
-
     GITHUB_TOKEN="$(gh auth token)"
-
     export GITHUB_TOKEN
 
     log 'Done.'
@@ -86,7 +82,6 @@ login_ecr() {
     if [ -z "${ECR}" ]; then log 'Need to set $ECR.' FATAL; fi
 
     log 'Logging into AWS ECR.'
-
     aws ecr get-login-password                                          \
     | docker login                                                      \
         --username AWS                                                  \
@@ -103,7 +98,6 @@ setup_kubernetes_environment() {
     local DAGGER_ENGINE_POD_NAME
 
     log 'Setting up dagger namespace.'
-
     helm upgrade                                                            \
         --install                                                           \
         --namespace=dagger                                                  \
@@ -119,12 +113,13 @@ setup_kubernetes_environment() {
         --selector=name=dagger-dagger-helm-engine                           \
         --namespace=dagger
 
-    DAGGER_ENGINE_POD_NAME="$(kubectl get pod                               \
-        --selector=name=dagger-dagger-helm-engine                           \
-        --namespace=dagger                                                  \
-        --output=jsonpath='{.items[0].metadata.name}'                       \
+    log 'Setting _EXPERIMENTAL_DAGGER_RUNNER_HOST.'
+    DAGGER_ENGINE_POD_NAME="$(                                              \
+        kubectl get pod                                                     \
+            --selector=name=dagger-dagger-helm-engine                       \
+            --namespace=dagger                                              \
+            --output=jsonpath='{.items[0].metadata.name}'                   \
     )"
-
     export _EXPERIMENTAL_DAGGER_RUNNER_HOST="kube-pod://${DAGGER_ENGINE_POD_NAME}?namespace=dagger"
 
     log 'Done.'
@@ -135,7 +130,5 @@ load_github
 login_ecr
 
 if [[ "${1:-}" == '--kubernetes' ]]; then setup_kubernetes_environment; fi
-
-set +eu
 
 log 'Environment is ready.'

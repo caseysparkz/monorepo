@@ -9,6 +9,7 @@
 **/.env
 !.env
 !dagger/**/.env
+.worktrees/
 
 # Prowler
 output/
