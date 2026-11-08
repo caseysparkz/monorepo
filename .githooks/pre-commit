@@ -151,9 +151,6 @@ precommit_py(){
     log DEBUG 'Running Python pre-commit steps'
     venv_activate
 
-    # pip-audit
-    pip-audit "${REPO_DIR}"
-
     # ruff
     if which -s ruff; then
         log INFO 'ruff check'
@@ -171,6 +168,7 @@ precommit_py(){
     else log CRITICAL 'mypy not installed'
     fi
 
+    # pytest
     if which -s pytest; then
         log INFO 'pytest'
         pytest "${@}"

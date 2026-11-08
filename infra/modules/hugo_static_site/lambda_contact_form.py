@@ -57,7 +57,7 @@ def send_email(data: dict[str, str]) -> type_defs.SendEmailResponseTypeDef:
 
     LOG.debug(ses_response)
 
-    return ses_response  # type: ignore[no-any-return]
+    return ses_response
 
 
 def lambda_handler(event: dict[str, str], context: dict[str, str] | None = None) -> dict[str, object]:
