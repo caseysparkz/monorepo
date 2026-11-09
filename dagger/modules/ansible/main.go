@@ -34,12 +34,11 @@ func New(
 	pythonVersion string,
 	// Project source directory
 	// +optional
-	// +ignore=["*","!ansible/**","!**/*.toml","!**/*.ini","!**/*.py","!**/*.yml","!**/*.yaml"]
-	// +defaultPath="/"
+	// +defaultPath="/ansible"
+	// +ignore=["*","!**/*.yml","!**/*.yaml","!**/*.cfg","!**/*.toml","!**/*.md"]
 	source *dagger.Directory,
 ) *Ansible {
 	return &Ansible{
-		AnsibleDir:         fmt.Sprintf("%s/%s", mountPoint, ansibleDir),
 		AwsAccessKeyID:     awsAccessKeyID,
 		AwsDefaultRegion:   awsDefaultRegion,
 		AwsSecretAccessKey: awsSecretAccessKey,
@@ -51,7 +50,6 @@ func New(
 
 // Ansible - Dagger Ansible module.
 type Ansible struct {
-	AnsibleDir         string
 	AwsAccessKeyID     *dagger.Secret
 	AwsDefaultRegion   string
 	AwsSecretAccessKey *dagger.Secret
@@ -64,24 +62,25 @@ type Ansible struct {
 func (m *Ansible) container() *dagger.Container {
 	awsDirPath := "/usr/local/aws-cli"
 
-	return dag.Python().
-		UvSync().
-		// Make the AWS CLI available within context
+	return dag.Container().
+		From(fmt.Sprintf("docker.io/library/python:%s-slim", m.PythonVersion)).
 		WithDirectory(awsDirPath, dag.Container().From("docker.io/amazon/aws-cli:latest").Directory(awsDirPath)).
 		WithExec([]string{"ln", "-s", fmt.Sprintf("%s/v2/current/bin/aws", awsDirPath), "/usr/local/bin/aws"}).
 		WithEnvVariable("AWS_DEFAULT_REGION", m.AwsDefaultRegion).
 		WithSecretVariable("AWS_ACCESS_KEY_ID", m.AwsAccessKeyID).
 		WithSecretVariable("AWS_SECRET_ACCESS_KEY", m.AwsSecretAccessKey).
 		WithSecretVariable("AWS_SESSION_TOKEN", m.AwsSessionToken).
-		// Set up Ansible
-		WithWorkdir(m.AnsibleDir)
+		WithEnvVariable("UV_LINK_MODE", "copy").
+		WithMountedDirectory(mountPoint, m.Source).
+		WithWorkdir(mountPoint).
+		WithExec([]string{"python", "-m", "pip", "install", "uv", "--quiet"}).
+		WithExec([]string{"uv", "sync", "--all-extras"})
 }
 
 // Lint - Runs ansible-lint against the ansible/ directory.
 // +check
 func (m *Ansible) Lint(ctx context.Context) (string, error) {
 	stdout, err := m.container().
-		WithEnvVariable("UV_LINK_MODE", "copy").
 		WithMountedCache("/root/.cache/ansible-lint", dag.CacheVolume("docker.io/library/alpine:latest")).
 		WithExec([]string{"uv", "run", "ansible-lint"}).
 		Stdout(ctx)

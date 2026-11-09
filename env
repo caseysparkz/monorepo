@@ -6,6 +6,10 @@
 # To do:        Write in error handling.
 
 unset _EXPERIMENTAL_DAGGER_RUNNER_HOST  # Non-local runtime
+unset AWS_SECRET_ACCESS_KEY
+unset AWS_ACCESS_KEY_ID
+unset AWS_CREDENTIAL_EXPIRATION
+unset AWS_SESSION_TOKEN
 
 log(){
     local MSG="${1:?}"          # Log message

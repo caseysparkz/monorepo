@@ -24,7 +24,7 @@ func New(
 	pyPath string,
 	// Project source directory
 	// +optional
-	// +ignore=["*","!**/*.py","!**/*.toml","!**/*.ini","!**/*.yaml","!**/*.yml","!**/*.cfg","**/.venv","!uv.lock"]
+	// +ignore=["*","!**/*.py","!**/*.toml","!**/*.ini","!**/*.yaml","!**/*.yml","!**/*.cfg","!uv.lock","**/.venv"]
 	// +defaultPath="/"
 	source *dagger.Directory,
 ) *Python {
@@ -54,7 +54,9 @@ func (m *Python) container() *dagger.Container {
 
 // Returns a container with all uv dependency groups synced
 func (m *Python) UvSync() *dagger.Container {
-	return m.container().WithExec([]string{"uv", "sync", "--locked"})
+	return m.container().
+		WithEnvVariable("UV_LINK_MODE", "copy").
+		WithExec([]string{"uv", "sync", "--locked"})
 }
 
 // Test - Runs PyTest
@@ -79,7 +81,6 @@ func (m *Python) LintMypy(
 	file []string,
 ) (string, error) {
 	return m.UvSync().
-		WithEnvVariable("UV_LINK_MODE", "copy").
 		WithExec(append([]string{"uv", "run", "mypy"}, file...)).Stdout(ctx)
 }
 

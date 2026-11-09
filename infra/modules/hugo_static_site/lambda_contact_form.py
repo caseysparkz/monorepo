@@ -18,6 +18,7 @@ from boto3 import client
 
 if TYPE_CHECKING or "pytest" in modules:
     from types_boto3_ses import type_defs
+    from types_boto3_ses.client import SESClient
 
 LOG = getLogger(__name__)
 
@@ -34,7 +35,8 @@ def send_email(data: dict[str, str]) -> type_defs.SendEmailResponseTypeDef:
     Returns:
                 The SES client response.
     """
-    ses_response = client("ses", region_name=getenv("AWS_REGION", "us-west-2")).send_email(
+    ses_client: SESClient = client("ses", region_name=getenv("AWS_REGION", "us-west-2"))
+    ses_response = ses_client.send_email(
         Source=str(getenv("DEFAULT_SENDER")),
         Destination={"ToAddresses": [str(getenv("DEFAULT_RECIPIENT"))]},
         Message={
