@@ -74,7 +74,7 @@ func (m *Ansible) container() *dagger.Container {
 		WithMountedDirectory(mountPoint, m.Source).
 		WithWorkdir(mountPoint).
 		WithExec([]string{"python", "-m", "pip", "install", "uv", "--quiet"}).
-		WithExec([]string{"uv", "sync", "--all-extras"})
+		WithExec([]string{"uv", "sync", "--all-extras", "--quiet"})
 }
 
 // Lint - Runs ansible-lint against the ansible/ directory.

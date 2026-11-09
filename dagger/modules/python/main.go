@@ -53,10 +53,10 @@ func (m *Python) container() *dagger.Container {
 }
 
 // Returns a container with all uv dependency groups synced
-func (m *Python) UvSync() *dagger.Container {
+func (m *Python) uvSync() *dagger.Container {
 	return m.container().
 		WithEnvVariable("UV_LINK_MODE", "copy").
-		WithExec([]string{"uv", "sync", "--locked"})
+		WithExec([]string{"uv", "sync", "--locked", "--quiet"})
 }
 
 // Test - Runs PyTest
@@ -68,7 +68,7 @@ func (m *Python) Test(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.UvSync().WithExec(append([]string{"uv", "run", "pytest"}, file...)).Stdout(ctx)
+	return m.uvSync().WithExec(append([]string{"uv", "run", "pytest"}, file...)).Stdout(ctx)
 }
 
 // LintMypy - Runs MyPy
@@ -80,7 +80,7 @@ func (m *Python) LintMypy(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.UvSync().
+	return m.uvSync().
 		WithExec(append([]string{"uv", "run", "mypy"}, file...)).Stdout(ctx)
 }
 
@@ -93,7 +93,7 @@ func (m *Python) LintRuffCheck(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.UvSync().WithExec(append([]string{"uv", "run", "ruff", "check"}, file...)).Stdout(ctx)
+	return m.uvSync().WithExec(append([]string{"uv", "run", "ruff", "check"}, file...)).Stdout(ctx)
 }
 
 // LintRuffFormat - Runs ruff-format --check
@@ -105,17 +105,18 @@ func (m *Python) LintRuffFormat(
 	// +default=["."]
 	file []string,
 ) (string, error) {
-	return m.UvSync().WithExec(append([]string{"uv", "run", "ruff", "format", "--check"}, file...)).Stdout(ctx)
+	return m.uvSync().WithExec(append([]string{"uv", "run", "ruff", "format", "--check"}, file...)).Stdout(ctx)
 }
 
 // UvAudit - Runs uv-audit
 // +check
+// +cache="12h"
 func (m *Python) UvAudit(ctx context.Context) (string, error) {
-	return m.UvSync().WithExec([]string{"uv", "run", "uv-audit"}).Stdout(ctx)
+	return m.uvSync().WithExec([]string{"uv", "run", "uv-audit"}).Stdout(ctx)
 }
 
 // UvLock - Checks if uv.lock is up-to-date
 // +check
 func (m *Python) UvLock(ctx context.Context) (string, error) {
-	return m.UvSync().WithExec([]string{"uv", "lock", "--check"}).Stdout(ctx)
+	return m.uvSync().WithExec([]string{"uv", "lock", "--check"}).Stdout(ctx)
 }
