@@ -23,6 +23,9 @@ locals {
     ssl                      = "flexible"
     tls_1_3                  = "on"
   }
+  cloudflare_txt_records = {
+    "did=did:plc:wjrfbvk2xnimzzqrotghreq7" = "_atproto"
+  }
 }
 
 // Data ========================================================================
@@ -51,4 +54,15 @@ resource "cloudflare_zone_setting" "root_zone" {
   zone_id    = local.cloudflare_zone_id
   setting_id = each.key
   value      = each.value
+}
+
+resource "cloudflare_dns_record" "txt" {
+  for_each = local.cloudflare_txt_records
+  zone_id  = local.cloudflare_zone_id
+  name     = each.value
+  content  = each.key
+  type     = "TXT"
+  ttl      = 1
+  proxied  = false
+  comment  = local.cloudflare_comment
 }
