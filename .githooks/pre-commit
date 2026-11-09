@@ -60,56 +60,6 @@ log(){
     fi
 }
 
-venv_activate(){
-    case "${VIRTUAL_ENV:-}" in
-        "${VENV_DIR}")  return          ;; # Exit early if venv active
-        '')             true            ;; # Do nothing if no venv
-        *)              venv_deactivate ;; # Deactivate other venv
-    esac
-
-    if [ -f "${VENV_DIR}/bin/activate" ]; then # Script exists
-        log DEBUG "Activating existing virtual environment: ${VENV_DIR}/"
-        source "${VENV_DIR}/bin/activate"
-    elif [ ! -d "${VENV_DIR}" ]; then # Script does not exist, dir does not exist
-        # Create and activate virtual environment
-        log DEBUG 'Creating Python virtual environment.'
-        "python${PY_VER}" -m venv "${VENV_DIR}" || log CRITICAL 'venv creation failed'
-        source "${VENV_DIR}/bin/activate"
-        pip install --upgrade pip
-    else # Script does not exist, dir DOES exist
-        log FATAL "${VENV_DIR}/ exists, but is not a Python virtual environment."
-    fi
-}
-
-venv_deactivate(){
-    log DEBUG 'Deactivating Python virtual environment'
-
-    if [ -n "${_OLD_VIRTUAL_PATH:-}" ]; then
-        PATH="${_OLD_VIRTUAL_PATH:-}"
-        export PATH
-        unset _OLD_VIRTUAL_PATH
-    fi
-
-    if [ -n "${_OLD_VIRTUAL_PYTHONHOME:-}" ]; then
-        PYTHONHOME="${_OLD_VIRTUAL_PYTHONHOME:-}"
-        export PYTHONHOME
-        unset _OLD_VIRTUAL_PYTHONHOME
-    fi
-
-    # Call hash to forget past commands.
-    hash -r 2> /dev/null
-
-    if [ -n "${_OLD_VIRTUAL_PS1:-}" ]; then
-        PS1="${_OLD_VIRTUAL_PS1:-}"
-        export PS1
-        unset _OLD_VIRTUAL_PS1
-    fi
-
-    unset VIRTUAL_ENV
-    unset VIRTUAL_ENV_PROMPT
-    unset -f deactivate
-}
-
 precommit_ansible(){ # TODO: find a way to call this
     ANSIBLE_DIR="${REPO_DIR}/ansible"
     VENV_DIR="${ANSIBLE_DIR}/.venv"
@@ -145,43 +95,31 @@ precommit_md(){
 
 precommit_py(){
     local PYTEST_RC
-
-    VENV_DIR="${REPO_DIR}/.venv"
+    local VENV_DIR="${REPO_DIR}/.venv"
 
     log DEBUG 'Running Python pre-commit steps'
-    venv_activate
 
-    # ruff
-    if which -s ruff; then
+
+    if [[ ! -d "${VENV_DIR}" ]]; then uv sync --all-extras; fi
+
+    if which -s uv; then
         log INFO 'ruff check'
-        ruff check "${@}" || log CRITICAL 'ruff check failed'
+        uv run ruff check "${@}" || log CRITICAL 'ruff check failed'
 
         log INFO 'ruff format --check'
-        ruff format --check "${@}" || log CRITICAL 'ruff format check failed'
-    else log CRITICAL 'ruff not installed'
-    fi
+        uv run ruff format --check "${@}" || log CRITICAL 'ruff format check failed'
 
-    # mypy
-    if which -s mypy; then
         log INFO 'mypy'
-        mypy --config-file "${REPO_DIR}/.mypy.ini" "${@}" || log CRITICAL 'mypy check failed'
-    else log CRITICAL 'mypy not installed'
-    fi
+        uv run mypy --config-file "${REPO_DIR}/.mypy.ini" "${@}" || log CRITICAL 'mypy check failed'
 
-    # pytest
-    if which -s pytest; then
         log INFO 'pytest'
-        pytest "${@}"
+        uv run pytest "${@}"
         PYTEST_RC="${?}"
 
         # rc5: No tests collected, which is expected for a non-test Python file
         if [ "${PYTEST_RC}" -ne 0 ] && [ "${PYTEST_RC}" -ne 5 ]; then log CRITICAL 'pytest failed'; fi
-    else log CRITICAL 'pytest not installed'
+    else log CRITICAL 'uv not installed'
     fi
-
-    venv_deactivate
-
-    unset VENV_DIR
 }
 
 tf_init(){ # Initialize a Terraform directory, if it isn't already
@@ -274,29 +212,22 @@ precommit_yaml(){
     fi
 }
 
-pre_check(){
-    log INFO 'Running repository pre-commit hooks.'
-}
+pre_check(){ log INFO 'Running repository pre-commit hooks.' ; }
 
 run_hook(){
-    # Find staged files by extension
-    for EXTENSION in "${EXTENSIONS[@]}"; do
+    for EXTENSION in "${EXTENSIONS[@]}"; do # Find staged files by extension
         readarray -t EXTENSION_FILES < <( # Array of files ending with extension
-            git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR    |
-            grep --extended-regexp "\.(${EXTENSION})$"                                  |
-            awk -v dir="${REPO_DIR}" '{print dir"/"$0}'
+            git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR        \
+            | grep --extended-regexp "\.(${EXTENSION})$"                                    \
+            | awk -v dir="${REPO_DIR}" '{print dir"/"$0}'
         )
 
         # Run relevant function for extension
-        if [ "${#EXTENSION_FILES[@]}" -ge 1 ]; then
-            "precommit_${EXTENSION%%|*}" "${EXTENSION_FILES[@]}"
-        fi
+        if [ "${#EXTENSION_FILES[@]}" -ge 1 ]; then "precommit_${EXTENSION%%|*}" "${EXTENSION_FILES[@]}"; fi
     done
 }
 
-post_check(){
-    log INFO 'Precommit checks completed successfully. Exiting.'
-}
+post_check(){ log INFO 'Precommit checks completed successfully. Exiting.' ; }
 
 pre_check
 run_hook
