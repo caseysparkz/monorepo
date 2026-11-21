@@ -40,10 +40,10 @@ jobs:
           role-session-name: "gha-${{ github.run_id }}"
 
       - name: "aws ecr get-login-password | docker login -u AWS --password-stdin"
-        uses: "aws-actions/amazon-ecr-login@03f1aad4c6c7ffd436567f42f9384779290529bd"  # v2.1.7
+        uses: "aws-actions/amazon-ecr-login@7290e214a610b32bc0eef81748948b6d466a8783"  # v2.2.0
 
       - name: "export DAGGER_CLOUD_TOKEN=$(aws secretsmanager get-secret-value --secret-id dagger/api_token)"
-        uses: "aws-actions/aws-secretsmanager-get-secrets@2297f9a879480a9e3af9b293ed15c70caf8e1c88"  # v3.0.2
+        uses: "aws-actions/aws-secretsmanager-get-secrets@e952bd7125c27e5be0060e50955b90a7e5addd99"  # v4.0.0
         with:
           secret-ids: "DAGGER_CLOUD_TOKEN, dagger/api_token"
           name-transformation: "none"
